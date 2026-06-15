@@ -1,0 +1,214 @@
+import { PageContainer } from '../components/layout'
+import { Button, Card, SectionLabel } from '../components/ui'
+
+const webService = {
+  label: 'Service web',
+  title: (
+    <>
+      Création & <span className="text-[var(--blue)]">Refonte Web</span>
+    </>
+  ),
+  description:
+    "Un site web qui vous représente, qui se charge vite, qui se trouve sur Google, et qui guide vos visiteurs vers l'action. Livré en 4 à 8 semaines.",
+  cta: 'Démarrer un projet web',
+  facts: [
+    { title: '4-8 semaines', text: 'Délai de livraison typique' },
+    { title: 'Mobile-first', text: 'Optimisé pour tous les appareils' },
+    { title: 'SEO inclus', text: 'Optimisation pour les moteurs de recherche' },
+  ],
+  deliverablesIntro:
+    'Chaque mandat web inclut un ensemble de livrables concrets, pas de vague, pas de surprise.',
+  deliverables: [
+    {
+      title: 'Design & maquettes',
+      text: 'Maquettes haute-fidélité validées avec vous avant développement. Identité visuelle cohérente et moderne.',
+    },
+    {
+      title: 'Développement complet',
+      text: 'Site entièrement développé, testé sur tous les navigateurs et appareils. Code propre et documenté.',
+    },
+    {
+      title: 'Optimisation SEO',
+      text: 'Structure technique, balises, vitesse de chargement et meilleures pratiques SEO intégrées dès la base.',
+    },
+    {
+      title: 'CMS & gestion de contenu',
+      text: 'Interface d’administration simple pour que vous puissiez mettre à jour votre contenu sans coder.',
+    },
+    {
+      title: 'Remise complète des fichiers',
+      text: 'Tous les fichiers sources, accès CMS, domaine et hébergement remis à la fin. Aucune dépendance.',
+    },
+    {
+      title: 'Analytique & suivi',
+      text: 'Intégration de Google Analytics, configuration des objectifs de conversion et tableau de bord de base.',
+    },
+  ],
+  closingTitle: 'Prêt à lancer votre projet web ?',
+  closingText: 'Réservez un appel de 30 minutes pour discuter de votre vision.',
+  related: {
+    title: 'Stratégie & Audit Marketing',
+    text: 'Positionnement, contenu, plan d’action - 2-4 semaines',
+    to: '/services/marketing',
+  },
+}
+
+const marketingService = {
+  label: 'Service marketing',
+  title: (
+    <>
+      Stratégie & <span className="text-[var(--blue)]">Audit Marketing</span>
+    </>
+  ),
+  description:
+    "Un diagnostic complet de votre présence marketing et un plan d'action structuré avec des objectifs clairs, des canaux identifiés et des indicateurs de succès. Livré en 2 à 4 semaines.",
+  cta: 'Démarrer un audit',
+  facts: [
+    { title: '2-4 semaines', text: 'Délai de livraison typique' },
+    { title: 'Audit complet', text: 'Analyse de votre situation actuelle' },
+    { title: 'Plan d’action', text: 'Priorités, canaux et indicateurs définis' },
+    { title: 'Présentation finale', text: 'Résultats expliqués à votre équipe' },
+  ],
+  deliverablesIntro:
+    "Un audit sans plan d'action, ça ne sert à rien. On livre les deux.",
+  deliverables: [
+    {
+      title: 'Audit de présence actuelle',
+      text: 'Analyse de votre site, vos réseaux, votre contenu et votre positionnement par rapport aux concurrents.',
+    },
+    {
+      title: 'Définition des personas',
+      text: 'Identification de vos cibles principales avec leurs besoins, comportements et points de contact clés.',
+    },
+    {
+      title: 'Stratégie de contenu',
+      text: 'Plan de contenu adapté à vos cibles et canaux : sujets, formats, fréquence et ton de communication.',
+    },
+    {
+      title: 'Plan d’action priorisé',
+      text: 'Actions classées par priorité et impact estimé, avec responsables suggérés et échéancier réaliste.',
+    },
+    {
+      title: 'Indicateurs de succès (KPIs)',
+      text: "Définition des métriques à suivre pour mesurer l'efficacité de chaque action recommandée.",
+    },
+    {
+      title: 'Présentation à votre équipe',
+      text: 'Session de présentation des résultats et du plan - format questions/réponses inclus.',
+    },
+  ],
+  closingTitle: 'Prêt à clarifier votre stratégie marketing ?',
+  closingText:
+    'Un appel de 30 minutes pour comprendre votre situation et vous proposer la meilleure approche.',
+  related: {
+    title: 'Création & Refonte Web',
+    text: 'Site web, SEO, CMS et analytique - 4-8 semaines',
+    to: '/services/web',
+  },
+}
+
+function ServiceDetail({ service }) {
+  return (
+    <main>
+      <PageContainer>
+        <section className="grid min-h-[calc(100svh-6rem)] gap-12 border-b border-black/20 py-20 text-left lg:grid-cols-[0.5fr_0.5fr] lg:items-center">
+          <div className="space-y-8">
+            <SectionLabel>{service.label}</SectionLabel>
+            <h1 className="max-w-4xl text-[clamp(3rem,7vw,7.5rem)] font-medium leading-[0.92] tracking-normal text-black">
+              {service.title}
+            </h1>
+            <p className="max-w-xl text-xl leading-8 text-black/70">
+              {service.description}
+            </p>
+            <Button href="/contact" variant="secondary">
+              {service.cta}
+            </Button>
+          </div>
+
+          <div className="space-y-5">
+            {service.facts.map((fact, index) => (
+              <Card
+                key={fact.title}
+                className="grid gap-5 text-left text-black sm:grid-cols-[3.5rem_1fr] sm:items-center"
+                padding="p-6"
+              >
+                <span className="flex h-11 w-11 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
+                  0{index + 1}
+                </span>
+                <span>
+                  <strong className="block text-2xl font-semibold leading-tight text-black">
+                    {fact.title}
+                  </strong>
+                  <span className="text-base leading-6 text-black/65">
+                    {fact.text}
+                  </span>
+                </span>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="border-b border-black/20 py-20 text-left">
+          <div className="mb-12 max-w-3xl space-y-5">
+            <span className="text-sm font-medium uppercase text-[var(--blue)]">
+              Ce qu&apos;on livre
+            </span>
+            <h2 className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black">
+              Vos livrables, en détail
+            </h2>
+            <p className="text-xl leading-8 text-black/70">
+              {service.deliverablesIntro}
+            </p>
+          </div>
+
+          <div className="grid overflow-hidden border border-black/20 md:grid-cols-2 xl:grid-cols-3">
+            {service.deliverables.map((deliverable, index) => (
+              <div
+                key={deliverable.title}
+                className="border-b border-r border-black/15 bg-[var(--card)] p-8 text-left text-black"
+              >
+                <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
+                  0{index + 1}
+                </span>
+                <h3 className="mb-4 text-2xl font-semibold leading-tight text-black">
+                  {deliverable.title}
+                </h3>
+                <p className="text-base leading-7 text-black/70">
+                  {deliverable.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid gap-8 border-b border-black/20 py-20 text-left lg:grid-cols-[0.6fr_0.4fr] lg:items-center">
+          <div>
+            <h2 className="text-[clamp(2.6rem,5vw,5.5rem)] font-medium leading-[0.94] tracking-normal text-black">
+              {service.closingTitle}
+            </h2>
+            <p className="mt-5 text-xl leading-8 text-black/70">
+              {service.closingText}
+            </p>
+          </div>
+          <Button href="/contact" className="justify-self-start lg:justify-self-end">
+            Nous contacter
+          </Button>
+        </section>
+
+        <section className="py-16">
+          <Button href={service.related.to} variant="outline">
+            {service.related.title} - {service.related.text}
+          </Button>
+        </section>
+      </PageContainer>
+    </main>
+  )
+}
+
+export function WebService() {
+  return <ServiceDetail service={webService} />
+}
+
+export function MarketingService() {
+  return <ServiceDetail service={marketingService} />
+}

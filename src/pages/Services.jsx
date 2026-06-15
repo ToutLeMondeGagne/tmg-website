@@ -6,6 +6,7 @@ const services = [
     id: 'pme',
     title: 'PME',
     text: 'Clarifier votre offre, renforcer votre presence web et attirer des clients mieux alignes.',
+    href: '/services/web',
   },
   {
     id: 'obnl',
@@ -17,6 +18,7 @@ const services = [
     id: 'strategie',
     title: 'Croissance',
     text: 'Prioriser les bons canaux, mesurer ce qui compte et faire evoluer les contenus au bon rythme.',
+    href: '/services/marketing',
   },
 ]
 
