@@ -1,19 +1,19 @@
 export const buttonBaseClasses = [
   'inline-flex items-center justify-center gap-2',
-  'rounded-md px-5 py-3 text-sm font-semibold leading-none',
+  'border border-[var(--blue)] px-5 py-3 text-sm font-medium uppercase leading-none tracking-normal',
   'transition duration-200 ease-out',
-  'hover:scale-[1.02] active:scale-[0.98]',
-  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black',
+  'hover:-translate-y-0.5 active:translate-y-0',
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]',
 ]
 
 export const buttonDisabledClasses = [
-  'disabled:pointer-events-none disabled:opacity-50 disabled:hover:scale-100',
-  'aria-disabled:pointer-events-none aria-disabled:opacity-50 aria-disabled:hover:scale-100',
+  'disabled:pointer-events-none disabled:opacity-50 disabled:hover:translate-y-0',
+  'aria-disabled:pointer-events-none aria-disabled:opacity-50 aria-disabled:hover:translate-y-0',
 ]
 
 export const buttonVariants = {
-  primary: 'bg-black text-white hover:bg-neutral-800',
-  secondary: 'bg-[#8CC63F] text-black hover:bg-[#7DB337]',
-  outline: 'border border-black bg-transparent text-black hover:bg-black hover:text-white',
-  ghost: 'bg-transparent text-black hover:bg-neutral-100',
+  primary: 'bg-[var(--blue)] text-white hover:bg-blue-700',
+  secondary: 'border-[var(--green)] bg-[var(--green)] text-black hover:bg-lime-300',
+  outline: 'bg-transparent text-[var(--blue)] hover:bg-[var(--blue)] hover:text-white',
+  ghost: 'border-transparent bg-transparent text-black hover:border-black/20 hover:bg-black/5',
 }

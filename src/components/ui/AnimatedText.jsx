@@ -14,6 +14,7 @@ export default function AnimatedText({
     <motion.span
       className={joinClasses('inline-block', className)}
       initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration, delay, ease: 'easeOut' }}

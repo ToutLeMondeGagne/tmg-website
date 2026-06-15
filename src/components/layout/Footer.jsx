@@ -16,22 +16,22 @@ const contactLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-black/10 bg-black text-white">
-      <div className="mx-auto grid w-full max-w-[1280px] gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.4fr_1fr_1fr] lg:px-8 lg:py-16">
+    <footer className="border-t border-black/20 bg-[var(--bg)] text-black">
+      <div className="mx-auto grid w-full max-w-[1820px] gap-10 px-5 py-12 sm:px-8 lg:grid-cols-[1.4fr_1fr_1fr] lg:px-16 lg:py-16">
         <div className="space-y-4">
           <Link
             to="/"
-            className="inline-flex items-center gap-3 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            className="inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
             aria-label="TMG accueil"
           >
-            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#8CC63F] text-sm font-black tracking-tight text-black">
+            <span className="flex h-12 min-w-24 items-center justify-center bg-[var(--green)] px-4 text-2xl font-black tracking-normal text-[var(--blue)] shadow-[0_0_0_1px_var(--blue)]">
               TMG
             </span>
-            <span className="text-sm font-extrabold uppercase tracking-[0.18em]">
+            <span className="text-xs font-medium uppercase tracking-normal">
               Tout le monde gagne
             </span>
           </Link>
-          <p className="max-w-md text-sm leading-7 text-white/70">
+          <p className="max-w-md text-sm leading-7 text-black/65">
             TMG accompagne les PME, OBNL et équipes ambitieuses avec des
             stratégies marketing, des sites web et des expériences numériques
             pensées pour créer de la valeur durable.
@@ -39,7 +39,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-white">
+          <h2 className="mb-4 text-xs font-medium uppercase tracking-normal text-[var(--blue)]">
             Navigation
           </h2>
           <nav className="flex flex-col items-start gap-3" aria-label="Navigation footer">
@@ -47,7 +47,7 @@ export default function Footer() {
               <Link
                 key={link.to}
                 to={link.to}
-                className="text-sm text-white/70 transition hover:text-[#8CC63F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                className="text-sm text-black/65 transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
               >
                 {link.label}
               </Link>
@@ -56,7 +56,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-white">
+          <h2 className="mb-4 text-xs font-medium uppercase tracking-normal text-[var(--blue)]">
             Contact
           </h2>
           <address className="flex flex-col items-start gap-3 not-italic">
@@ -64,7 +64,7 @@ export default function Footer() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm text-white/70 transition hover:text-[#8CC63F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                className="text-sm text-black/65 transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
                 target={link.label === 'LinkedIn' ? '_blank' : undefined}
                 rel={link.label === 'LinkedIn' ? 'noreferrer' : undefined}
               >
@@ -75,7 +75,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10 px-4 py-5 text-center text-xs font-semibold uppercase tracking-[0.18em] text-white/50 sm:px-6 lg:px-8">
+      <div className="border-t border-black/20 px-5 py-5 text-center text-xs font-medium uppercase tracking-normal text-black/50 sm:px-8 lg:px-16">
         © TMG - Tout le Monde Gagne
       </div>
     </footer>
