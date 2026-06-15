@@ -133,7 +133,7 @@ export default function MobileMenu() {
                   <motion.div key={link.to} variants={linkVariants}>
                     <Link
                       to={link.to}
-                      className="block border-b border-black/15 px-1 py-5 text-4xl font-semibold uppercase leading-none tracking-[-0.08em] text-black transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
+                      className="block border-b border-black/15 px-1 py-5 text-4xl font-semibold uppercase leading-none tracking-normal text-black transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
                       onClick={() => setIsOpen(false)}
                     >
                       {link.label}

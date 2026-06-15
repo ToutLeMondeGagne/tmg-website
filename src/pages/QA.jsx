@@ -1,5 +1,5 @@
 import { PageContainer } from '../components/layout'
-import { AnimatedText, Card, SectionLabel } from '../components/ui'
+import { Card, SectionLabel } from '../components/ui'
 
 const questions = [
   {
@@ -22,9 +22,9 @@ export default function QA() {
       <PageContainer>
         <section className="grid gap-8 border-b border-black/20 py-20 text-left lg:grid-cols-[0.28fr_1fr]">
           <SectionLabel>FAQ</SectionLabel>
-          <AnimatedText className="max-w-6xl text-[clamp(3rem,8vw,9rem)] font-semibold uppercase leading-[0.86] tracking-[-0.09em] text-black">
+          <h1 className="max-w-6xl text-[clamp(3rem,8vw,9rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black">
             Questions frequentes.
-          </AnimatedText>
+          </h1>
         </section>
 
         <section>
@@ -36,7 +36,7 @@ export default function QA() {
               padding="py-10"
             >
               <span className="text-sm font-medium">0{index + 1}</span>
-              <h2 className="text-4xl font-semibold leading-none tracking-[-0.08em] text-black">
+              <h2 className="text-4xl font-semibold leading-none tracking-normal text-black">
                 {item.question}
               </h2>
               <p className="text-xl leading-8 text-black/70">{item.answer}</p>

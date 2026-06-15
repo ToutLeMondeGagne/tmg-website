@@ -34,7 +34,7 @@ function NavItem({ link, onClick }) {
       to={link.to}
       onClick={onClick}
       className={joinClasses(
-        'px-2 py-2 text-xs font-medium uppercase tracking-[-0.01em] transition duration-200',
+        'px-2 py-2 text-xs font-medium uppercase tracking-normal transition duration-200',
         'hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2',
         'focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]',
         isActive ? 'text-[var(--blue)]' : 'text-black',
@@ -74,10 +74,10 @@ export default function Navbar() {
           className="flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
           aria-label="TMG accueil"
         >
-          <span className="flex h-12 min-w-24 items-center justify-center bg-[var(--green)] px-4 text-2xl font-black tracking-[-0.12em] text-[var(--blue)] shadow-[0_0_0_1px_var(--blue)]">
+          <span className="flex h-12 min-w-24 items-center justify-center bg-[var(--green)] px-4 text-2xl font-black tracking-normal text-[var(--blue)] shadow-[0_0_0_1px_var(--blue)]">
             TMG
           </span>
-          <span className="hidden text-xs font-medium uppercase tracking-[-0.01em] text-black lg:block">
+          <span className="hidden text-xs font-medium uppercase tracking-normal text-black lg:block">
             Tout le monde gagne
           </span>
         </Link>
@@ -88,10 +88,14 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-4 md:flex">
+          <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-normal text-[var(--blue)]">
+            <span className="h-1.5 w-1.5 bg-[var(--green)]" aria-hidden="true" />
+            Places ouvertes - ete 26
+          </span>
           <Link
             to="/contact"
-            className="border border-[var(--blue)] bg-[var(--blue)] px-5 py-3 text-xs font-medium uppercase tracking-[-0.01em] text-white transition duration-200 hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
+            className="border border-[var(--blue)] bg-[var(--blue)] px-5 py-3 text-xs font-medium uppercase tracking-normal text-white transition duration-200 hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
           >
             Lancer un projet
           </Link>

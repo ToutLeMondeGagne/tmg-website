@@ -24,10 +24,10 @@ export default function Footer() {
             className="inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
             aria-label="TMG accueil"
           >
-            <span className="flex h-12 min-w-24 items-center justify-center bg-[var(--green)] px-4 text-2xl font-black tracking-[-0.12em] text-[var(--blue)] shadow-[0_0_0_1px_var(--blue)]">
+            <span className="flex h-12 min-w-24 items-center justify-center bg-[var(--green)] px-4 text-2xl font-black tracking-normal text-[var(--blue)] shadow-[0_0_0_1px_var(--blue)]">
               TMG
             </span>
-            <span className="text-xs font-medium uppercase tracking-[-0.01em]">
+            <span className="text-xs font-medium uppercase tracking-normal">
               Tout le monde gagne
             </span>
           </Link>
@@ -39,7 +39,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="mb-4 text-xs font-medium uppercase tracking-[-0.01em] text-[var(--blue)]">
+          <h2 className="mb-4 text-xs font-medium uppercase tracking-normal text-[var(--blue)]">
             Navigation
           </h2>
           <nav className="flex flex-col items-start gap-3" aria-label="Navigation footer">
@@ -56,7 +56,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="mb-4 text-xs font-medium uppercase tracking-[-0.01em] text-[var(--blue)]">
+          <h2 className="mb-4 text-xs font-medium uppercase tracking-normal text-[var(--blue)]">
             Contact
           </h2>
           <address className="flex flex-col items-start gap-3 not-italic">
@@ -75,7 +75,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-black/20 px-5 py-5 text-center text-xs font-medium uppercase tracking-[-0.01em] text-black/50 sm:px-8 lg:px-16">
+      <div className="border-t border-black/20 px-5 py-5 text-center text-xs font-medium uppercase tracking-normal text-black/50 sm:px-8 lg:px-16">
         © TMG - Tout le Monde Gagne
       </div>
     </footer>

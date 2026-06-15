@@ -47,10 +47,10 @@ export default function TicketCard({
       />
 
       <span className="relative z-10 ml-10 flex max-w-3xl flex-col justify-end gap-4 md:ml-16">
-        <span className="text-xs font-medium uppercase tracking-[-0.01em] text-white/70">
+        <span className="text-xs font-medium uppercase tracking-normal text-white/70">
           TMG Premium
         </span>
-        <span className="text-5xl font-semibold uppercase leading-[0.9] tracking-[-0.08em] text-white md:text-7xl">
+        <span className="text-5xl font-semibold uppercase leading-[0.9] tracking-normal text-white md:text-7xl">
           {title}
         </span>
         {subtitle ? (

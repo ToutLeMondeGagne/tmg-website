@@ -1,5 +1,5 @@
 import { PageContainer } from '../components/layout'
-import { AnimatedText, Button, Card, SectionLabel, TicketCard } from '../components/ui'
+import { Button, Card, SectionLabel, TicketCard } from '../components/ui'
 
 const highlights = [
   {
@@ -20,11 +20,11 @@ export default function Home() {
   return (
     <main>
       <PageContainer>
-        <section className="flex min-h-[calc(100svh-6rem)] flex-col justify-center border-b border-black/20 py-16 text-left">
-          <div className="grid gap-8 lg:grid-cols-[1fr_0.58fr] lg:items-center">
-            <AnimatedText className="max-w-6xl text-[clamp(2rem,9vw,3rem)] font-semibold uppercase leading-[0.9] tracking-[-0.06em] text-black md:text-[clamp(4rem,12vw,13rem)] md:leading-[0.86] md:tracking-[-0.09em]">
+        <section className="relative flex min-h-[calc(100svh-6rem)] flex-col justify-center border-b border-black/20 py-16 text-left">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-center xl:grid-cols-[minmax(0,1fr)_24rem]">
+            <h1 className="max-w-full text-[clamp(2rem,9vw,3rem)] font-semibold uppercase leading-[0.9] tracking-normal text-black md:text-[clamp(4rem,9.2vw,9rem)] md:leading-[0.86] xl:text-[clamp(7rem,8.8vw,10rem)]">
               Transformez votre trafic en clients.
-            </AnimatedText>
+            </h1>
 
             <div className="space-y-7 lg:pt-20">
               <p className="max-w-md text-xl leading-7 text-black/75">
@@ -41,6 +41,12 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          <div className="pointer-events-none absolute inset-x-0 bottom-5 hidden items-center justify-between text-xs font-medium uppercase tracking-normal text-black md:flex">
+            <span>Instagram, LinkedIn</span>
+            <span className="text-[var(--blue)]">↓ Scroll down</span>
+            <span>bonjour@toutlemondegagne.ca</span>
+          </div>
         </section>
 
         <section className="grid gap-10 border-b border-black/20 py-20 text-left lg:grid-cols-[0.28fr_1fr]">
@@ -48,7 +54,7 @@ export default function Home() {
             <SectionLabel>About us</SectionLabel>
           </div>
           <div className="space-y-8">
-            <h1 className="max-w-5xl text-[clamp(2.6rem,5vw,5.8rem)] font-medium leading-[0.98] tracking-[-0.08em] text-black">
+            <h1 className="max-w-5xl text-[clamp(2.6rem,5vw,5.8rem)] font-medium leading-[0.98] tracking-normal text-black">
               La plupart des sites restent la. Le votre doit devenir la raison
               pour laquelle on vous contacte.
             </h1>
@@ -62,7 +68,7 @@ export default function Home() {
         <section className="grid gap-5 border-b border-black/20 py-20 md:grid-cols-3">
           {highlights.map((item) => (
             <Card key={item.title} className="text-left text-black">
-              <h2 className="mb-8 text-5xl font-semibold uppercase leading-none tracking-[-0.08em] text-[var(--blue)]">
+              <h2 className="mb-8 text-5xl font-semibold uppercase leading-none tracking-normal text-[var(--blue)]">
                 {item.title}
               </h2>
               <p className="leading-7 text-black/70">{item.text}</p>
