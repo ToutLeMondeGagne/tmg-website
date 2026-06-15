@@ -11,6 +11,7 @@ const services = [
     id: 'obnl',
     title: 'OBNL',
     text: 'Structurer votre message, mobiliser votre communaute et faciliter le passage a l action.',
+    href: '/obnl',
   },
   {
     id: 'strategie',
@@ -43,7 +44,7 @@ export default function Services() {
               </h2>
               <p className="max-w-md text-xl leading-8 text-black/70">{service.text}</p>
               <Button
-                href="/contact"
+                href={service.href ?? '/contact'}
                 variant="ghost"
                 className="self-start justify-self-start lg:justify-self-end"
               >

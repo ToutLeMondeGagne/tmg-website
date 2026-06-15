@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Contact from './pages/Contact'
 import Services from './pages/Services'
 import Stage from './pages/Stage'
+import Obnl from './pages/Obnl'
 import About from './pages/About'
 import QA from './pages/QA'
 import NotFound from './pages/NotFound'
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/obnl" element={<Obnl />} />
           <Route path="/stage" element={<Stage />} />
           <Route path="/a-propos" element={<About />} />
           <Route path="/faq" element={<QA />} />

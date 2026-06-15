@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const mobileLinks = [
   { label: 'Accueil', to: '/' },
   { label: 'PME', to: '/services#pme' },
-  { label: 'OBNL', to: '/services#obnl' },
+  { label: 'OBNL', to: '/obnl' },
   { label: 'Services', to: '/services' },
   { label: 'Stagiaires', to: '/stage' },
   { label: 'Contact', to: '/contact' },
