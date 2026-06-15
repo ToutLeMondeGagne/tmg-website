@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Contact from './pages/Contact'
 import Services from './pages/Services'
+import { MarketingService, WebService } from './pages/ServiceDetail'
 import Stage from './pages/Stage'
 import Obnl from './pages/Obnl'
 import About from './pages/About'
@@ -22,6 +23,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/services/web" element={<WebService />} />
+          <Route path="/services/marketing" element={<MarketingService />} />
           <Route path="/obnl" element={<Obnl />} />
           <Route path="/stage" element={<Stage />} />
           <Route path="/a-propos" element={<About />} />

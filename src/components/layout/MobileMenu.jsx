@@ -1,12 +1,13 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { serviceLinks } from './serviceLinks'
 
 const mobileLinks = [
   { label: 'Accueil', to: '/' },
   { label: 'PME', to: '/services#pme' },
   { label: 'OBNL', to: '/obnl' },
-  { label: 'Services', to: '/services' },
+  { label: 'Services', to: '/services', children: serviceLinks },
   { label: 'Stagiaires', to: '/stage' },
   { label: 'Contact', to: '/contact' },
 ]
@@ -138,6 +139,20 @@ export default function MobileMenu() {
                     >
                       {link.label}
                     </Link>
+                    {link.children ? (
+                      <div className="border-b border-black/15 py-2">
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.to}
+                            to={child.to}
+                            className="block px-4 py-3 text-base font-medium uppercase leading-tight text-black/70 transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    ) : null}
                   </motion.div>
                 ))}
               </motion.div>

@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import MobileMenu from './MobileMenu'
+import { serviceLinks } from './serviceLinks'
 
 const navLinks = [
   { label: 'Accueil', to: '/' },
   { label: 'PME', to: '/services#pme' },
   { label: 'OBNL', to: '/obnl' },
-  { label: 'Services', to: '/services' },
   { label: 'Stagiaires', to: '/stage' },
   { label: 'Contact', to: '/contact' },
 ]
@@ -43,6 +43,88 @@ function NavItem({ link, onClick }) {
     >
       {link.label}
     </Link>
+  )
+}
+
+function ServicesDropdown() {
+  const [isOpen, setIsOpen] = useState(false)
+  const location = useLocation()
+  const dropdownRef = useRef(null)
+  const isActive = location.pathname.startsWith('/services')
+
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined
+    }
+
+    const handlePointerDown = (event) => {
+      if (!dropdownRef.current?.contains(event.target)) {
+        setIsOpen(false)
+      }
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen])
+
+  return (
+    <div
+      className="relative"
+      ref={dropdownRef}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <button
+        type="button"
+        className={joinClasses(
+          'px-2 py-2 text-xs font-medium uppercase tracking-normal transition duration-200',
+          'hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2',
+          'focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]',
+          isActive ? 'text-[var(--blue)]' : 'text-black',
+        )}
+        aria-haspopup="menu"
+        aria-expanded={isOpen}
+        onClick={() => setIsOpen((current) => !current)}
+      >
+        Services v
+      </button>
+
+      {isOpen ? (
+        <div
+          className="absolute left-1/2 top-full z-50 mt-3 w-80 -translate-x-1/2 border border-black/20 bg-[var(--bg)] p-2 shadow-[0_24px_80px_rgba(0,0,0,0.14)]"
+          role="menu"
+          aria-label="Services"
+        >
+          {serviceLinks.map((service) => (
+            <Link
+              key={service.to}
+              to={service.to}
+              role="menuitem"
+              className="block border-b border-black/10 px-4 py-4 text-left transition last:border-b-0 hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
+              onClick={() => setIsOpen(false)}
+            >
+              <span className="block text-sm font-semibold text-black">
+                {service.label}
+              </span>
+              <span className="mt-1 block text-xs leading-5 text-black/60">
+                {service.description}
+              </span>
+            </Link>
+          ))}
+        </div>
+      ) : null}
+    </div>
   )
 }
 
@@ -83,7 +165,11 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => (
+          {navLinks.slice(0, 3).map((link) => (
+            <NavItem key={link.to} link={link} />
+          ))}
+          <ServicesDropdown />
+          {navLinks.slice(3).map((link) => (
             <NavItem key={link.to} link={link} />
           ))}
         </div>
