@@ -6,6 +6,7 @@ import Stage from './pages/Stage'
 import About from './pages/About'
 import QA from './pages/QA'
 import NotFound from './pages/NotFound'
+import { Footer, Navbar } from './components/layout'
 import './App.css'
 
 function App() {
@@ -13,15 +14,21 @@ function App() {
   console.log(import.meta.env.VITE_EMAILJS_SERVICE_ID)
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/services" element={<Services />} />
-      <Route path="/stage" element={<Stage />} />
-      <Route path="/a-propos" element={<About />} />
-      <Route path="/faq" element={<QA />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <Navbar />
+      <div className="pt-20">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/stage" element={<Stage />} />
+          <Route path="/a-propos" element={<About />} />
+          <Route path="/faq" element={<QA />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+      <Footer />
+    </>
   )
 }
 
