@@ -1,4 +1,5 @@
 import { PageContainer } from '../components/layout'
+import { InternshipForm } from '../components/forms'
 import { Button, Card, SectionLabel } from '../components/ui'
 
 export default function Stage() {
@@ -15,7 +16,7 @@ export default function Stage() {
               TMG accueille les profils curieux qui veulent pratiquer le
               marketing, le design, le contenu et le web dans des projets reels.
             </p>
-            <Button href="/contact" variant="secondary">
+            <Button href="#candidature" variant="secondary">
               Proposer une candidature
             </Button>
           </div>
@@ -31,6 +32,38 @@ export default function Stage() {
               <li>Livrables utiles, pas seulement decoratifs</li>
             </ul>
           </Card>
+        </section>
+
+        <section
+          id="candidature"
+          className="grid scroll-mt-32 gap-12 py-16 text-left lg:grid-cols-[0.42fr_0.58fr]"
+        >
+          <aside className="flex flex-col justify-between gap-12 lg:min-h-[42rem]">
+            <div className="max-w-md space-y-6">
+              <span className="text-base font-medium uppercase italic text-[var(--blue)]">
+                [ Candidature ]
+              </span>
+              <h2 className="text-[clamp(3rem,6vw,6rem)] font-medium leading-[0.92] tracking-normal text-black">
+                Un formulaire pense pour les stagiaires.
+              </h2>
+              <p className="text-xl leading-8 text-black/70">
+                Ici, on ne demande pas un budget ou un objectif de conversion.
+                On veut comprendre ce que vous voulez apprendre, vos
+                disponibilites et le type de projets qui vous motive.
+              </p>
+            </div>
+            <div className="space-y-2 text-sm text-black/70">
+              <p>Pour une question rapide :</p>
+              <a
+                href="mailto:bonjour@toutlemondegagne.ca"
+                className="font-medium uppercase text-[var(--blue)] transition hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
+              >
+                bonjour@toutlemondegagne.ca
+              </a>
+            </div>
+          </aside>
+
+          <InternshipForm />
         </section>
       </PageContainer>
     </main>
