@@ -2,6 +2,33 @@ import { PageContainer } from '../components/layout'
 import { InternshipForm } from '../components/forms'
 import { Button, Card, SectionLabel } from '../components/ui'
 
+const internshipBenefits = [
+  {
+    title: 'Vrais mandats clients',
+    text: "Dès le premier jour, tu travailles sur un projet réel pour un vrai client - PME ou OBNL. Pas d'exercices fictifs.",
+  },
+  {
+    title: 'Portfolio béton',
+    text: 'Chaque livrable remis au client devient une pièce concrète de ton portfolio. Tu repars avec des preuves tangibles de ton travail.',
+  },
+  {
+    title: 'Stage potentiellement crédité',
+    text: 'Selon ton université et ton programme, ce stage pourrait être crédité. Contacte ton département directement pour vérifier les conditions de reconnaissance.',
+  },
+  {
+    title: 'Réseau professionnel',
+    text: "Tu intègres un réseau d'étudiant·es et d'entreprises qui te permettent d'établir des contacts dans le milieu professionnel.",
+  },
+  {
+    title: 'Responsabilités réelles',
+    text: 'Tu gères un mandat de A à Z avec ton équipe et tu présentes tes livrables toi-même. Pas de figuration.',
+  },
+  {
+    title: 'Lettre de recommandation',
+    text: 'À la fin de ton stage, tu reçois une lettre de recommandation attestant de tes compétences et de tes contributions réelles.',
+  },
+]
+
 export default function Stage() {
   return (
     <main>
@@ -32,6 +59,38 @@ export default function Stage() {
               <li>Livrables utiles, pas seulement decoratifs</li>
             </ul>
           </Card>
+        </section>
+
+        <section className="border-b border-black/20 py-20 text-left">
+          <div className="mb-12 max-w-3xl space-y-5">
+            <span className="text-sm font-medium uppercase text-[var(--blue)]">
+              Ce que tu y gagnes
+            </span>
+            <h2 className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black">
+              Un stage qui fait vraiment la différence.
+            </h2>
+            <p className="text-xl leading-8 text-black/70">
+              TMG n&apos;est pas un stage ordinaire. Voici ce qui nous distingue.
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {internshipBenefits.map((benefit, index) => (
+              <Card
+                key={benefit.title}
+                className="min-h-56 text-left text-black"
+                padding="p-8"
+              >
+                <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
+                  0{index + 1}
+                </span>
+                <h3 className="mb-4 text-2xl font-semibold leading-tight text-black">
+                  {benefit.title}
+                </h3>
+                <p className="text-base leading-7 text-black/70">{benefit.text}</p>
+              </Card>
+            ))}
+          </div>
         </section>
 
         <section
