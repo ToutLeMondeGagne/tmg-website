@@ -34,10 +34,10 @@ function NavItem({ link, onClick }) {
       to={link.to}
       onClick={onClick}
       className={joinClasses(
-        'rounded-full px-3 py-2 text-sm font-semibold transition duration-200',
-        'hover:bg-black/5 focus-visible:outline focus-visible:outline-2',
-        'focus-visible:outline-offset-2 focus-visible:outline-black',
-        isActive ? 'bg-black text-white' : 'text-black',
+        'px-2 py-2 text-xs font-medium uppercase tracking-[-0.01em] transition duration-200',
+        'hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2',
+        'focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]',
+        isActive ? 'text-[var(--blue)]' : 'text-black',
       )}
       aria-current={isActive ? 'page' : undefined}
     >
@@ -63,21 +63,21 @@ export default function Navbar() {
   return (
     <header
       className={joinClasses(
-        'fixed inset-x-0 top-0 z-50 border-b border-black/5',
-        'bg-white/82 backdrop-blur-xl transition-shadow duration-300',
-        hasScrolled ? 'shadow-[0_12px_40px_rgba(8,6,13,0.10)]' : 'shadow-none',
+        'fixed inset-x-0 top-0 z-50 border-b border-black/15',
+        'bg-[var(--bg)]/82 backdrop-blur-xl transition-shadow duration-300',
+        hasScrolled ? 'shadow-[0_10px_30px_rgba(0,0,0,0.08)]' : 'shadow-none',
       )}
     >
-      <nav className="mx-auto flex h-20 w-full max-w-[1280px] items-center justify-between px-4 sm:px-6 lg:px-8">
+      <nav className="mx-auto flex h-24 w-full max-w-[1820px] items-center justify-between px-5 sm:px-8 lg:px-16">
         <Link
           to="/"
-          className="flex items-center gap-3 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
+          className="flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
           aria-label="TMG accueil"
         >
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-black text-sm font-black tracking-tight text-white">
+          <span className="flex h-12 min-w-24 items-center justify-center bg-[var(--green)] px-4 text-2xl font-black tracking-[-0.12em] text-[var(--blue)] shadow-[0_0_0_1px_var(--blue)]">
             TMG
           </span>
-          <span className="hidden text-sm font-extrabold uppercase tracking-[0.18em] text-black sm:block">
+          <span className="hidden text-xs font-medium uppercase tracking-[-0.01em] text-black lg:block">
             Tout le monde gagne
           </span>
         </Link>
@@ -91,7 +91,7 @@ export default function Navbar() {
         <div className="hidden items-center gap-3 md:flex">
           <Link
             to="/contact"
-            className="rounded-full bg-[#8CC63F] px-5 py-3 text-sm font-bold text-black shadow-[0_10px_30px_rgba(140,198,63,0.30)] transition duration-200 hover:scale-[1.02] hover:bg-[#7DB337] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+            className="border border-[var(--blue)] bg-[var(--blue)] px-5 py-3 text-xs font-medium uppercase tracking-[-0.01em] text-white transition duration-200 hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
           >
             Lancer un projet
           </Link>

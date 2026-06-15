@@ -19,19 +19,27 @@ const questions = [
 export default function QA() {
   return (
     <main>
-      <PageContainer className="py-16 sm:py-24">
-        <section className="mx-auto max-w-3xl space-y-7 text-left">
+      <PageContainer>
+        <section className="grid gap-8 border-b border-black/20 py-20 text-left lg:grid-cols-[0.28fr_1fr]">
           <SectionLabel>FAQ</SectionLabel>
-          <AnimatedText className="text-4xl font-bold leading-tight text-black sm:text-5xl">
+          <AnimatedText className="max-w-6xl text-[clamp(3rem,8vw,9rem)] font-semibold uppercase leading-[0.86] tracking-[-0.09em] text-black">
             Questions frequentes.
           </AnimatedText>
         </section>
 
-        <section className="mx-auto mt-10 grid max-w-3xl gap-5">
-          {questions.map((item) => (
-            <Card key={item.question} className="text-left text-black" hover={false}>
-              <h2 className="mb-3 text-xl font-bold text-black">{item.question}</h2>
-              <p className="leading-7 text-neutral-600">{item.answer}</p>
+        <section>
+          {questions.map((item, index) => (
+            <Card
+              key={item.question}
+              className="grid gap-8 text-left text-black lg:grid-cols-[0.08fr_0.42fr_0.5fr]"
+              hover={false}
+              padding="py-10"
+            >
+              <span className="text-sm font-medium">0{index + 1}</span>
+              <h2 className="text-4xl font-semibold leading-none tracking-[-0.08em] text-black">
+                {item.question}
+              </h2>
+              <p className="text-xl leading-8 text-black/70">{item.answer}</p>
             </Card>
           ))}
         </section>

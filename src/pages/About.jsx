@@ -4,23 +4,20 @@ import { AnimatedText, Card, SectionLabel } from '../components/ui'
 export default function About() {
   return (
     <main>
-      <PageContainer className="py-16 sm:py-24">
-        <section className="mx-auto max-w-3xl space-y-7 text-left">
+      <PageContainer>
+        <section className="grid min-h-[calc(100svh-6rem)] gap-8 border-b border-black/20 py-20 text-left lg:grid-cols-[0.28fr_1fr] lg:items-center">
           <SectionLabel>A propos</SectionLabel>
-          <AnimatedText className="text-4xl font-bold leading-tight text-black sm:text-5xl">
-            Une equipe qui construit avec intention.
+          <AnimatedText className="max-w-6xl text-[clamp(3rem,6vw,6.5rem)] font-medium leading-[0.98] tracking-[-0.08em] text-black">
+            Un site doit capturer le poids de ce que vous avez construit.
           </AnimatedText>
-          <p className="text-lg leading-8 text-neutral-600">
-            Tout le Monde Gagne rassemble strategie, creation et execution pour
-            aider les organisations a mieux communiquer, mieux convertir et mieux
-            servir leur communaute.
-          </p>
         </section>
 
-        <section className="mt-12 grid gap-5 md:grid-cols-3">
+        <section className="grid gap-5 py-20 md:grid-cols-3">
           {['Clarte', 'Impact', 'Collaboration'].map((value) => (
             <Card key={value} className="text-left text-black">
-              <h2 className="text-xl font-bold text-black">{value}</h2>
+              <h2 className="text-5xl font-semibold uppercase leading-none tracking-[-0.08em] text-[var(--blue)]">
+                {value}
+              </h2>
             </Card>
           ))}
         </section>

@@ -69,7 +69,7 @@ export default function MobileMenu() {
     <div className="md:hidden" ref={menuRef}>
       <button
         type="button"
-        className="relative z-[70] inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/90 text-black transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+        className="relative z-[70] inline-flex h-12 w-12 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-white transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
         aria-controls="mobile-menu-panel"
         aria-expanded={isOpen}
         aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -79,19 +79,19 @@ export default function MobileMenu() {
         <span className="relative h-4 w-5" aria-hidden="true">
           <span
             className={joinClasses(
-              'absolute left-0 top-0 h-0.5 w-5 rounded-full bg-black transition duration-200',
+              'absolute left-0 top-0 h-0.5 w-5 bg-white transition duration-200',
               isOpen ? 'translate-y-[7px] rotate-45' : '',
             )}
           />
           <span
             className={joinClasses(
-              'absolute left-0 top-[7px] h-0.5 w-5 rounded-full bg-black transition duration-200',
+              'absolute left-0 top-[7px] h-0.5 w-5 bg-white transition duration-200',
               isOpen ? 'opacity-0' : 'opacity-100',
             )}
           />
           <span
             className={joinClasses(
-              'absolute bottom-0 left-0 h-0.5 w-5 rounded-full bg-black transition duration-200',
+              'absolute bottom-0 left-0 h-0.5 w-5 bg-white transition duration-200',
               isOpen ? '-translate-y-[7px] -rotate-45' : '',
             )}
           />
@@ -102,7 +102,7 @@ export default function MobileMenu() {
         {isOpen ? (
           <>
             <motion.div
-              className="fixed inset-0 z-50 bg-black/25 backdrop-blur-sm"
+              className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -112,7 +112,7 @@ export default function MobileMenu() {
             />
             <motion.aside
               id="mobile-menu-panel"
-              className="fixed bottom-0 right-0 top-0 z-[60] flex w-[min(86vw,360px)] flex-col bg-white px-6 py-24 shadow-[-24px_0_80px_rgba(8,6,13,0.18)]"
+              className="fixed bottom-0 right-0 top-0 z-[60] flex w-[min(88vw,390px)] flex-col border-l border-black/15 bg-[var(--bg)] px-6 py-28 shadow-[-24px_0_80px_rgba(0,0,0,0.16)]"
               initial="closed"
               animate="open"
               exit="closed"
@@ -133,7 +133,7 @@ export default function MobileMenu() {
                   <motion.div key={link.to} variants={linkVariants}>
                     <Link
                       to={link.to}
-                      className="block rounded-2xl px-4 py-3 text-lg font-bold text-black transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                      className="block border-b border-black/15 px-1 py-5 text-4xl font-semibold uppercase leading-none tracking-[-0.08em] text-black transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
                       onClick={() => setIsOpen(false)}
                     >
                       {link.label}
