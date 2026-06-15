@@ -4,6 +4,7 @@ import Contact from './pages/Contact'
 import Services from './pages/Services'
 import { MarketingService, WebService } from './pages/ServiceDetail'
 import Stage from './pages/Stage'
+import Pme from './pages/Pme'
 import Obnl from './pages/Obnl'
 import About from './pages/About'
 import QA from './pages/QA'
@@ -25,6 +26,8 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/services/web" element={<WebService />} />
           <Route path="/services/marketing" element={<MarketingService />} />
+          <Route path="/pme" element={<Pme />} />
+          <Route path="/entreprises" element={<Pme />} />
           <Route path="/obnl" element={<Obnl />} />
           <Route path="/stage" element={<Stage />} />
           <Route path="/a-propos" element={<About />} />

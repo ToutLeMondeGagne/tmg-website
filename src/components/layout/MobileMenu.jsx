@@ -5,7 +5,7 @@ import { serviceLinks } from './serviceLinks'
 
 const mobileLinks = [
   { label: 'Accueil', to: '/' },
-  { label: 'PME', to: '/services#pme' },
+  { label: 'PME', to: '/pme' },
   { label: 'OBNL', to: '/obnl' },
   { label: 'Services', to: '/services', children: serviceLinks },
   { label: 'Stagiaires', to: '/stage' },

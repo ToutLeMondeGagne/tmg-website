@@ -5,7 +5,7 @@ import { serviceLinks } from './serviceLinks'
 
 const navLinks = [
   { label: 'Accueil', to: '/' },
-  { label: 'PME', to: '/services#pme' },
+  { label: 'PME', to: '/pme' },
   { label: 'OBNL', to: '/obnl' },
   { label: 'Stagiaires', to: '/stage' },
   { label: 'Contact', to: '/contact' },

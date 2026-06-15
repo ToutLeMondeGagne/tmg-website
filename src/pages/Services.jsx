@@ -6,7 +6,7 @@ const services = [
     id: 'pme',
     title: 'PME',
     text: 'Clarifier votre offre, renforcer votre presence web et attirer des clients mieux alignes.',
-    href: '/services/web',
+    href: '/pme',
   },
   {
     id: 'obnl',
