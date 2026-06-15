@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import MobileMenu from './MobileMenu'
 
 const navLinks = [
   { label: 'Accueil', to: '/' },
@@ -47,7 +48,6 @@ function NavItem({ link, onClick }) {
 
 export default function Navbar() {
   const [hasScrolled, setHasScrolled] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     const updateScrollState = () => {
@@ -82,13 +82,13 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => (
             <NavItem key={link.to} link={link} />
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-3 md:flex">
           <Link
             to="/contact"
             className="rounded-full bg-[#8CC63F] px-5 py-3 text-sm font-bold text-black shadow-[0_10px_30px_rgba(140,198,63,0.30)] transition duration-200 hover:scale-[1.02] hover:bg-[#7DB337] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
@@ -97,37 +97,8 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <button
-          type="button"
-          className="inline-flex h-11 items-center justify-center rounded-full border border-black/10 px-4 text-sm font-bold text-black transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black lg:hidden"
-          aria-controls="mobile-navigation"
-          aria-expanded={isOpen}
-          onClick={() => setIsOpen((current) => !current)}
-        >
-          {isOpen ? 'Fermer' : 'Menu'}
-        </button>
+        <MobileMenu />
       </nav>
-
-      <div
-        id="mobile-navigation"
-        className={joinClasses(
-          'border-t border-black/5 bg-white/95 px-4 pb-5 pt-2 backdrop-blur-xl lg:hidden',
-          isOpen ? 'block' : 'hidden',
-        )}
-      >
-        <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-1 sm:px-2">
-          {navLinks.map((link) => (
-            <NavItem key={link.to} link={link} onClick={() => setIsOpen(false)} />
-          ))}
-          <Link
-            to="/contact"
-            className="mt-3 rounded-full bg-[#8CC63F] px-5 py-3 text-center text-sm font-bold text-black transition duration-200 hover:bg-[#7DB337] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            onClick={() => setIsOpen(false)}
-          >
-            Lancer un projet
-          </Link>
-        </div>
-      </div>
     </header>
   )
 }
