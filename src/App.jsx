@@ -9,6 +9,9 @@ import NotFound from './pages/NotFound'
 import './App.css'
 
 function App() {
+  console.log(import.meta.env)
+  console.log(import.meta.env.VITE_EMAILJS_SERVICE_ID)
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
