@@ -74,6 +74,25 @@ body::selection {
   }
 }
 
+@keyframes tmg-logo-orbit {
+  0%,
+  100% {
+    transform: translate3d(-8px, -7px, 0) rotate(-4deg) scale(0.96);
+  }
+
+  25% {
+    transform: translate3d(10px, -3px, 0) rotate(3deg) scale(1);
+  }
+
+  50% {
+    transform: translate3d(8px, 10px, 0) rotate(5deg) scale(1.04);
+  }
+
+  75% {
+    transform: translate3d(-10px, 5px, 0) rotate(-2deg) scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .tmg-stack-float {
     animation: tmg-stack-float 7s ease-in-out infinite;
@@ -81,6 +100,11 @@ body::selection {
 
   .tmg-stack-scan {
     animation: tmg-stack-scan 4.5s ease-in-out infinite;
+  }
+
+  .tmg-logo-orbit {
+    animation: tmg-logo-orbit 7.4s ease-in-out infinite;
+    animation-delay: var(--orbit-delay, 0s);
   }
 }
 

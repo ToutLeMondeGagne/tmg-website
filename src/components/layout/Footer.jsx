@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import tmgLogo from '../../assets/logos/tmg-logo.png'
 
 const footerLinks = [
   { label: 'Accueil', to: '/' },
@@ -21,15 +22,14 @@ export default function Footer() {
         <div className="space-y-4">
           <Link
             to="/"
-            className="inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
+            className="inline-flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
             aria-label="TMG accueil"
           >
-            <span className="flex h-12 min-w-24 items-center justify-center bg-[var(--green)] px-4 text-2xl font-black tracking-normal text-[var(--blue)] shadow-[0_0_0_1px_var(--blue)]">
-              TMG
-            </span>
-            <span className="text-xs font-medium uppercase tracking-normal">
-              Tout le monde gagne
-            </span>
+            <img
+              src={tmgLogo}
+              alt=""
+              className="h-20 w-auto max-w-[15rem] object-contain"
+            />
           </Link>
           <p className="max-w-md text-sm leading-7 text-black/65">
             TMG accompagne les PME, OBNL et équipes ambitieuses avec des

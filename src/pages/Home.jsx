@@ -8,6 +8,7 @@ import {
   TicketCard,
 } from '../components/ui'
 import heroStackImage from '../assets/hero.png'
+import tmgLogo from '../assets/logos/tmg-logo.png'
 
 const highlights = [
   {
@@ -24,10 +25,19 @@ const highlights = [
   },
 ]
 
+const heroLogoOrbitItems = [
+  { className: 'left-[2%] top-[17%]', delay: '0s' },
+  { className: 'left-[38%] top-[1%]', delay: '-1.1s' },
+  { className: 'right-[2%] top-[18%]', delay: '-2.2s' },
+  { className: 'left-[4%] bottom-[20%]', delay: '-3.3s' },
+  { className: 'left-[40%] bottom-[2%]', delay: '-4.4s' },
+  { className: 'right-[4%] bottom-[21%]', delay: '-5.5s' },
+]
+
 function HeroStackVisual() {
   return (
     <div
-      className="relative mx-auto flex min-h-[17rem] w-full max-w-[21rem] items-center justify-center md:min-h-[20rem] lg:max-w-[23rem]"
+      className="relative mx-auto flex min-h-[19rem] w-full max-w-[22rem] items-center justify-center md:min-h-[22rem] lg:max-w-[24rem]"
     >
       <div
         className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-black/25"
@@ -45,10 +55,25 @@ function HeroStackVisual() {
         className="pointer-events-none absolute bottom-10 right-4 h-2 w-2 bg-[var(--blue)]"
         aria-hidden="true"
       />
+      {heroLogoOrbitItems.map((item) => (
+        <span
+          key={item.className}
+          className={`tmg-logo-orbit pointer-events-none absolute z-30 flex w-14 items-center justify-center border border-black/15 bg-[var(--bg)]/86 p-1.5 shadow-[0_14px_34px_rgba(0,0,0,0.12)] backdrop-blur-sm sm:w-16 ${item.className}`}
+          style={{ '--orbit-delay': item.delay }}
+          aria-hidden="true"
+        >
+          <img
+            src={tmgLogo}
+            alt=""
+            className="h-auto w-full object-contain"
+            draggable="false"
+          />
+        </span>
+      ))}
       <img
         src={heroStackImage}
         alt="Couches visuelles TMG superposées"
-        className="tmg-stack-float relative z-10 w-[min(74vw,17rem)] drop-shadow-[0_34px_42px_rgba(0,0,0,0.24)] md:w-[18rem] lg:w-[20rem]"
+        className="tmg-stack-float relative z-10 w-[min(72vw,17rem)] drop-shadow-[0_34px_42px_rgba(0,0,0,0.24)] md:w-[18rem] lg:w-[20rem]"
       />
       <span
         className="tmg-stack-scan pointer-events-none absolute left-1/2 top-1/2 z-20 h-28 w-[72%] -translate-x-1/2 -translate-y-1/2 border-y border-[var(--blue)]/60 bg-[linear-gradient(90deg,transparent,rgba(0,76,255,0.1),transparent)]"
