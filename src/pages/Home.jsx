@@ -15,7 +15,7 @@ const highlights = [
   },
   {
     title: 'Marketing',
-    text: 'Des campagnes simples a comprendre, solides a mesurer et faciles a ajuster.',
+    text: 'Des campagnes simples à comprendre, solides à mesurer et faciles à ajuster.',
   },
   {
     title: 'Systemes',
@@ -43,8 +43,8 @@ export default function Home() {
                 delay={0.18}
                 className="max-w-md text-xl leading-7 text-black/75"
               >
-                On construit des sites et systemes marketing pour les equipes qui
-                veulent etre vues, comprises et choisies.
+                On construit des sites et systèmes marketing pour les équipes qui
+                veulent être vues, comprises et choisies.
               </AnimatedText>
               <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                 <Button href="/contact" className="w-full sm:w-auto">
@@ -83,8 +83,13 @@ export default function Home() {
               className="max-w-3xl border-t border-black/30 pt-8 text-xl leading-8 text-black/70"
             >
               TMG cartographie votre offre, clarifie votre message et transforme
-              votre presence web en experience qui eduque, rassure et convertit.
+              votre présence web en expérience qui éduque, rassure et convertit.
             </AnimatedText>
+            <AnimatedSection delay={0.18}>
+              <Button href="/a-propos" variant="outline">
+                Découvrir TMG ↗
+              </Button>
+            </AnimatedSection>
           </div>
         </section>
 
