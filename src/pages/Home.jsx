@@ -255,8 +255,8 @@ export default function Home() {
         <section className="py-20">
           <AnimatedSection>
             <TicketCard
-              title="Projet premium. Resultat clair."
-              subtitle="Strategie, contenu, interface et conversion dans une experience qui avance vite."
+              title="Première rencontre gratuite"
+              subtitle="Un billet pour 30 minutes de clarté: on regarde votre projet, vos besoins et la meilleure prochaine étape."
               href="/contact"
             />
           </AnimatedSection>
