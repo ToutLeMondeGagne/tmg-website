@@ -33,6 +33,9 @@ const heroLogoOrbitItems = [
     driftY: '-0.35rem',
     rotateStart: '-8deg',
     rotateEnd: '5deg',
+    puzzleX: 'calc(var(--logo-piece-w) * -1)',
+    puzzleY: 'calc(var(--logo-piece-h) * -0.5)',
+    bgPosition: '0% 0%',
     delay: '0s',
   },
   {
@@ -42,6 +45,9 @@ const heroLogoOrbitItems = [
     driftY: '0.65rem',
     rotateStart: '5deg',
     rotateEnd: '-6deg',
+    puzzleX: '0rem',
+    puzzleY: 'calc(var(--logo-piece-h) * -0.5)',
+    bgPosition: '50% 0%',
     delay: '0s',
   },
   {
@@ -51,6 +57,9 @@ const heroLogoOrbitItems = [
     driftY: '-0.25rem',
     rotateStart: '7deg',
     rotateEnd: '-4deg',
+    puzzleX: 'var(--logo-piece-w)',
+    puzzleY: 'calc(var(--logo-piece-h) * -0.5)',
+    bgPosition: '100% 0%',
     delay: '0s',
   },
   {
@@ -60,6 +69,9 @@ const heroLogoOrbitItems = [
     driftY: '0.45rem',
     rotateStart: '4deg',
     rotateEnd: '-7deg',
+    puzzleX: 'calc(var(--logo-piece-w) * -1)',
+    puzzleY: 'calc(var(--logo-piece-h) * 0.5)',
+    bgPosition: '0% 100%',
     delay: '0s',
   },
   {
@@ -69,6 +81,9 @@ const heroLogoOrbitItems = [
     driftY: '-0.6rem',
     rotateStart: '-6deg',
     rotateEnd: '6deg',
+    puzzleX: '0rem',
+    puzzleY: 'calc(var(--logo-piece-h) * 0.5)',
+    bgPosition: '50% 100%',
     delay: '0s',
   },
   {
@@ -78,6 +93,9 @@ const heroLogoOrbitItems = [
     driftY: '0.35rem',
     rotateStart: '-5deg',
     rotateEnd: '8deg',
+    puzzleX: 'var(--logo-piece-w)',
+    puzzleY: 'calc(var(--logo-piece-h) * 0.5)',
+    bgPosition: '100% 100%',
     delay: '0s',
   },
 ]
@@ -106,7 +124,7 @@ function HeroStackVisual() {
       {heroLogoOrbitItems.map((item) => (
         <span
           key={`${item.x}-${item.y}`}
-          className="tmg-logo-orbit pointer-events-none absolute left-1/2 top-1/2 z-30 flex w-14 items-center justify-center border border-black/15 bg-[var(--bg)]/86 p-1.5 shadow-[0_14px_34px_rgba(0,0,0,0.12)] backdrop-blur-sm sm:w-16"
+          className="tmg-logo-orbit pointer-events-none absolute left-1/2 top-1/2 z-30 flex items-center justify-center overflow-hidden border border-black/15 bg-[var(--bg)]/86 p-1.5 shadow-[0_14px_34px_rgba(0,0,0,0.12)] backdrop-blur-sm"
           style={{
             '--orbit-x': item.x,
             '--orbit-y': item.y,
@@ -114,14 +132,19 @@ function HeroStackVisual() {
             '--orbit-drift-y': item.driftY,
             '--orbit-rotate-start': item.rotateStart,
             '--orbit-rotate-end': item.rotateEnd,
+            '--puzzle-x': item.puzzleX,
+            '--puzzle-y': item.puzzleY,
+            '--puzzle-bg-position': item.bgPosition,
+            '--puzzle-image': `url(${tmgLogo})`,
             '--orbit-delay': item.delay,
           }}
           aria-hidden="true"
         >
+          <span className="tmg-logo-puzzle-slice" />
           <img
             src={tmgLogo}
             alt=""
-            className="h-auto w-full object-contain"
+            className="tmg-logo-card-mark h-auto w-full object-contain"
             draggable="false"
           />
         </span>
