@@ -26,12 +26,60 @@ const highlights = [
 ]
 
 const heroLogoOrbitItems = [
-  { className: 'left-[2%] top-[17%]', delay: '0s' },
-  { className: 'left-[38%] top-[1%]', delay: '-1.1s' },
-  { className: 'right-[2%] top-[18%]', delay: '-2.2s' },
-  { className: 'left-[4%] bottom-[20%]', delay: '-3.3s' },
-  { className: 'left-[40%] bottom-[2%]', delay: '-4.4s' },
-  { className: 'right-[4%] bottom-[21%]', delay: '-5.5s' },
+  {
+    x: 'clamp(-8.5rem, -28vw, -5.8rem)',
+    y: 'clamp(-5.6rem, -18vw, -3.9rem)',
+    driftX: '0.8rem',
+    driftY: '-0.35rem',
+    rotateStart: '-8deg',
+    rotateEnd: '5deg',
+    delay: '0s',
+  },
+  {
+    x: 'clamp(-1.8rem, -6vw, -1rem)',
+    y: 'clamp(-7.3rem, -22vw, -5.4rem)',
+    driftX: '0.55rem',
+    driftY: '0.65rem',
+    rotateStart: '5deg',
+    rotateEnd: '-6deg',
+    delay: '0s',
+  },
+  {
+    x: 'clamp(5.9rem, 28vw, 8.6rem)',
+    y: 'clamp(-5.5rem, -18vw, -3.7rem)',
+    driftX: '-0.75rem',
+    driftY: '-0.25rem',
+    rotateStart: '7deg',
+    rotateEnd: '-4deg',
+    delay: '0s',
+  },
+  {
+    x: 'clamp(-8.2rem, -27vw, -5.6rem)',
+    y: 'clamp(3.8rem, 17vw, 5.6rem)',
+    driftX: '0.7rem',
+    driftY: '0.45rem',
+    rotateStart: '4deg',
+    rotateEnd: '-7deg',
+    delay: '0s',
+  },
+  {
+    x: 'clamp(-1.4rem, -4vw, -0.8rem)',
+    y: 'clamp(5.4rem, 22vw, 7.2rem)',
+    driftX: '-0.45rem',
+    driftY: '-0.6rem',
+    rotateStart: '-6deg',
+    rotateEnd: '6deg',
+    delay: '0s',
+  },
+  {
+    x: 'clamp(5.7rem, 27vw, 8.3rem)',
+    y: 'clamp(3.5rem, 17vw, 5.4rem)',
+    driftX: '-0.85rem',
+    driftY: '0.35rem',
+    rotateStart: '-5deg',
+    rotateEnd: '8deg',
+    delay: '0s',
+  },
 ]
 
 function HeroStackVisual() {
@@ -57,9 +105,17 @@ function HeroStackVisual() {
       />
       {heroLogoOrbitItems.map((item) => (
         <span
-          key={item.className}
-          className={`tmg-logo-orbit pointer-events-none absolute z-30 flex w-14 items-center justify-center border border-black/15 bg-[var(--bg)]/86 p-1.5 shadow-[0_14px_34px_rgba(0,0,0,0.12)] backdrop-blur-sm sm:w-16 ${item.className}`}
-          style={{ '--orbit-delay': item.delay }}
+          key={`${item.x}-${item.y}`}
+          className="tmg-logo-orbit pointer-events-none absolute left-1/2 top-1/2 z-30 flex w-14 items-center justify-center border border-black/15 bg-[var(--bg)]/86 p-1.5 shadow-[0_14px_34px_rgba(0,0,0,0.12)] backdrop-blur-sm sm:w-16"
+          style={{
+            '--orbit-x': item.x,
+            '--orbit-y': item.y,
+            '--orbit-drift-x': item.driftX,
+            '--orbit-drift-y': item.driftY,
+            '--orbit-rotate-start': item.rotateStart,
+            '--orbit-rotate-end': item.rotateEnd,
+            '--orbit-delay': item.delay,
+          }}
           aria-hidden="true"
         >
           <img
