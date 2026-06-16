@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import tmgLogo from '../../assets/logos/tmg-logo.png'
 import MobileMenu from './MobileMenu'
 import { serviceLinks } from './serviceLinks'
 
@@ -182,15 +183,14 @@ export default function Navbar() {
       <nav className="mx-auto flex h-24 w-full max-w-[1820px] items-center justify-between px-5 sm:px-8 lg:px-16">
         <Link
           to="/"
-          className="flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
+          className="flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
           aria-label="TMG accueil"
         >
-          <span className="flex h-12 min-w-24 items-center justify-center bg-[var(--green)] px-4 text-2xl font-black tracking-normal text-[var(--blue)] shadow-[0_0_0_1px_var(--blue)]">
-            TMG
-          </span>
-          <span className="hidden text-xs font-medium uppercase tracking-normal text-black lg:block">
-            Tout le monde gagne
-          </span>
+          <img
+            src={tmgLogo}
+            alt=""
+            className="h-12 w-auto max-w-[10rem] object-contain sm:h-14 sm:max-w-[12rem]"
+          />
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">
