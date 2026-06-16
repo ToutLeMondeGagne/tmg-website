@@ -109,7 +109,7 @@ body::selection {
   50%,
   62% {
     opacity: 0.98;
-    transform: translate3d(-50%, -50%, 0) rotate(180deg) scale(0.74);
+    transform: translate3d(-50%, -50%, 0) rotate(0deg) scale(0.74);
   }
 
   76% {
