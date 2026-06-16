@@ -1,5 +1,5 @@
 import { PageContainer } from '../components/layout'
-import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../components/ui'
+import { AnimatedSection, AnimatedText, Button, SectionLabel } from '../components/ui'
 
 const services = [
   {
@@ -19,6 +19,27 @@ const services = [
     title: 'Croissance',
     text: 'Prioriser les bons canaux, mesurer ce qui compte et faire evoluer les contenus au bon rythme.',
     href: '/services/marketing',
+  },
+]
+
+const enterpriseFocus = [
+  {
+    number: '01',
+    title: 'Sites web',
+    text: 'Des pages rapides, claires et pensées pour convertir les bons visiteurs en demandes concrètes.',
+    detail: 'Refonte, landing page, SEO, formulaires et expérience mobile.',
+  },
+  {
+    number: '02',
+    title: 'Marketing',
+    text: 'Des actions simples à comprendre, solides à mesurer et faciles à ajuster avec votre équipe.',
+    detail: 'Audit, positionnement, contenu, campagnes et indicateurs de suivi.',
+  },
+  {
+    number: '03',
+    title: 'Systèmes',
+    text: "Une expérience structurée pour guider les prospects du premier clic jusqu'au rendez-vous.",
+    detail: 'Parcours client, automatisations légères, CRM et suivi des conversions.',
   },
 ]
 
@@ -67,17 +88,57 @@ export default function Services() {
           ))}
         </section>
 
-        <section className="grid gap-5 py-20 md:grid-cols-3">
-          {['Map', 'Make', 'Move'].map((step, index) => (
-            <AnimatedSection key={step} delay={index * 0.08}>
-              <Card className="text-center text-black" padding="p-8">
-                <span className="mb-3 block text-sm font-medium">0{index + 1}</span>
-                <h2 className="text-5xl font-semibold uppercase leading-none tracking-normal text-[var(--blue)]">
-                  {step}
-                </h2>
-              </Card>
-            </AnimatedSection>
-          ))}
+        <section className="border-b border-black/20 py-20">
+          <div className="border-t border-black/45 pt-8">
+            <div className="grid gap-8 lg:grid-cols-[0.36fr_0.64fr]">
+              <div className="max-w-sm">
+                <SectionLabel>Notre terrain</SectionLabel>
+                <AnimatedText
+                  as="h2"
+                  split="words"
+                  className="mt-6 text-[clamp(2.6rem,4vw,4.2rem)] font-semibold uppercase leading-none tracking-normal text-black"
+                >
+                  Ce qu'on construit avec vous.
+                </AnimatedText>
+              </div>
+              <AnimatedText
+                as="p"
+                delay={0.1}
+                className="max-w-3xl self-end text-lg leading-7 text-black/68 md:text-xl md:leading-8"
+              >
+                TMG aide les entreprises, OBNL et équipes en croissance à
+                transformer une présence numérique floue en système clair pour
+                attirer, expliquer et convertir.
+              </AnimatedText>
+            </div>
+
+            <div className="mt-16 grid gap-8 md:grid-cols-3">
+              {enterpriseFocus.map((item, index) => (
+                <AnimatedSection
+                  key={item.title}
+                  delay={index * 0.08}
+                  className="group relative min-h-[22rem] border-t border-black/45 pt-7 text-left"
+                >
+                  <span className="mb-12 block text-sm font-medium text-black/55">
+                    {item.number}
+                  </span>
+                  <h3 className="text-[clamp(2.7rem,4vw,4.2rem)] font-semibold uppercase leading-[0.86] tracking-normal text-[var(--blue)]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-4 max-w-md text-lg leading-7 text-black/74">
+                    {item.text}
+                  </p>
+                  <p className="mt-10 border-t border-black/20 pt-5 text-sm font-semibold uppercase leading-6 tracking-normal text-black/58">
+                    {item.detail}
+                  </p>
+                  <span
+                    className="pointer-events-none absolute left-0 top-0 h-px w-0 bg-[var(--green)] transition-all duration-500 group-hover:w-full"
+                    aria-hidden="true"
+                  />
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
         </section>
       </PageContainer>
     </main>
