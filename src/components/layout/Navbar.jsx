@@ -50,7 +50,27 @@ function ServicesDropdown() {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
   const dropdownRef = useRef(null)
+  const closeTimeoutRef = useRef(null)
   const isActive = location.pathname.startsWith('/services')
+
+  const clearCloseTimeout = () => {
+    if (closeTimeoutRef.current) {
+      window.clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+  }
+
+  const openDropdown = () => {
+    clearCloseTimeout()
+    setIsOpen(true)
+  }
+
+  const scheduleCloseDropdown = () => {
+    clearCloseTimeout()
+    closeTimeoutRef.current = window.setTimeout(() => {
+      setIsOpen(false)
+    }, 180)
+  }
 
   useEffect(() => {
     if (!isOpen) {
@@ -78,12 +98,16 @@ function ServicesDropdown() {
     }
   }, [isOpen])
 
+  useEffect(() => {
+    return () => clearCloseTimeout()
+  }, [])
+
   return (
     <div
       className="relative"
       ref={dropdownRef}
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      onMouseEnter={openDropdown}
+      onMouseLeave={scheduleCloseDropdown}
     >
       <button
         type="button"
@@ -95,33 +119,38 @@ function ServicesDropdown() {
         )}
         aria-haspopup="menu"
         aria-expanded={isOpen}
-        onClick={() => setIsOpen((current) => !current)}
+        onClick={() => {
+          clearCloseTimeout()
+          setIsOpen((current) => !current)
+        }}
       >
-        Services v
+        Services
       </button>
 
       {isOpen ? (
-        <div
-          className="absolute left-1/2 top-full z-50 mt-3 w-80 -translate-x-1/2 border border-black/20 bg-[var(--bg)] p-2 shadow-[0_24px_80px_rgba(0,0,0,0.14)]"
-          role="menu"
-          aria-label="Services"
-        >
-          {serviceLinks.map((service) => (
-            <Link
-              key={service.to}
-              to={service.to}
-              role="menuitem"
-              className="block border-b border-black/10 px-4 py-4 text-left transition last:border-b-0 hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
-              onClick={() => setIsOpen(false)}
-            >
-              <span className="block text-sm font-semibold text-black">
-                {service.label}
-              </span>
-              <span className="mt-1 block text-xs leading-5 text-black/60">
-                {service.description}
-              </span>
-            </Link>
-          ))}
+        <div className="absolute left-1/2 top-full z-50 w-80 -translate-x-1/2 pt-3">
+          <div
+            className="border border-black/20 bg-[var(--bg)] p-2 shadow-[0_24px_80px_rgba(0,0,0,0.14)]"
+            role="menu"
+            aria-label="Services"
+          >
+            {serviceLinks.map((service) => (
+              <Link
+                key={service.to}
+                to={service.to}
+                role="menuitem"
+                className="block border-b border-black/10 px-4 py-4 text-left transition last:border-b-0 hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
+                onClick={() => setIsOpen(false)}
+              >
+                <span className="block text-sm font-semibold text-black">
+                  {service.label}
+                </span>
+                <span className="mt-1 block text-xs leading-5 text-black/60">
+                  {service.description}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       ) : null}
     </div>
