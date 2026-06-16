@@ -50,6 +50,40 @@ body::selection {
   background: var(--blue);
 }
 
+@keyframes tmg-stack-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-1deg);
+  }
+
+  50% {
+    transform: translate3d(0, -12px, 0) rotate(1.2deg);
+  }
+}
+
+@keyframes tmg-stack-scan {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translate3d(-50%, -58%, 0);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: translate3d(-50%, -36%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tmg-stack-float {
+    animation: tmg-stack-float 7s ease-in-out infinite;
+  }
+
+  .tmg-stack-scan {
+    animation: tmg-stack-scan 4.5s ease-in-out infinite;
+  }
+}
+
 button,
 input,
 textarea,
