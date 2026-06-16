@@ -1,5 +1,5 @@
 import { PageContainer } from '../components/layout'
-import { Card, SectionLabel } from '../components/ui'
+import { AnimatedSection, AnimatedText, Card, SectionLabel } from '../components/ui'
 
 export default function About() {
   return (
@@ -7,18 +7,24 @@ export default function About() {
       <PageContainer>
         <section className="grid min-h-[calc(100svh-6rem)] gap-8 border-b border-black/20 py-20 text-left lg:grid-cols-[0.28fr_1fr] lg:items-center">
           <SectionLabel>A propos</SectionLabel>
-          <h1 className="max-w-6xl text-[clamp(3rem,6vw,6.5rem)] font-medium leading-[0.98] tracking-normal text-black">
+          <AnimatedText
+            as="h1"
+            split="words"
+            className="max-w-6xl text-[clamp(3rem,6vw,6.5rem)] font-medium leading-[0.98] tracking-normal text-black"
+          >
             Un site doit capturer le poids de ce que vous avez construit.
-          </h1>
+          </AnimatedText>
         </section>
 
         <section className="grid gap-5 py-20 md:grid-cols-3">
-          {['Clarte', 'Impact', 'Collaboration'].map((value) => (
-            <Card key={value} className="text-left text-black">
-              <h2 className="text-5xl font-semibold uppercase leading-none tracking-normal text-[var(--blue)]">
-                {value}
-              </h2>
-            </Card>
+          {['Clarte', 'Impact', 'Collaboration'].map((value, index) => (
+            <AnimatedSection key={value} delay={index * 0.08}>
+              <Card className="text-left text-black">
+                <h2 className="text-5xl font-semibold uppercase leading-none tracking-normal text-[var(--blue)]">
+                  {value}
+                </h2>
+              </Card>
+            </AnimatedSection>
           ))}
         </section>
       </PageContainer>

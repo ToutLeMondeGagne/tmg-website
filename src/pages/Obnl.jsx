@@ -1,5 +1,5 @@
 import { PageContainer } from '../components/layout'
-import { Button, Card, SectionLabel } from '../components/ui'
+import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../components/ui'
 
 const promises = [
   {
@@ -60,14 +60,20 @@ export default function Obnl() {
           <div className="space-y-8">
             <SectionLabel>Pour les OBNL & organismes</SectionLabel>
             <h1 className="max-w-4xl text-[clamp(3.2rem,7vw,8rem)] font-medium leading-[0.92] tracking-normal text-black">
-              Votre mission mérite une présence{' '}
-              <span className="text-[var(--blue)]">à sa hauteur.</span>
+              <AnimatedText split="words">Votre mission mérite une présence</AnimatedText>{' '}
+              <AnimatedText split="words" delay={0.24} className="text-[var(--blue)]">
+                à sa hauteur.
+              </AnimatedText>
             </h1>
-            <p className="max-w-xl text-xl leading-8 text-black/70">
+            <AnimatedText
+              as="p"
+              delay={0.18}
+              className="max-w-xl text-xl leading-8 text-black/70"
+            >
               Des solutions numériques accessibles pour les organismes à but non
               lucratif qui veulent rejoindre leur communauté sans se ruiner en
               frais d&apos;agence.
-            </p>
+            </AnimatedText>
             <Button href="/contact" variant="secondary">
               Démarrer un projet
             </Button>
@@ -75,19 +81,20 @@ export default function Obnl() {
 
           <div className="grid gap-5 sm:grid-cols-2">
             {promises.map((promise, index) => (
-              <Card
-                key={promise.title}
-                className="min-h-44 text-left text-black"
-                padding="p-8"
-              >
-                <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
-                  0{index + 1}
-                </span>
-                <h2 className="mb-2 text-3xl font-semibold leading-none text-black">
-                  {promise.title}
-                </h2>
-                <p className="text-base leading-6 text-black/65">{promise.text}</p>
-              </Card>
+              <AnimatedSection key={promise.title} delay={index * 0.06}>
+                <Card
+                  className="min-h-44 text-left text-black"
+                  padding="p-8"
+                >
+                  <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
+                    0{index + 1}
+                  </span>
+                  <h2 className="mb-2 text-3xl font-semibold leading-none text-black">
+                    {promise.title}
+                  </h2>
+                  <p className="text-base leading-6 text-black/65">{promise.text}</p>
+                </Card>
+              </AnimatedSection>
             ))}
           </div>
         </section>
@@ -97,17 +104,21 @@ export default function Obnl() {
             <span className="text-sm font-medium uppercase text-[var(--blue)]">
               On comprend votre contexte
             </span>
-            <h2 className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black">
+            <AnimatedText
+              as="h2"
+              split="words"
+              className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
+            >
               Les contraintes des OBNL.
-            </h2>
-            <p className="text-xl leading-8 text-black/70">
+            </AnimatedText>
+            <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
               Et comment TMG les adresse concrètement.
-            </p>
+            </AnimatedText>
           </div>
 
           <div className="space-y-5">
             {constraints.map((item) => (
-              <div
+              <AnimatedSection
                 key={item.challengeTitle}
                 className="grid gap-5 lg:grid-cols-2"
               >
@@ -130,7 +141,7 @@ export default function Obnl() {
                   </h3>
                   <p className="text-lg leading-8 text-black/70">{item.answer}</p>
                 </Card>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </section>
@@ -140,48 +151,57 @@ export default function Obnl() {
             <span className="text-sm font-medium uppercase text-[var(--blue)]">
               Ce qu&apos;on vous offre
             </span>
-            <h2 className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black">
+            <AnimatedText
+              as="h2"
+              split="words"
+              className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
+            >
               Nos services pour les OBNL
-            </h2>
-            <p className="text-xl leading-8 text-black/70">
+            </AnimatedText>
+            <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
               Chaque service est adapté aux réalités et aux objectifs des
               organismes à but non lucratif.
-            </p>
+            </AnimatedText>
           </div>
 
           <div className="space-y-5">
             {obnlServices.map((service, index) => (
-              <Card
-                key={service.title}
-                className="grid gap-6 text-left text-black md:grid-cols-[0.08fr_1fr_auto] md:items-center"
-                padding="p-8"
-              >
-                <span className="text-sm font-medium">0{index + 1}</span>
-                <div>
-                  <h3 className="mb-2 text-2xl font-semibold leading-tight text-black">
-                    {service.title}
-                  </h3>
-                  <p className="max-w-4xl text-base leading-7 text-black/70">
-                    {service.text}
-                  </p>
-                </div>
-                <span className="text-sm font-medium uppercase text-[var(--blue)]">
-                  {service.timeline}
-                </span>
-              </Card>
+              <AnimatedSection key={service.title} delay={index * 0.06}>
+                <Card
+                  className="grid gap-6 text-left text-black md:grid-cols-[0.08fr_1fr_auto] md:items-center"
+                  padding="p-8"
+                >
+                  <span className="text-sm font-medium">0{index + 1}</span>
+                  <div>
+                    <h3 className="mb-2 text-2xl font-semibold leading-tight text-black">
+                      {service.title}
+                    </h3>
+                    <p className="max-w-4xl text-base leading-7 text-black/70">
+                      {service.text}
+                    </p>
+                  </div>
+                  <span className="text-sm font-medium uppercase text-[var(--blue)]">
+                    {service.timeline}
+                  </span>
+                </Card>
+              </AnimatedSection>
             ))}
           </div>
         </section>
 
         <section className="grid gap-8 py-20 text-left lg:grid-cols-[0.6fr_0.4fr] lg:items-end">
-          <h2 className="max-w-4xl text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black">
+          <AnimatedText
+            as="h2"
+            split="words"
+            className="max-w-4xl text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
+          >
             Un budget adapté à votre mission.
-          </h2>
+          </AnimatedText>
           <div className="space-y-6">
-            <p className="text-xl leading-8 text-black/70">
+            <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
               Votre organisme mérite une présence claire sans modèle compliqué
               ni frais inutiles.
-            </p>
+            </AnimatedText>
             <Button href="/contact">Lancer un projet OBNL</Button>
           </div>
         </section>

@@ -1,5 +1,6 @@
 import { PageContainer } from '../components/layout'
 import { ContactForm } from '../components/forms'
+import { AnimatedText } from '../components/ui'
 
 export default function Contact() {
   return (
@@ -10,9 +11,13 @@ export default function Contact() {
             <span className="text-base font-medium uppercase italic text-[var(--blue)]">
               [ Contact ]
             </span>
-            <h1 className="max-w-4xl text-[clamp(3.8rem,8vw,8rem)] font-medium leading-[0.92] tracking-normal text-black">
+            <AnimatedText
+              as="h1"
+              split="words"
+              className="max-w-4xl text-[clamp(3.8rem,8vw,8rem)] font-medium leading-[0.92] tracking-normal text-black"
+            >
               Dites-nous ce que vous construisez.
-            </h1>
+            </AnimatedText>
           </div>
           <div className="flex items-end justify-start gap-5 text-sm font-medium uppercase text-black lg:justify-end">
             <a
@@ -37,15 +42,19 @@ export default function Contact() {
         <section className="grid gap-12 py-16 text-left lg:grid-cols-[0.42fr_0.58fr]">
           <aside className="flex flex-col justify-between gap-12 lg:min-h-[42rem]">
             <div className="max-w-md space-y-6">
-              <p className="text-2xl leading-8 text-black/80">
+              <AnimatedText as="p" className="text-2xl leading-8 text-black/80">
                 Ce formulaire nous aide a comprendre ou vous en etes, ce que
                 vous construisez et le type de site qui peut vraiment soutenir
                 votre croissance.
-              </p>
-              <p className="text-base leading-7 text-black/60">
+              </AnimatedText>
+              <AnimatedText
+                as="p"
+                delay={0.1}
+                className="text-base leading-7 text-black/60"
+              >
                 On lit chaque demande nous-memes. Ensuite, on vous revient avec
                 les prochaines etapes les plus simples.
-              </p>
+              </AnimatedText>
             </div>
             <div className="space-y-2 text-sm text-black/70">
               <p>Ou ecrivez-nous directement :</p>

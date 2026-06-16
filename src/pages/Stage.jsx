@@ -1,6 +1,6 @@
 import { PageContainer } from '../components/layout'
 import { InternshipForm } from '../components/forms'
-import { Button, Card, SectionLabel } from '../components/ui'
+import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../components/ui'
 
 const internshipBenefits = [
   {
@@ -36,29 +36,35 @@ export default function Stage() {
         <section className="grid gap-8 border-b border-black/20 py-20 text-left lg:grid-cols-[0.42fr_0.58fr] lg:items-center">
           <div className="space-y-7">
             <SectionLabel>Stagiaires</SectionLabel>
-            <h1 className="text-[clamp(3rem,6vw,6.6rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black">
+            <AnimatedText
+              as="h1"
+              split="words"
+              className="text-[clamp(3rem,6vw,6.6rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black"
+            >
               Learn by building.
-            </h1>
-            <p className="text-xl leading-8 text-black/70">
+            </AnimatedText>
+            <AnimatedText as="p" delay={0.16} className="text-xl leading-8 text-black/70">
               TMG accueille les profils curieux qui veulent pratiquer le
               marketing, le design, le contenu et le web dans des projets reels.
-            </p>
+            </AnimatedText>
             <Button href="#candidature" variant="secondary">
               Proposer une candidature
             </Button>
           </div>
 
-          <Card className="text-left text-black" padding="p-8">
-            <h2 className="mb-8 text-5xl font-semibold uppercase leading-none tracking-normal text-[var(--blue)]">
-              Process
-            </h2>
-            <ul className="space-y-4 text-xl text-black/70">
-              <li>Autonomie accompagnee</li>
-              <li>Curiosite et envie d apprendre</li>
-              <li>Communication claire</li>
-              <li>Livrables utiles, pas seulement decoratifs</li>
-            </ul>
-          </Card>
+          <AnimatedSection delay={0.12}>
+            <Card className="text-left text-black" padding="p-8">
+              <h2 className="mb-8 text-5xl font-semibold uppercase leading-none tracking-normal text-[var(--blue)]">
+                Process
+              </h2>
+              <ul className="space-y-4 text-xl text-black/70">
+                <li>Autonomie accompagnee</li>
+                <li>Curiosite et envie d apprendre</li>
+                <li>Communication claire</li>
+                <li>Livrables utiles, pas seulement decoratifs</li>
+              </ul>
+            </Card>
+          </AnimatedSection>
         </section>
 
         <section className="border-b border-black/20 py-20 text-left">
@@ -66,29 +72,34 @@ export default function Stage() {
             <span className="text-sm font-medium uppercase text-[var(--blue)]">
               Ce que tu y gagnes
             </span>
-            <h2 className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black">
+            <AnimatedText
+              as="h2"
+              split="words"
+              className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
+            >
               Un stage qui fait vraiment la différence.
-            </h2>
-            <p className="text-xl leading-8 text-black/70">
+            </AnimatedText>
+            <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
               TMG n&apos;est pas un stage ordinaire. Voici ce qui nous distingue.
-            </p>
+            </AnimatedText>
           </div>
 
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {internshipBenefits.map((benefit, index) => (
-              <Card
-                key={benefit.title}
-                className="min-h-56 text-left text-black"
-                padding="p-8"
-              >
-                <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
-                  0{index + 1}
-                </span>
-                <h3 className="mb-4 text-2xl font-semibold leading-tight text-black">
-                  {benefit.title}
-                </h3>
-                <p className="text-base leading-7 text-black/70">{benefit.text}</p>
-              </Card>
+              <AnimatedSection key={benefit.title} delay={(index % 3) * 0.06}>
+                <Card
+                  className="min-h-56 text-left text-black"
+                  padding="p-8"
+                >
+                  <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
+                    0{index + 1}
+                  </span>
+                  <h3 className="mb-4 text-2xl font-semibold leading-tight text-black">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-base leading-7 text-black/70">{benefit.text}</p>
+                </Card>
+              </AnimatedSection>
             ))}
           </div>
         </section>
@@ -102,14 +113,18 @@ export default function Stage() {
               <span className="text-base font-medium uppercase italic text-[var(--blue)]">
                 [ Candidature ]
               </span>
-              <h2 className="text-[clamp(3rem,6vw,6rem)] font-medium leading-[0.92] tracking-normal text-black">
+              <AnimatedText
+                as="h2"
+                split="words"
+                className="text-[clamp(3rem,6vw,6rem)] font-medium leading-[0.92] tracking-normal text-black"
+              >
                 Un formulaire pense pour les stagiaires.
-              </h2>
-              <p className="text-xl leading-8 text-black/70">
+              </AnimatedText>
+              <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
                 Ici, on ne demande pas un budget ou un objectif de conversion.
                 On veut comprendre ce que vous voulez apprendre, vos
                 disponibilites et le type de projets qui vous motive.
-              </p>
+              </AnimatedText>
             </div>
             <div className="space-y-2 text-sm text-black/70">
               <p>Pour une question rapide :</p>
