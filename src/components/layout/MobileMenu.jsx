@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { serviceLinks } from './serviceLinks'
 
@@ -39,14 +40,21 @@ function joinClasses(...classes) {
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef(null)
+  const panelRef = useRef(null)
 
   useEffect(() => {
     if (!isOpen) {
       return undefined
     }
 
+    const previousBodyOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
     const handlePointerDown = (event) => {
-      if (!menuRef.current?.contains(event.target)) {
+      const isInsideButton = menuRef.current?.contains(event.target)
+      const isInsidePanel = panelRef.current?.contains(event.target)
+
+      if (!isInsideButton && !isInsidePanel) {
         setIsOpen(false)
       }
     }
@@ -61,16 +69,17 @@ export default function MobileMenu() {
     document.addEventListener('keydown', handleKeyDown)
 
     return () => {
+      document.body.style.overflow = previousBodyOverflow
       document.removeEventListener('pointerdown', handlePointerDown)
       document.removeEventListener('keydown', handleKeyDown)
     }
   }, [isOpen])
 
   return (
-    <div className="md:hidden" ref={menuRef}>
+    <div className="relative z-[100] md:hidden" ref={menuRef}>
       <button
         type="button"
-        className="relative z-[70] inline-flex h-12 w-12 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-white transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
+        className="relative z-[120] inline-flex h-12 w-12 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-white transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
         aria-controls="mobile-menu-panel"
         aria-expanded={isOpen}
         aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -99,67 +108,90 @@ export default function MobileMenu() {
         </span>
       </button>
 
-      <AnimatePresence>
-        {isOpen ? (
-          <>
-            <motion.div
-              className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => setIsOpen(false)}
-              aria-hidden="true"
-            />
-            <motion.aside
-              id="mobile-menu-panel"
-              className="fixed bottom-0 right-0 top-0 z-[60] flex w-[min(88vw,390px)] flex-col border-l border-black/15 bg-[var(--bg)] px-6 py-28 shadow-[-24px_0_80px_rgba(0,0,0,0.16)]"
-              initial="closed"
-              animate="open"
-              exit="closed"
-              variants={panelVariants}
-              transition={{ type: 'spring', stiffness: 320, damping: 34 }}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Navigation mobile"
-            >
-              <motion.div
-                className="flex flex-col gap-2"
-                variants={listVariants}
-                initial="closed"
-                animate="open"
-                exit="closed"
-              >
-                {mobileLinks.map((link) => (
-                  <motion.div key={link.to} variants={linkVariants}>
-                    <Link
-                      to={link.to}
-                      className="block border-b border-black/15 px-1 py-5 text-4xl font-semibold uppercase leading-none tracking-normal text-black transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
+      {typeof document !== 'undefined'
+        ? createPortal(
+            <AnimatePresence>
+              {isOpen ? (
+                <>
+                  <motion.div
+                    className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    onClick={() => setIsOpen(false)}
+                    aria-hidden="true"
+                  />
+                  <motion.aside
+                    id="mobile-menu-panel"
+                    ref={panelRef}
+                    className="fixed inset-y-0 right-0 z-[120] flex w-[min(92vw,420px)] flex-col overflow-y-auto overscroll-contain border-l border-white/15 bg-[#07111f] px-6 pb-8 pt-24 text-white shadow-[-28px_0_90px_rgba(0,0,0,0.45)]"
+                    initial="closed"
+                    animate="open"
+                    exit="closed"
+                    variants={panelVariants}
+                    transition={{ type: 'spring', stiffness: 320, damping: 34 }}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Navigation mobile"
+                  >
+                    <button
+                      type="button"
+                      className="absolute right-5 top-6 inline-flex h-12 w-12 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-white transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green)]"
+                      aria-label="Fermer le menu"
                       onClick={() => setIsOpen(false)}
                     >
-                      {link.label}
-                    </Link>
-                    {link.children ? (
-                      <div className="border-b border-black/15 py-2">
-                        {link.children.map((child) => (
+                      <span className="relative h-5 w-5" aria-hidden="true">
+                        <span className="absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 rotate-45 bg-white" />
+                        <span className="absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 -rotate-45 bg-white" />
+                      </span>
+                    </button>
+
+                    <motion.div
+                      className="flex flex-col gap-1"
+                      variants={listVariants}
+                      initial="closed"
+                      animate="open"
+                      exit="closed"
+                    >
+                      {mobileLinks.map((link) => (
+                        <motion.div key={link.to} variants={linkVariants}>
                           <Link
-                            key={child.to}
-                            to={child.to}
-                            className="block px-4 py-3 text-base font-medium uppercase leading-tight text-black/70 transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
+                            to={link.to}
+                            className="block border-b border-white/15 px-1 py-5 text-3xl font-semibold uppercase leading-none tracking-normal text-white transition hover:text-[var(--green)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green)] sm:text-4xl"
                             onClick={() => setIsOpen(false)}
                           >
-                            {child.label}
+                            {link.label}
                           </Link>
-                        ))}
-                      </div>
-                    ) : null}
-                  </motion.div>
-                ))}
-              </motion.div>
-            </motion.aside>
-          </>
-        ) : null}
-      </AnimatePresence>
+                          {link.children ? (
+                            <div className="my-3 border border-white/15 bg-white/[0.06] p-2 shadow-[0_20px_60px_rgba(0,0,0,0.24)]">
+                              {link.children.map((child) => (
+                                <Link
+                                  key={child.to}
+                                  to={child.to}
+                                  className="block border-b border-white/10 px-4 py-4 text-left transition last:border-b-0 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green)]"
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  <span className="block text-sm font-semibold uppercase leading-tight tracking-normal text-white">
+                                    {child.label}
+                                  </span>
+                                  <span className="mt-1 block text-xs leading-5 text-white/62">
+                                    {child.description}
+                                  </span>
+                                </Link>
+                              ))}
+                            </div>
+                          ) : null}
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  </motion.aside>
+                </>
+              ) : null}
+            </AnimatePresence>,
+            document.body,
+          )
+        : null}
     </div>
   )
 }
