@@ -1,5 +1,5 @@
 import { PageContainer } from '../components/layout'
-import { Card, SectionLabel } from '../components/ui'
+import { AnimatedSection, AnimatedText, Card, SectionLabel } from '../components/ui'
 
 const questions = [
   {
@@ -22,25 +22,30 @@ export default function QA() {
       <PageContainer>
         <section className="grid gap-8 border-b border-black/20 py-20 text-left lg:grid-cols-[0.28fr_1fr]">
           <SectionLabel>FAQ</SectionLabel>
-          <h1 className="max-w-6xl text-[clamp(3rem,8vw,9rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black">
+          <AnimatedText
+            as="h1"
+            split="words"
+            className="max-w-6xl text-[clamp(3rem,8vw,9rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black"
+          >
             Questions frequentes.
-          </h1>
+          </AnimatedText>
         </section>
 
         <section>
           {questions.map((item, index) => (
-            <Card
-              key={item.question}
-              className="grid gap-8 text-left text-black lg:grid-cols-[0.08fr_0.42fr_0.5fr]"
-              hover={false}
-              padding="py-10"
-            >
-              <span className="text-sm font-medium">0{index + 1}</span>
-              <h2 className="text-4xl font-semibold leading-none tracking-normal text-black">
-                {item.question}
-              </h2>
-              <p className="text-xl leading-8 text-black/70">{item.answer}</p>
-            </Card>
+            <AnimatedSection key={item.question} delay={index * 0.05}>
+              <Card
+                className="grid gap-8 text-left text-black lg:grid-cols-[0.08fr_0.42fr_0.5fr]"
+                hover={false}
+                padding="py-10"
+              >
+                <span className="text-sm font-medium">0{index + 1}</span>
+                <h2 className="text-4xl font-semibold leading-none tracking-normal text-black">
+                  {item.question}
+                </h2>
+                <p className="text-xl leading-8 text-black/70">{item.answer}</p>
+              </Card>
+            </AnimatedSection>
           ))}
         </section>
       </PageContainer>

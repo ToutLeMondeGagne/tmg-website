@@ -1,8 +1,8 @@
 export const buttonBaseClasses = [
-  'inline-flex items-center justify-center gap-2',
+  'group relative isolate inline-flex items-center justify-center gap-2 overflow-hidden',
   'border border-[var(--blue)] px-5 py-3 text-sm font-medium uppercase leading-none tracking-normal',
-  'transition duration-200 ease-out',
-  'hover:-translate-y-0.5 active:translate-y-0',
+  'transition duration-300 ease-out',
+  'hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,76,255,0.16)] active:translate-y-0 active:scale-[0.98]',
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]',
 ]
 

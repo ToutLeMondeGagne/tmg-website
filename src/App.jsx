@@ -9,7 +9,7 @@ import Obnl from './pages/Obnl'
 import About from './pages/About'
 import QA from './pages/QA'
 import NotFound from './pages/NotFound'
-import { Footer, Navbar } from './components/layout'
+import { Footer, Navbar, ScrollProgress } from './components/layout'
 import './App.css'
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
 
   return (
     <>
+      <ScrollProgress />
       <Navbar />
       <div className="pt-24">
         <Routes>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { PageContainer } from '../components/layout'
-import { Button, Card, SectionLabel } from '../components/ui'
+import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../components/ui'
 
 const promises = [
   {
@@ -63,14 +63,20 @@ export default function Pme() {
           <div className="space-y-8">
             <SectionLabel>Pour les entreprises</SectionLabel>
             <h1 className="max-w-4xl text-[clamp(3.2rem,7vw,8rem)] font-medium leading-[0.92] tracking-normal text-black">
-              Croissez sans vous ruiner en{' '}
-              <span className="text-[var(--blue)]">marketing.</span>
+              <AnimatedText split="words">Croissez sans vous ruiner en</AnimatedText>{' '}
+              <AnimatedText split="words" delay={0.24} className="text-[var(--blue)]">
+                marketing.
+              </AnimatedText>
             </h1>
-            <p className="max-w-xl text-xl leading-8 text-black/70">
+            <AnimatedText
+              as="p"
+              delay={0.18}
+              className="max-w-xl text-xl leading-8 text-black/70"
+            >
               Des stratégies marketing et des sites web de qualité
               professionnelle, à un coût adapté à la réalité d&apos;une PME ou
               d&apos;une startup en croissance.
-            </p>
+            </AnimatedText>
             <Button href="/contact" variant="secondary">
               Démarrer un projet
             </Button>
@@ -78,19 +84,20 @@ export default function Pme() {
 
           <div className="grid gap-5 sm:grid-cols-2">
             {promises.map((promise, index) => (
-              <Card
-                key={promise.title}
-                className="min-h-44 text-left text-black"
-                padding="p-8"
-              >
-                <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
-                  0{index + 1}
-                </span>
-                <h2 className="mb-2 text-3xl font-semibold leading-none text-black">
-                  {promise.title}
-                </h2>
-                <p className="text-base leading-6 text-black/65">{promise.text}</p>
-              </Card>
+              <AnimatedSection key={promise.title} delay={index * 0.06}>
+                <Card
+                  className="min-h-44 text-left text-black"
+                  padding="p-8"
+                >
+                  <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
+                    0{index + 1}
+                  </span>
+                  <h2 className="mb-2 text-3xl font-semibold leading-none text-black">
+                    {promise.title}
+                  </h2>
+                  <p className="text-base leading-6 text-black/65">{promise.text}</p>
+                </Card>
+              </AnimatedSection>
             ))}
           </div>
         </section>
@@ -100,17 +107,24 @@ export default function Pme() {
             <span className="text-sm font-medium uppercase text-[var(--blue)]">
               On vous comprend
             </span>
-            <h2 className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black">
+            <AnimatedText
+              as="h2"
+              split="words"
+              className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
+            >
               Les défis que vous connaissez.
-            </h2>
-            <p className="text-xl leading-8 text-black/70">
+            </AnimatedText>
+            <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
               Et les solutions qu&apos;on apporte.
-            </p>
+            </AnimatedText>
           </div>
 
           <div className="space-y-5">
             {challenges.map((item) => (
-              <div key={item.problemTitle} className="grid gap-5 lg:grid-cols-2">
+              <AnimatedSection
+                key={item.problemTitle}
+                className="grid gap-5 lg:grid-cols-2"
+              >
                 <Card className="text-left text-black" padding="p-8">
                   <span className="mb-3 block text-sm font-medium uppercase text-red-500">
                     Problème
@@ -130,7 +144,7 @@ export default function Pme() {
                   </h3>
                   <p className="text-lg leading-8 text-black/70">{item.answer}</p>
                 </Card>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </section>
@@ -140,49 +154,62 @@ export default function Pme() {
             <span className="text-sm font-medium uppercase text-[var(--blue)]">
               Ce qu&apos;on vous offre
             </span>
-            <h2 className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black">
+            <AnimatedText
+              as="h2"
+              split="words"
+              className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
+            >
               Nos services pour les PME
-            </h2>
-            <p className="text-xl leading-8 text-black/70">
+            </AnimatedText>
+            <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
               Des livrables concrets, des délais réalistes, une supervision
               professionnelle.
-            </p>
+            </AnimatedText>
           </div>
 
           <div className="space-y-5">
             {pmeServices.map((service, index) => (
-              <Link
-                key={service.title}
-                to={service.href}
-                className="grid gap-6 border border-black/20 bg-[var(--card)] p-8 text-left text-black transition duration-200 hover:-translate-y-0.5 hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)] md:grid-cols-[0.08fr_1fr_auto] md:items-center"
-              >
-                <span className="text-sm font-medium">0{index + 1}</span>
-                <div>
-                  <h3 className="mb-2 text-2xl font-semibold leading-tight text-black">
-                    {service.title}
-                  </h3>
-                  <p className="max-w-4xl text-base leading-7 text-black/70">
-                    {service.text}
-                  </p>
-                </div>
-                <span className="text-sm font-medium uppercase text-[var(--blue)]">
-                  {service.timeline}
-                </span>
-              </Link>
+              <AnimatedSection key={service.title} delay={index * 0.06}>
+                <Link
+                  to={service.href}
+                  className="grid gap-6 border border-black/20 bg-[var(--card)] p-8 text-left text-black transition duration-200 hover:-translate-y-0.5 hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)] md:grid-cols-[0.08fr_1fr_auto] md:items-center"
+                >
+                  <span className="text-sm font-medium">0{index + 1}</span>
+                  <div>
+                    <h3 className="mb-2 text-2xl font-semibold leading-tight text-black">
+                      {service.title}
+                    </h3>
+                    <p className="max-w-4xl text-base leading-7 text-black/70">
+                      {service.text}
+                    </p>
+                  </div>
+                  <span className="text-sm font-medium uppercase text-[var(--blue)]">
+                    {service.timeline}
+                  </span>
+                </Link>
+              </AnimatedSection>
             ))}
           </div>
         </section>
 
         <section className="grid gap-8 py-20 text-left lg:grid-cols-[0.6fr_0.4fr] lg:items-end">
           <div>
-            <h2 className="max-w-4xl text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black">
+            <AnimatedText
+              as="h2"
+              split="words"
+              className="max-w-4xl text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
+            >
               Un budget adapté à votre réalité.
-            </h2>
-            <p className="mt-6 max-w-xl text-xl leading-8 text-black/70">
+            </AnimatedText>
+            <AnimatedText
+              as="p"
+              delay={0.12}
+              className="mt-6 max-w-xl text-xl leading-8 text-black/70"
+            >
               On ne pratique pas les tarifs d&apos;une grande agence. On discute
               de votre projet, de vos contraintes, et on trouve ensemble une
               approche qui vous convient.
-            </p>
+            </AnimatedText>
           </div>
           <Button href="/contact" className="justify-self-start lg:justify-self-end">
             Démarrer un projet

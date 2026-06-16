@@ -1,5 +1,5 @@
 import { PageContainer } from '../components/layout'
-import { Button, Card, SectionLabel } from '../components/ui'
+import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../components/ui'
 
 const webService = {
   label: 'Service web',
@@ -114,12 +114,19 @@ function ServiceDetail({ service }) {
         <section className="grid min-h-[calc(100svh-6rem)] gap-12 border-b border-black/20 py-20 text-left lg:grid-cols-[0.5fr_0.5fr] lg:items-center">
           <div className="space-y-8">
             <SectionLabel>{service.label}</SectionLabel>
-            <h1 className="max-w-4xl text-[clamp(3rem,7vw,7.5rem)] font-medium leading-[0.92] tracking-normal text-black">
+            <AnimatedText
+              as="h1"
+              className="max-w-4xl text-[clamp(3rem,7vw,7.5rem)] font-medium leading-[0.92] tracking-normal text-black"
+            >
               {service.title}
-            </h1>
-            <p className="max-w-xl text-xl leading-8 text-black/70">
+            </AnimatedText>
+            <AnimatedText
+              as="p"
+              delay={0.16}
+              className="max-w-xl text-xl leading-8 text-black/70"
+            >
               {service.description}
-            </p>
+            </AnimatedText>
             <Button href="/contact" variant="secondary">
               {service.cta}
             </Button>
@@ -127,23 +134,24 @@ function ServiceDetail({ service }) {
 
           <div className="space-y-5">
             {service.facts.map((fact, index) => (
-              <Card
-                key={fact.title}
-                className="grid gap-5 text-left text-black sm:grid-cols-[3.5rem_1fr] sm:items-center"
-                padding="p-6"
-              >
-                <span className="flex h-11 w-11 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
-                  0{index + 1}
-                </span>
-                <span>
-                  <strong className="block text-2xl font-semibold leading-tight text-black">
-                    {fact.title}
-                  </strong>
-                  <span className="text-base leading-6 text-black/65">
-                    {fact.text}
+              <AnimatedSection key={fact.title} delay={index * 0.06}>
+                <Card
+                  className="grid gap-5 text-left text-black sm:grid-cols-[3.5rem_1fr] sm:items-center"
+                  padding="p-6"
+                >
+                  <span className="flex h-11 w-11 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
+                    0{index + 1}
                   </span>
-                </span>
-              </Card>
+                  <span>
+                    <strong className="block text-2xl font-semibold leading-tight text-black">
+                      {fact.title}
+                    </strong>
+                    <span className="text-base leading-6 text-black/65">
+                      {fact.text}
+                    </span>
+                  </span>
+                </Card>
+              </AnimatedSection>
             ))}
           </div>
         </section>
@@ -153,19 +161,24 @@ function ServiceDetail({ service }) {
             <span className="text-sm font-medium uppercase text-[var(--blue)]">
               Ce qu&apos;on livre
             </span>
-            <h2 className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black">
+            <AnimatedText
+              as="h2"
+              split="words"
+              className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
+            >
               Vos livrables, en détail
-            </h2>
-            <p className="text-xl leading-8 text-black/70">
+            </AnimatedText>
+            <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
               {service.deliverablesIntro}
-            </p>
+            </AnimatedText>
           </div>
 
           <div className="grid overflow-hidden border border-black/20 md:grid-cols-2 xl:grid-cols-3">
             {service.deliverables.map((deliverable, index) => (
-              <div
+              <AnimatedSection
                 key={deliverable.title}
                 className="border-b border-r border-black/15 bg-[var(--card)] p-8 text-left text-black"
+                delay={(index % 3) * 0.05}
               >
                 <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
                   0{index + 1}
@@ -176,19 +189,23 @@ function ServiceDetail({ service }) {
                 <p className="text-base leading-7 text-black/70">
                   {deliverable.text}
                 </p>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </section>
 
         <section className="grid gap-8 border-b border-black/20 py-20 text-left lg:grid-cols-[0.6fr_0.4fr] lg:items-center">
           <div>
-            <h2 className="text-[clamp(2.6rem,5vw,5.5rem)] font-medium leading-[0.94] tracking-normal text-black">
+            <AnimatedText
+              as="h2"
+              split="words"
+              className="text-[clamp(2.6rem,5vw,5.5rem)] font-medium leading-[0.94] tracking-normal text-black"
+            >
               {service.closingTitle}
-            </h2>
-            <p className="mt-5 text-xl leading-8 text-black/70">
+            </AnimatedText>
+            <AnimatedText as="p" delay={0.12} className="mt-5 text-xl leading-8 text-black/70">
               {service.closingText}
-            </p>
+            </AnimatedText>
           </div>
           <Button href="/contact" className="justify-self-start lg:justify-self-end">
             Nous contacter
