@@ -77,20 +77,72 @@ body::selection {
 @keyframes tmg-logo-orbit {
   0%,
   100% {
-    transform: translate3d(-8px, -7px, 0) rotate(-4deg) scale(0.96);
+    opacity: 0.92;
+    transform: translate3d(
+        calc(-50% + var(--orbit-x)),
+        calc(-50% + var(--orbit-y)),
+        0
+      )
+      rotate(var(--orbit-rotate-start, -4deg)) scale(0.96);
   }
 
-  25% {
-    transform: translate3d(10px, -3px, 0) rotate(3deg) scale(1);
+  18% {
+    opacity: 1;
+    transform: translate3d(
+        calc(-50% + var(--orbit-x) + var(--orbit-drift-x)),
+        calc(-50% + var(--orbit-y) + var(--orbit-drift-y)),
+        0
+      )
+      rotate(var(--orbit-rotate-end, 5deg)) scale(1.04);
   }
 
-  50% {
-    transform: translate3d(8px, 10px, 0) rotate(5deg) scale(1.04);
+  34% {
+    opacity: 0.96;
+    transform: translate3d(
+        calc(-50% + var(--orbit-x)),
+        calc(-50% + var(--orbit-y)),
+        0
+      )
+      rotate(0deg) scale(0.98);
   }
 
-  75% {
-    transform: translate3d(-10px, 5px, 0) rotate(-2deg) scale(1);
+  50%,
+  62% {
+    opacity: 0.98;
+    transform: translate3d(-50%, -50%, 0) rotate(180deg) scale(0.74);
   }
+
+  76% {
+    opacity: 1;
+    transform: translate3d(
+        calc(-50% + var(--orbit-x) - var(--orbit-drift-x)),
+        calc(-50% + var(--orbit-y) - var(--orbit-drift-y)),
+        0
+      )
+      rotate(var(--orbit-rotate-end, 5deg)) scale(1.05);
+  }
+
+  88% {
+    opacity: 0.94;
+    transform: translate3d(
+        calc(-50% + var(--orbit-x)),
+        calc(-50% + var(--orbit-y)),
+        0
+      )
+      rotate(var(--orbit-rotate-start, -4deg)) scale(0.98);
+  }
+}
+
+.tmg-logo-orbit {
+  opacity: 0.92;
+  transform: translate3d(
+      calc(-50% + var(--orbit-x)),
+      calc(-50% + var(--orbit-y)),
+      0
+    )
+    rotate(var(--orbit-rotate-start, -4deg)) scale(0.96);
+  transform-origin: center;
+  will-change: opacity, transform;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -103,7 +155,7 @@ body::selection {
   }
 
   .tmg-logo-orbit {
-    animation: tmg-logo-orbit 7.4s ease-in-out infinite;
+    animation: tmg-logo-orbit 9.5s ease-in-out infinite;
     animation-delay: var(--orbit-delay, 0s);
   }
 }
