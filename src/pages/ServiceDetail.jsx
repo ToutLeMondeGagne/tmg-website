@@ -1,4 +1,5 @@
 import { PageContainer } from '../components/layout'
+import RelatedLinks from '../components/seo/RelatedLinks'
 import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../components/ui'
 
 const webService = {
@@ -212,11 +213,7 @@ function ServiceDetail({ service }) {
           </Button>
         </section>
 
-        <section className="py-16">
-          <Button href={service.related.to} variant="outline">
-            {service.related.title} - {service.related.text}
-          </Button>
-        </section>
+        <RelatedLinks />
       </PageContainer>
     </main>
   )

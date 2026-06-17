@@ -5,12 +5,11 @@ function joinClasses(...classes) {
 }
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: 34, scale: 0.985, filter: 'blur(4px)' },
+  hidden: { opacity: 0, y: 34, scale: 0.985 },
   visible: ({ delay, duration, staggerChildren }) => ({
     opacity: 1,
     y: 0,
     scale: 1,
-    filter: 'blur(0px)',
     transition: {
       delay,
       duration,
@@ -28,7 +27,7 @@ export default function AnimatedSection({
   duration = 0.65,
   staggerChildren = 0.06,
   once = true,
-  amount = 0.22,
+  amount = 0.08,
   ...props
 }) {
   const shouldReduceMotion = useReducedMotion()

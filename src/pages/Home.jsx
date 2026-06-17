@@ -1,4 +1,5 @@
 import { PageContainer } from '../components/layout'
+import RelatedLinks from '../components/seo/RelatedLinks'
 import {
   AnimatedSection,
   AnimatedText,
@@ -147,6 +148,7 @@ function HeroStackVisual() {
             width="720"
             height="356"
             className="tmg-logo-card-mark h-auto w-full object-contain"
+            loading="lazy"
             decoding="async"
             draggable="false"
           />
@@ -224,7 +226,7 @@ export default function Home() {
           </div>
           <div className="space-y-8">
             <AnimatedText
-              as="h1"
+              as="h2"
               split="words"
               className="max-w-5xl text-[clamp(2.6rem,5vw,5.8rem)] font-medium leading-[0.98] tracking-normal text-black"
             >
@@ -259,6 +261,8 @@ export default function Home() {
             </AnimatedSection>
           ))}
         </section>
+
+        <RelatedLinks />
 
         <section className="py-20">
           <AnimatedSection>

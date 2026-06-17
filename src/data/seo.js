@@ -188,6 +188,179 @@ export const seoPages = {
   },
 }
 
+export const relatedPageLinks = {
+  '/': [
+    {
+      title: 'Services web et marketing',
+      description: 'Voir comment TMG structure les sites, le marketing et les systèmes.',
+      to: '/services',
+    },
+    {
+      title: 'Solutions pour PME',
+      description: 'Des sites et audits adaptés aux équipes qui veulent croître clairement.',
+      to: '/pme',
+    },
+    {
+      title: 'Solutions pour OBNL',
+      description: 'Une présence numérique accessible pour soutenir votre mission.',
+      to: '/obnl',
+    },
+  ],
+  '/services': [
+    {
+      title: 'Création et refonte web',
+      description: 'Site rapide, clair, mobile-first et pensé pour convertir.',
+      to: '/services/web',
+    },
+    {
+      title: 'Audit marketing',
+      description: 'Clarifier vos priorités, vos contenus et vos indicateurs.',
+      to: '/services/marketing',
+    },
+    {
+      title: 'PME et startups',
+      description: 'Des livrables réalistes pour avancer sans modèle d’agence lourd.',
+      to: '/pme',
+    },
+  ],
+  '/services/web': [
+    {
+      title: 'Audit marketing',
+      description: 'Compléter votre site avec une stratégie claire et mesurable.',
+      to: '/services/marketing',
+    },
+    {
+      title: 'Services pour PME',
+      description: 'Voir l’approche TMG pour les entreprises en croissance.',
+      to: '/pme',
+    },
+    {
+      title: 'Services pour OBNL',
+      description: 'Adapter votre site à une mission, une communauté et des dons.',
+      to: '/obnl',
+    },
+  ],
+  '/services/marketing': [
+    {
+      title: 'Création et refonte web',
+      description: 'Transformer la stratégie en pages claires et performantes.',
+      to: '/services/web',
+    },
+    {
+      title: 'Services pour PME',
+      description: 'Prioriser les actions marketing d’une petite équipe.',
+      to: '/pme',
+    },
+    {
+      title: 'Contact',
+      description: 'Discuter de votre situation et de la meilleure prochaine étape.',
+      to: '/contact',
+    },
+  ],
+  '/pme': [
+    {
+      title: 'Création et refonte web',
+      description: 'Un site vitrine ou e-commerce mobile-first et optimisé SEO.',
+      to: '/services/web',
+    },
+    {
+      title: 'Audit marketing',
+      description: 'Positionnement, contenu, concurrents et plan d’action.',
+      to: '/services/marketing',
+    },
+    {
+      title: 'À propos de TMG',
+      description: 'Comprendre le modèle propulsé par la relève.',
+      to: '/a-propos',
+    },
+  ],
+  '/obnl': [
+    {
+      title: 'Création et refonte web',
+      description: 'Un site accessible pour mobiliser donateurs, bénévoles et bénéficiaires.',
+      to: '/services/web',
+    },
+    {
+      title: 'Audit marketing',
+      description: 'Clarifier votre communication et les bons canaux pour votre mission.',
+      to: '/services/marketing',
+    },
+    {
+      title: 'À propos de TMG',
+      description: 'Voir comment l’équipe encadre les mandats et la transmission.',
+      to: '/a-propos',
+    },
+  ],
+  '/stage': [
+    {
+      title: 'À propos de TMG',
+      description: 'Comprendre l’atelier, l’équipe et le modèle de supervision.',
+      to: '/a-propos',
+    },
+    {
+      title: 'Services TMG',
+      description: 'Voir les vrais mandats clients sur lesquels les stagiaires contribuent.',
+      to: '/services',
+    },
+    {
+      title: 'Questions fréquentes',
+      description: 'Lire les réponses sur les mandats, clients et premières étapes.',
+      to: '/faq',
+    },
+  ],
+  '/a-propos': [
+    {
+      title: 'Services TMG',
+      description: 'Passer du modèle à ce que l’équipe peut construire concrètement.',
+      to: '/services',
+    },
+    {
+      title: 'Stagiaires',
+      description: 'Découvrir les mandats réels et la place de la relève.',
+      to: '/stage',
+    },
+    {
+      title: 'Contact',
+      description: 'Présenter votre projet ou poser une question à TMG.',
+      to: '/contact',
+    },
+  ],
+  '/faq': [
+    {
+      title: 'Services web et marketing',
+      description: 'Explorer les services avant de lancer un mandat.',
+      to: '/services',
+    },
+    {
+      title: 'Solutions pour PME',
+      description: 'Voir l’approche pour les entreprises en croissance.',
+      to: '/pme',
+    },
+    {
+      title: 'Solutions pour OBNL',
+      description: 'Voir l’approche pour les organismes à mission.',
+      to: '/obnl',
+    },
+  ],
+  '/contact': [
+    {
+      title: 'Création et refonte web',
+      description: 'Préparer une demande de site ou de refonte.',
+      to: '/services/web',
+    },
+    {
+      title: 'Audit marketing',
+      description: 'Préparer une demande de stratégie ou de diagnostic.',
+      to: '/services/marketing',
+    },
+    {
+      title: 'Questions fréquentes',
+      description: 'Répondre aux questions avant de nous écrire.',
+      to: '/faq',
+    },
+  ],
+}
+
 export const notFoundSeo = {
   title: 'Page introuvable | TMG',
   description:
@@ -231,6 +404,13 @@ export function getSeoForPath(pathname) {
     canonicalUrl: absoluteUrl(canonicalPath),
     ogImage: absoluteUrl(pageSeo.ogImage || DEFAULT_OG_IMAGE),
   }
+}
+
+export function getRelatedLinksForPath(pathname) {
+  const path = normalizePath(pathname)
+  const canonicalPath = seoPages[path]?.canonicalPath || path
+
+  return relatedPageLinks[canonicalPath] || []
 }
 
 function buildBreadcrumbItems(path) {
@@ -349,6 +529,8 @@ function buildWebPageSchema(seo, path) {
     '/faq': ['WebPage', 'FAQPage'],
   }
 
+  const relatedLinks = getRelatedLinksForPath(path)
+
   return {
     '@type': pageTypes[path] || 'WebPage',
     '@id': `${seo.canonicalUrl}#webpage`,
@@ -369,6 +551,9 @@ function buildWebPageSchema(seo, path) {
       '@type': 'ImageObject',
       url: seo.ogImage,
     },
+    relatedLink: relatedLinks.length
+      ? relatedLinks.map((link) => absoluteUrl(link.to))
+      : undefined,
     mainEntity:
       path === '/services'
         ? {

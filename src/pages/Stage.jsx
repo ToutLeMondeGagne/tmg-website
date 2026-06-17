@@ -1,5 +1,6 @@
 import { PageContainer } from '../components/layout'
 import { InternshipForm } from '../components/forms'
+import RelatedLinks from '../components/seo/RelatedLinks'
 import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../components/ui'
 
 const internshipBenefits = [
@@ -103,6 +104,8 @@ export default function Stage() {
             ))}
           </div>
         </section>
+
+        <RelatedLinks />
 
         <section
           id="candidature"

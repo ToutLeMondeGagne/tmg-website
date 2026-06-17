@@ -1,5 +1,6 @@
 import { PageContainer } from '../components/layout'
 import { ContactForm } from '../components/forms'
+import RelatedLinks from '../components/seo/RelatedLinks'
 import { AnimatedText } from '../components/ui'
 import { SITE_EMAIL, SITE_LOCATION } from '../data/seo'
 
@@ -80,6 +81,8 @@ export default function Contact() {
 
           <ContactForm />
         </section>
+
+        <RelatedLinks />
       </PageContainer>
     </main>
   )
