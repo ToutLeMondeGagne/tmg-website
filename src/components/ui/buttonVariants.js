@@ -12,8 +12,8 @@ export const buttonDisabledClasses = [
 ]
 
 export const buttonVariants = {
-  primary: 'bg-[var(--blue)] text-white hover:bg-blue-700',
+  primary: 'bg-[var(--blue)] !text-white hover:bg-blue-700',
   secondary: 'border-[var(--green)] bg-[var(--green)] text-black hover:bg-lime-300',
-  outline: 'bg-transparent text-[var(--blue)] hover:bg-[var(--blue)] hover:text-white',
+  outline: 'bg-transparent text-[var(--blue)] hover:bg-[var(--blue)] hover:!text-white',
   ghost: 'border-transparent bg-transparent text-black hover:border-black/20 hover:bg-black/5',
 }
