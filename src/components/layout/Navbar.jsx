@@ -214,7 +214,7 @@ export default function Navbar() {
           </span>
           <Link
             to="/contact"
-            className="border border-[var(--blue)] bg-[var(--blue)] px-5 py-3 text-xs font-medium uppercase tracking-normal text-white transition duration-200 hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
+            className="border border-[var(--blue)] bg-[var(--blue)] px-5 py-3 text-xs font-medium uppercase tracking-normal !text-white transition duration-200 hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
           >
             Lancer un projet
           </Link>
