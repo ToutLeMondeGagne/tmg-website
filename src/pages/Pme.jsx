@@ -89,6 +89,7 @@ export default function Pme() {
                 <Card
                   className="min-h-44 text-left text-black"
                   padding="p-8"
+                  variant="blue"
                 >
                   <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
                     0{index + 1}
@@ -126,7 +127,7 @@ export default function Pme() {
                 key={item.problemTitle}
                 className="grid gap-5 lg:grid-cols-2"
               >
-                <Card className="text-left text-black" padding="p-8">
+                <Card className="text-left text-black" padding="p-8" variant="blue">
                   <span className="mb-3 block text-sm font-medium uppercase text-red-500">
                     Problème
                   </span>
@@ -136,7 +137,7 @@ export default function Pme() {
                   <p className="text-lg leading-8 text-black/70">{item.problem}</p>
                 </Card>
 
-                <Card className="text-left text-black" padding="p-8">
+                <Card className="text-left text-black" padding="p-8" variant="blue">
                   <span className="mb-3 block text-sm font-medium uppercase text-[var(--blue)]">
                     Solution TMG
                   </span>
@@ -173,7 +174,7 @@ export default function Pme() {
               <AnimatedSection key={service.title} delay={index * 0.06}>
                 <Link
                   to={service.href}
-                  className="grid gap-6 border border-black/20 bg-[var(--card)] p-8 text-left text-black transition duration-200 hover:-translate-y-0.5 hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)] md:grid-cols-[0.08fr_1fr_auto] md:items-center"
+                  className="tmg-blue-card grid gap-6 border border-[rgba(0,76,255,0.45)] bg-[linear-gradient(135deg,#07111f_0%,#0b2f86_52%,#004cff_100%)] p-8 text-left text-white shadow-[0_20px_65px_rgba(0,0,0,0.14)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_26px_80px_rgba(0,76,255,0.2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)] md:grid-cols-[0.08fr_1fr_auto] md:items-center"
                 >
                   <span className="text-sm font-medium">0{index + 1}</span>
                   <div>

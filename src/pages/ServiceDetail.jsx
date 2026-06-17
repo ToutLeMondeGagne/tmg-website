@@ -139,6 +139,7 @@ function ServiceDetail({ service }) {
                 <Card
                   className="grid gap-5 text-left text-black sm:grid-cols-[3.5rem_1fr] sm:items-center"
                   padding="p-6"
+                  variant="blue"
                 >
                   <span className="flex h-11 w-11 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
                     0{index + 1}
@@ -178,7 +179,7 @@ function ServiceDetail({ service }) {
             {service.deliverables.map((deliverable, index) => (
               <AnimatedSection
                 key={deliverable.title}
-                className="border-b border-r border-black/15 bg-[var(--card)] p-8 text-left text-black"
+                className="tmg-blue-card border-b border-r border-[rgba(0,76,255,0.45)] bg-[linear-gradient(135deg,#07111f_0%,#0b2f86_52%,#004cff_100%)] p-8 text-left text-white"
                 delay={(index % 3) * 0.05}
               >
                 <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">

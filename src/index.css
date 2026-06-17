@@ -518,6 +518,26 @@ body::selection {
   transform-origin: left;
 }
 
+.tmg-blue-card,
+.tmg-blue-card h1,
+.tmg-blue-card h2,
+.tmg-blue-card h3,
+.tmg-blue-card h4,
+.tmg-blue-card strong,
+.tmg-blue-card span {
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.tmg-blue-card p,
+.tmg-blue-card li {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.tmg-blue-card [class*='bg-[var(--blue)]'] {
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .tmg-logo-orbit {
   --logo-piece-w: clamp(3.45rem, 8vw, 4.45rem);
   --logo-piece-h: calc(var(--logo-piece-w) / 1.35);
