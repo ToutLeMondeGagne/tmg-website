@@ -13,15 +13,15 @@ import tmgLogo from '../assets/logos/tmg-logo.png'
 const highlights = [
   {
     title: 'Sites web',
-    text: 'Des pages rapides, claires et pensees pour convertir les bons visiteurs.',
+    text: 'Des pages rapides, claires et pensées pour convertir les bons visiteurs.',
   },
   {
     title: 'Marketing',
     text: 'Des campagnes simples à comprendre, solides à mesurer et faciles à ajuster.',
   },
   {
-    title: 'Systemes',
-    text: 'Une experience structuree pour guider les prospects du premier clic au rendez-vous.',
+    title: 'Systèmes',
+    text: 'Une expérience structurée pour guider les prospects du premier clic au rendez-vous.',
   },
 ]
 
@@ -178,7 +178,7 @@ export default function Home() {
               wordClassName="!pb-[0.04em] !pt-0"
               className="max-w-full text-[clamp(2rem,9vw,3rem)] font-semibold uppercase leading-[0.8] tracking-normal text-black md:text-[clamp(4rem,9.2vw,9rem)] md:leading-[0.76] xl:text-[clamp(7rem,8.8vw,10rem)] xl:leading-[0.74]"
             >
-              Transformez votre trafic en clients.
+              Sites web et marketing qui transforment votre trafic en clients.
             </AnimatedText>
 
             <div className="space-y-8 lg:translate-y-16 xl:translate-y-20">
@@ -194,7 +194,7 @@ export default function Home() {
                 </AnimatedText>
                 <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                   <Button href="/contact" className="w-full sm:w-auto">
-                    Let&apos;s build yours
+                    Construisons le vôtre
                   </Button>
                   <Button href="/services" variant="outline" className="w-full sm:w-auto">
                     Voir les services ↗
@@ -213,7 +213,7 @@ export default function Home() {
 
         <section className="grid gap-10 border-b border-black/20 py-20 text-left lg:grid-cols-[0.28fr_1fr]">
           <div>
-            <SectionLabel>About us</SectionLabel>
+            <SectionLabel>À propos de TMG</SectionLabel>
           </div>
           <div className="space-y-8">
             <AnimatedText
@@ -221,7 +221,7 @@ export default function Home() {
               split="words"
               className="max-w-5xl text-[clamp(2.6rem,5vw,5.8rem)] font-medium leading-[0.98] tracking-normal text-black"
             >
-              La plupart des sites restent la. Le votre doit devenir la raison
+              La plupart des sites restent là. Le vôtre doit devenir la raison
               pour laquelle on vous contacte.
             </AnimatedText>
             <AnimatedText

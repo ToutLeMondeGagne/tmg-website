@@ -5,17 +5,17 @@ import TextArea from './TextArea'
 import TextInput from './TextInput'
 
 const interests = [
-  { value: 'marketing', label: 'Marketing numerique' },
-  { value: 'design', label: 'Design / experience utilisateur' },
-  { value: 'contenu', label: 'Creation de contenu' },
-  { value: 'developpement', label: 'Developpement web' },
+  { value: 'marketing', label: 'Marketing numérique' },
+  { value: 'design', label: 'Design / expérience utilisateur' },
+  { value: 'contenu', label: 'Création de contenu' },
+  { value: 'developpement', label: 'Développement web' },
   { value: 'gestion-projet', label: 'Gestion de projet' },
 ]
 
 const levels = [
-  { value: 'debutant', label: 'Debutant curieux' },
-  { value: 'intermediaire', label: 'Intermediaire' },
-  { value: 'avance', label: 'Avance' },
+  { value: 'debutant', label: 'Débutant curieux' },
+  { value: 'intermediaire', label: 'Intermédiaire' },
+  { value: 'avance', label: 'Avancé' },
 ]
 
 const availability = [
@@ -25,10 +25,10 @@ const availability = [
 ]
 
 const durations = [
-  { value: '4-8-semaines', label: '4 a 8 semaines' },
-  { value: '2-3-mois', label: '2 a 3 mois' },
-  { value: '3-6-mois', label: '3 a 6 mois' },
-  { value: 'a-definir', label: 'A definir' },
+  { value: '4-8-semaines', label: '4 à 8 semaines' },
+  { value: '2-3-mois', label: '2 à 3 mois' },
+  { value: '3-6-mois', label: '3 à 6 mois' },
+  { value: 'a-definir', label: 'À définir' },
 ]
 
 function FormSection({ number, title, children }) {
@@ -48,7 +48,7 @@ export default function InternshipForm() {
   const handleSubmit = (event) => {
     event.preventDefault()
     event.currentTarget.reset()
-    setStatus('Merci. Votre candidature stagiaire est prete a etre revisee.')
+    setStatus('Merci. Votre candidature stagiaire est prête à être révisée.')
   }
 
   return (
@@ -71,7 +71,7 @@ export default function InternshipForm() {
             required
           />
           <TextInput
-            label="Telephone"
+            label="Téléphone"
             name="phone"
             type="tel"
             autoComplete="tel"
@@ -81,13 +81,13 @@ export default function InternshipForm() {
             label="Ville"
             name="city"
             autoComplete="address-level2"
-            placeholder="Montreal, Laval, etc."
+            placeholder="Montréal, Laval, etc."
           />
           <TextInput
             className="md:col-span-2"
-            label="Ecole / programme"
+            label="École / programme"
             name="program"
-            placeholder="Nom de l ecole et programme d etudes"
+            placeholder="Nom de l’école et programme d’études"
             required
           />
         </div>
@@ -96,7 +96,7 @@ export default function InternshipForm() {
       <FormSection number="02" title="Votre stage">
         <div className="grid gap-6 md:grid-cols-2">
           <DropdownField
-            label="Centre d interet"
+            label="Centre d’intérêt"
             name="interest"
             placeholder="Choisir un domaine"
             options={interests}
@@ -110,16 +110,16 @@ export default function InternshipForm() {
             required
           />
           <DropdownField
-            label="Disponibilite"
+            label="Disponibilité"
             name="availability"
-            placeholder="Choisir une disponibilite"
+            placeholder="Choisir une disponibilité"
             options={availability}
             required
           />
           <DropdownField
-            label="Duree souhaitee"
+            label="Durée souhaitée"
             name="duration"
-            placeholder="Choisir une duree"
+            placeholder="Choisir une durée"
             options={durations}
             required
           />
@@ -135,23 +135,23 @@ export default function InternshipForm() {
             placeholder="Lien vers CV, portfolio ou LinkedIn"
           />
           <TextInput
-            label="Date de debut"
+            label="Date de début"
             name="startDate"
             type="text"
-            placeholder="Ex: septembre, des maintenant"
+            placeholder="Ex: septembre, dès maintenant"
           />
           <TextArea
             className="md:col-span-2"
             label="Pourquoi TMG"
             name="motivation"
-            placeholder="Expliquez ce que vous voulez apprendre et pourquoi ce stage vous interesse."
+            placeholder="Expliquez ce que vous voulez apprendre et pourquoi ce stage vous intéresse."
             required
           />
           <TextArea
             className="md:col-span-2"
-            label="Competences a pratiquer"
+            label="Compétences à pratiquer"
             name="skills"
-            placeholder="Marketing, design, contenu, developpement, outils, recherche, strategie..."
+            placeholder="Marketing, design, contenu, développement, outils, recherche, stratégie..."
             rows={4}
             required
           />
@@ -159,7 +159,7 @@ export default function InternshipForm() {
             className="md:col-span-2"
             label="Message"
             name="message"
-            placeholder="Ajoutez les contraintes d horaire, objectifs scolaires ou details utiles."
+            placeholder="Ajoutez les contraintes d’horaire, objectifs scolaires ou détails utiles."
             rows={4}
           />
         </div>
@@ -169,7 +169,7 @@ export default function InternshipForm() {
             Envoyer la candidature
           </Button>
           <p className="text-sm leading-6 text-black/60" aria-live="polite">
-            {status || 'Ce formulaire est reserve aux candidatures de stage.'}
+            {status || 'Ce formulaire est réservé aux candidatures de stage.'}
           </p>
         </div>
       </FormSection>

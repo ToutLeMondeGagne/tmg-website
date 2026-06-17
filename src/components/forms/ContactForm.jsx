@@ -8,14 +8,14 @@ const websiteTypes = [
   { value: 'one-pager', label: 'One-pager' },
   { value: 'site-complet', label: 'Site complet' },
   { value: 'croissance', label: 'Croissance web' },
-  { value: 'refonte', label: 'Refonte d un site existant' },
+  { value: 'refonte', label: 'Refonte d’un site existant' },
 ]
 
 const goals = [
-  { value: 'leads', label: 'Generer des leads qualifies' },
+  { value: 'leads', label: 'Générer des leads qualifiés' },
   { value: 'ventes', label: 'Vendre une offre ou un service' },
-  { value: 'credibilite', label: 'Renforcer la credibilite' },
-  { value: 'communaute', label: 'Mobiliser une communaute' },
+  { value: 'credibilite', label: 'Renforcer la crédibilité' },
+  { value: 'communaute', label: 'Mobiliser une communauté' },
 ]
 
 const budgets = [
@@ -28,8 +28,8 @@ const budgets = [
 const timelines = [
   { value: 'maintenant', label: 'Maintenant' },
   { value: 'ce-mois', label: 'Ce mois-ci' },
-  { value: '1-3-mois', label: 'Dans 1 a 3 mois' },
-  { value: 'a-definir', label: 'A definir' },
+  { value: '1-3-mois', label: 'Dans 1 à 3 mois' },
+  { value: 'a-definir', label: 'À définir' },
 ]
 
 function FormSection({ number, title, children }) {
@@ -49,7 +49,7 @@ export default function ContactForm() {
   const handleSubmit = (event) => {
     event.preventDefault()
     event.currentTarget.reset()
-    setStatus('Merci. Votre demande est prete; on vous recontacte rapidement.')
+    setStatus('Merci. Votre demande est prête; on vous recontacte rapidement.')
   }
 
   return (
@@ -78,7 +78,7 @@ export default function ContactForm() {
             required
           />
           <DropdownField
-            label="Depart souhaite"
+            label="Départ souhaité"
             name="timeline"
             placeholder="Choisir un moment"
             options={timelines}
@@ -103,7 +103,7 @@ export default function ContactForm() {
           />
           <TextArea
             className="md:col-span-2"
-            label="Expliquez votre activite"
+            label="Expliquez votre activité"
             name="business"
             placeholder="Dites-nous ce que vous faites, qui vous aidez et ce qui doit changer."
             required
@@ -129,7 +129,7 @@ export default function ContactForm() {
             required
           />
           <TextInput
-            label="Telephone"
+            label="Téléphone"
             name="phone"
             type="tel"
             autoComplete="tel"
@@ -145,7 +145,7 @@ export default function ContactForm() {
             className="md:col-span-2"
             label="Message"
             name="message"
-            placeholder="Ajoutez les details utiles, les contraintes ou les questions."
+            placeholder="Ajoutez les détails utiles, les contraintes ou les questions."
             rows={5}
           />
         </div>
@@ -155,7 +155,7 @@ export default function ContactForm() {
             Envoyer la demande
           </Button>
           <p className="text-sm leading-6 text-black/60" aria-live="polite">
-            {status || 'Reponse sous 1 a 2 jours ouvrables.'}
+            {status || 'Réponse sous 1 à 2 jours ouvrables.'}
           </p>
         </div>
       </FormSection>
