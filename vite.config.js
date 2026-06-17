@@ -16,5 +16,10 @@ export default ({ mode }) => {
       react(),
       tailwindcss(),
     ],
+    server: {
+      allowedHosts: [
+        '.trycloudflare.com',
+      ],
+    },
   })
 }
