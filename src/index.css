@@ -78,6 +78,7 @@ body::selection {
   0%,
   100% {
     opacity: 0.92;
+    border-color: rgba(36, 36, 36, 0.15);
     transform: translate3d(
         calc(-50% + var(--orbit-x)),
         calc(-50% + var(--orbit-y)),
@@ -88,6 +89,7 @@ body::selection {
 
   18% {
     opacity: 1;
+    border-color: rgba(36, 36, 36, 0.18);
     transform: translate3d(
         calc(-50% + var(--orbit-x) + var(--orbit-drift-x)),
         calc(-50% + var(--orbit-y) + var(--orbit-drift-y)),
@@ -98,6 +100,7 @@ body::selection {
 
   34% {
     opacity: 0.96;
+    border-color: rgba(36, 36, 36, 0.18);
     transform: translate3d(
         calc(-50% + var(--orbit-x)),
         calc(-50% + var(--orbit-y)),
@@ -108,12 +111,19 @@ body::selection {
 
   50%,
   62% {
-    opacity: 0.98;
-    transform: translate3d(-50%, -50%, 0) rotate(0deg) scale(0.74);
+    opacity: 1;
+    border-color: rgba(0, 76, 255, 0.32);
+    transform: translate3d(
+        calc(-50% + var(--puzzle-x)),
+        calc(-50% + var(--puzzle-y)),
+        0
+      )
+      rotate(0deg) scale(1.08);
   }
 
   76% {
     opacity: 1;
+    border-color: rgba(36, 36, 36, 0.18);
     transform: translate3d(
         calc(-50% + var(--orbit-x) - var(--orbit-drift-x)),
         calc(-50% + var(--orbit-y) - var(--orbit-drift-y)),
@@ -124,6 +134,7 @@ body::selection {
 
   88% {
     opacity: 0.94;
+    border-color: rgba(36, 36, 36, 0.15);
     transform: translate3d(
         calc(-50% + var(--orbit-x)),
         calc(-50% + var(--orbit-y)),
@@ -133,7 +144,42 @@ body::selection {
   }
 }
 
+@keyframes tmg-logo-card-mark {
+  0%,
+  40%,
+  76%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  48%,
+  66% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes tmg-logo-puzzle-slice {
+  0%,
+  40%,
+  76%,
+  100% {
+    opacity: 0;
+  }
+
+  48%,
+  66% {
+    opacity: 1;
+  }
+}
+
 .tmg-logo-orbit {
+  --logo-piece-w: clamp(3.45rem, 8vw, 4.45rem);
+  --logo-piece-h: calc(var(--logo-piece-w) / 1.35);
+
+  width: var(--logo-piece-w);
+  height: var(--logo-piece-h);
   opacity: 0.92;
   transform: translate3d(
       calc(-50% + var(--orbit-x)),
@@ -143,6 +189,24 @@ body::selection {
     rotate(var(--orbit-rotate-start, -4deg)) scale(0.96);
   transform-origin: center;
   will-change: opacity, transform;
+}
+
+.tmg-logo-card-mark {
+  position: relative;
+  z-index: 2;
+  will-change: opacity, transform;
+}
+
+.tmg-logo-puzzle-slice {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: var(--puzzle-image);
+  background-position: var(--puzzle-bg-position);
+  background-repeat: no-repeat;
+  background-size: 300% 200%;
+  opacity: 0;
+  will-change: opacity;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -156,6 +220,16 @@ body::selection {
 
   .tmg-logo-orbit {
     animation: tmg-logo-orbit 9.5s ease-in-out infinite;
+    animation-delay: var(--orbit-delay, 0s);
+  }
+
+  .tmg-logo-card-mark {
+    animation: tmg-logo-card-mark 9.5s ease-in-out infinite;
+    animation-delay: var(--orbit-delay, 0s);
+  }
+
+  .tmg-logo-puzzle-slice {
+    animation: tmg-logo-puzzle-slice 9.5s ease-in-out infinite;
     animation-delay: var(--orbit-delay, 0s);
   }
 }
