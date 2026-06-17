@@ -1,4 +1,6 @@
-import { Route, Routes } from 'react-router-dom'
+import { useCallback, useEffect, useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import Contact from './pages/Contact'
 import Services from './pages/Services'
@@ -9,15 +11,35 @@ import Obnl from './pages/Obnl'
 import About from './pages/About'
 import QA from './pages/QA'
 import NotFound from './pages/NotFound'
-import { Footer, Navbar, ScrollProgress } from './components/layout'
+import { Footer, Navbar, ScrollProgress, SiteIntro } from './components/layout'
 import './App.css'
 
 function App() {
+  const location = useLocation()
+  const [showIntro, setShowIntro] = useState(() => location.pathname === '/')
+  const finishIntro = useCallback(() => setShowIntro(false), [])
+
+  useEffect(() => {
+    if (!showIntro) {
+      return undefined
+    }
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [showIntro])
+
   console.log(import.meta.env)
   console.log(import.meta.env.VITE_EMAILJS_SERVICE_ID)
 
   return (
     <>
+      <AnimatePresence>
+        {showIntro ? <SiteIntro key="site-intro" onDone={finishIntro} /> : null}
+      </AnimatePresence>
       <ScrollProgress />
       <Navbar />
       <div className="pt-24">
