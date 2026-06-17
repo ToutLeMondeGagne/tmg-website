@@ -4,6 +4,8 @@ export const SITE_LOCALE = 'fr_CA'
 export const SITE_LANGUAGE = 'fr-CA'
 export const SITE_EMAIL = 'bonjour@toutlemondegagne.ca'
 export const SITE_LOCATION = 'Montréal, Québec'
+export const SITE_REGION = 'CA-QC'
+export const SITE_COUNTRY = 'CA'
 export const DEFAULT_OG_IMAGE = '/og-image.svg'
 
 const defaultDescription =
@@ -17,6 +19,56 @@ const baseKeywords = [
   'audit marketing',
   'stratégie numérique',
   'Tout le Monde Gagne',
+]
+
+const serviceArea = [
+  {
+    '@type': 'City',
+    name: 'Montréal',
+  },
+  {
+    '@type': 'AdministrativeArea',
+    name: 'Québec',
+  },
+  {
+    '@type': 'Country',
+    name: 'Canada',
+  },
+]
+
+const serviceOffers = [
+  {
+    path: '/services/web',
+    name: 'Création et refonte de sites web',
+    description:
+      'Création, refonte, optimisation SEO, design mobile-first et suivi analytique pour PME, startups et OBNL.',
+    serviceType: 'Création de site web',
+    audience: ['PME', 'Startups', 'OBNL'],
+  },
+  {
+    path: '/services/marketing',
+    name: 'Audit marketing et stratégie de contenu',
+    description:
+      'Audit de présence actuelle, personas, stratégie de contenu, plan d’action et indicateurs de succès.',
+    serviceType: 'Audit marketing',
+    audience: ['PME', 'Startups', 'OBNL'],
+  },
+  {
+    path: '/pme',
+    name: 'Accompagnement web et marketing pour PME',
+    description:
+      'Sites web, audits marketing et stratégies numériques adaptés aux budgets et objectifs de croissance des PME.',
+    serviceType: 'Marketing PME',
+    audience: ['PME', 'Startups'],
+  },
+  {
+    path: '/obnl',
+    name: 'Sites web et stratégie numérique pour OBNL',
+    description:
+      'Solutions numériques accessibles pour clarifier le message, mobiliser la communauté et soutenir la mission des OBNL.',
+    serviceType: 'Marketing OBNL',
+    audience: ['OBNL', 'Organismes communautaires'],
+  },
 ]
 
 export const seoPages = {
@@ -221,30 +273,55 @@ function buildBreadcrumbItems(path) {
 
 function buildOrganizationSchema() {
   return {
-    '@type': ['Organization', 'ProfessionalService'],
+    '@type': ['Organization', 'LocalBusiness', 'ProfessionalService'],
     '@id': `${SITE_URL}/#organization`,
     name: SITE_NAME,
+    legalName: 'Tout le Monde Gagne',
     alternateName: 'TMG',
+    slogan: 'Tout le Monde Gagne',
     url: SITE_URL,
     logo: absoluteUrl('/favicon.svg'),
     image: absoluteUrl(DEFAULT_OG_IMAGE),
     email: SITE_EMAIL,
+    priceRange: 'Sur devis',
+    availableLanguage: ['fr-CA', 'fr'],
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Montréal',
       addressRegion: 'Québec',
       addressCountry: 'CA',
     },
-    areaServed: [
-      {
-        '@type': 'AdministrativeArea',
-        name: 'Québec',
+    foundingLocation: {
+      '@type': 'Place',
+      name: SITE_LOCATION,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Montréal',
+        addressRegion: 'Québec',
+        addressCountry: SITE_COUNTRY,
       },
-      {
-        '@type': 'Country',
-        name: 'Canada',
-      },
+    },
+    areaServed: serviceArea,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: SITE_EMAIL,
+      contactType: 'customer support',
+      areaServed: SITE_REGION,
+      availableLanguage: ['fr-CA', 'fr'],
+    },
+    knowsAbout: [
+      'Création de sites web',
+      'Refonte de sites web',
+      'Marketing numérique',
+      'Audit marketing',
+      'SEO',
+      'Stratégie de contenu',
+      'PME',
+      'OBNL',
     ],
+    hasOfferCatalog: {
+      '@id': `${SITE_URL}/#offer-catalog`,
+    },
     description: defaultDescription,
   }
 }
@@ -259,12 +336,21 @@ function buildWebSiteSchema() {
     publisher: {
       '@id': `${SITE_URL}/#organization`,
     },
+    about: {
+      '@id': `${SITE_URL}/#organization`,
+    },
   }
 }
 
 function buildWebPageSchema(seo, path) {
+  const pageTypes = {
+    '/a-propos': ['WebPage', 'AboutPage'],
+    '/contact': ['WebPage', 'ContactPage'],
+    '/faq': ['WebPage', 'FAQPage'],
+  }
+
   return {
-    '@type': 'WebPage',
+    '@type': pageTypes[path] || 'WebPage',
     '@id': `${seo.canonicalUrl}#webpage`,
     url: seo.canonicalUrl,
     name: seo.title,
@@ -283,6 +369,16 @@ function buildWebPageSchema(seo, path) {
       '@type': 'ImageObject',
       url: seo.ogImage,
     },
+    mainEntity:
+      path === '/services'
+        ? {
+            '@id': `${SITE_URL}/#offer-catalog`,
+          }
+        : path === '/contact' || path === '/a-propos'
+          ? {
+              '@id': `${SITE_URL}/#organization`,
+            }
+          : undefined,
     potentialAction:
       path === '/contact'
         ? {
@@ -290,6 +386,60 @@ function buildWebPageSchema(seo, path) {
             target: seo.canonicalUrl,
           }
         : undefined,
+  }
+}
+
+function buildServiceNode(service) {
+  return {
+    '@type': 'Service',
+    '@id': `${absoluteUrl(service.path)}#service`,
+    name: service.name,
+    description: service.description,
+    serviceType: service.serviceType,
+    url: absoluteUrl(service.path),
+    provider: {
+      '@id': `${SITE_URL}/#organization`,
+    },
+    areaServed: serviceArea,
+    audience: service.audience.map((audienceName) => ({
+      '@type': 'Audience',
+      name: audienceName,
+    })),
+  }
+}
+
+function buildOfferCatalogSchema() {
+  return {
+    '@type': 'OfferCatalog',
+    '@id': `${SITE_URL}/#offer-catalog`,
+    name: 'Services web et marketing TMG',
+    itemListElement: serviceOffers.map((service, index) => ({
+      '@type': 'Offer',
+      position: index + 1,
+      url: absoluteUrl(service.path),
+      itemOffered: buildServiceNode(service),
+    })),
+  }
+}
+
+function buildServiceItemListSchema(path) {
+  if (path !== '/services') {
+    return null
+  }
+
+  return {
+    '@type': 'ItemList',
+    '@id': `${absoluteUrl('/services')}#services-list`,
+    name: 'Services TMG pour PME et OBNL',
+    itemListElement: serviceOffers.map((service, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: service.name,
+      url: absoluteUrl(service.path),
+      item: {
+        '@id': `${absoluteUrl(service.path)}#service`,
+      },
+    })),
   }
 }
 
@@ -302,39 +452,13 @@ function buildBreadcrumbSchema(seo, path) {
 }
 
 function buildServiceSchema(path) {
-  const services = {
-    '/services/web': {
-      name: 'Création et refonte de sites web',
-      description:
-        'Création, refonte, optimisation SEO, design mobile-first et suivi analytique pour PME et OBNL.',
-      serviceType: 'Création de site web',
-    },
-    '/services/marketing': {
-      name: 'Audit marketing et stratégie de contenu',
-      description:
-        'Audit de présence actuelle, personas, stratégie de contenu, plan d’action et indicateurs de succès.',
-      serviceType: 'Audit marketing',
-    },
-  }
-
-  const service = services[path]
+  const service = serviceOffers.find((serviceOffer) => serviceOffer.path === path)
 
   if (!service) {
     return null
   }
 
-  return {
-    '@type': 'Service',
-    '@id': `${absoluteUrl(path)}#service`,
-    ...service,
-    provider: {
-      '@id': `${SITE_URL}/#organization`,
-    },
-    areaServed: {
-      '@type': 'AdministrativeArea',
-      name: 'Québec',
-    },
-  }
+  return buildServiceNode(service)
 }
 
 function buildFaqSchema(path) {
@@ -379,9 +503,11 @@ export function getStructuredData(pathname, seo = getSeoForPath(pathname)) {
   const graph = [
     buildOrganizationSchema(),
     buildWebSiteSchema(),
+    buildOfferCatalogSchema(),
     buildWebPageSchema(seo, path),
     buildBreadcrumbSchema(seo, path),
     buildServiceSchema(path),
+    buildServiceItemListSchema(path),
     buildFaqSchema(path),
   ].filter(Boolean)
 

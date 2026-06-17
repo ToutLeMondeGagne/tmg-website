@@ -1,6 +1,7 @@
 import { PageContainer } from '../components/layout'
 import { ContactForm } from '../components/forms'
 import { AnimatedText } from '../components/ui'
+import { SITE_EMAIL, SITE_LOCATION } from '../data/seo'
 
 export default function Contact() {
   return (
@@ -56,14 +57,24 @@ export default function Contact() {
                 les prochaines étapes les plus simples.
               </AnimatedText>
             </div>
-            <div className="space-y-2 text-sm text-black/70">
-              <p>Ou écrivez-nous directement :</p>
+            <div className="space-y-3 text-sm text-black/70">
+              <p className="font-medium uppercase text-black">Coordonnées TMG</p>
               <a
-                href="mailto:bonjour@toutlemondegagne.ca"
+                href={`mailto:${SITE_EMAIL}`}
                 className="font-medium uppercase text-[var(--blue)] transition hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
               >
-                bonjour@toutlemondegagne.ca
+                {SITE_EMAIL}
               </a>
+              <a
+                href="https://maps.google.com/?q=Montreal%2C%20Quebec"
+                className="block text-black/65 transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
+              >
+                {SITE_LOCATION}
+              </a>
+              <p className="max-w-sm leading-6 text-black/55">
+                Services web et marketing pour PME, OBNL et équipes au Québec,
+                avec accompagnement à distance.
+              </p>
             </div>
           </aside>
 
