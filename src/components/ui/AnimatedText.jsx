@@ -8,11 +8,10 @@ function joinClasses(...classes) {
 const defaultEase = [0.22, 1, 0.36, 1]
 
 const textVariants = {
-  hidden: { opacity: 0, y: 30, filter: 'blur(3px)' },
+  hidden: { opacity: 0, y: 30 },
   visible: ({ delay, duration }) => ({
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
     transition: { delay, duration, ease: defaultEase },
   }),
 }
@@ -28,11 +27,10 @@ const wordContainerVariants = {
 }
 
 const wordVariants = {
-  hidden: { opacity: 0, y: '105%', filter: 'blur(4px)' },
+  hidden: { opacity: 0, y: '105%' },
   visible: ({ duration }) => ({
     opacity: 1,
     y: '0%',
-    filter: 'blur(0px)',
     transition: { duration, ease: defaultEase },
   }),
 }
@@ -46,7 +44,7 @@ export default function AnimatedText({
   split = false,
   stagger = 0.035,
   once = true,
-  amount = 0.4,
+  amount = 0.08,
   wordClassName = '',
   ...props
 }) {

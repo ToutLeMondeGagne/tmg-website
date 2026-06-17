@@ -1,4 +1,5 @@
 import { PageContainer } from '../components/layout'
+import RelatedLinks from '../components/seo/RelatedLinks'
 import { AnimatedSection, AnimatedText, Button, SectionLabel } from '../components/ui'
 
 const services = [
@@ -140,6 +141,8 @@ export default function Services() {
             </div>
           </div>
         </section>
+
+        <RelatedLinks />
       </PageContainer>
     </main>
   )

@@ -1,4 +1,5 @@
 import { PageContainer } from '../components/layout'
+import RelatedLinks from '../components/seo/RelatedLinks'
 import {
   AnimatedSection,
   AnimatedText,
@@ -224,6 +225,8 @@ export default function About() {
             <Button href="/contact">Parler à TMG</Button>
           </div>
         </section>
+
+        <RelatedLinks />
       </PageContainer>
     </main>
   )

@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import { PageContainer } from '../components/layout'
+import RelatedLinks from '../components/seo/RelatedLinks'
 import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../components/ui'
 
 const promises = [
@@ -44,11 +46,13 @@ const obnlServices = [
     title: 'Site web pour OBNL',
     text: "Site accessible, clair, optimisé pour les dons et l'engagement communautaire. Mobile-first, facile à gérer.",
     timeline: '4-8 semaines',
+    href: '/services/web',
   },
   {
     title: 'Stratégie de communication',
     text: 'Plan de contenu adapté à votre mission pour rejoindre donateurs, bénévoles et bénéficiaires sur les bons canaux.',
     timeline: '2-4 semaines',
+    href: '/services/marketing',
   },
 ]
 
@@ -167,9 +171,9 @@ export default function Obnl() {
           <div className="space-y-5">
             {obnlServices.map((service, index) => (
               <AnimatedSection key={service.title} delay={index * 0.06}>
-                <Card
-                  className="grid gap-6 text-left text-black md:grid-cols-[0.08fr_1fr_auto] md:items-center"
-                  padding="p-8"
+                <Link
+                  to={service.href}
+                  className="grid gap-6 border border-black/20 bg-[var(--card)] p-8 text-left text-black transition duration-200 hover:-translate-y-0.5 hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)] md:grid-cols-[0.08fr_1fr_auto] md:items-center"
                 >
                   <span className="text-sm font-medium">0{index + 1}</span>
                   <div>
@@ -183,7 +187,7 @@ export default function Obnl() {
                   <span className="text-sm font-medium uppercase text-[var(--blue)]">
                     {service.timeline}
                   </span>
-                </Card>
+                </Link>
               </AnimatedSection>
             ))}
           </div>
@@ -205,6 +209,8 @@ export default function Obnl() {
             <Button href="/contact">Lancer un projet OBNL</Button>
           </div>
         </section>
+
+        <RelatedLinks />
       </PageContainer>
     </main>
   )

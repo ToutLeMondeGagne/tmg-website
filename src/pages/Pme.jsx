@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { PageContainer } from '../components/layout'
+import RelatedLinks from '../components/seo/RelatedLinks'
 import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../components/ui'
 
 const promises = [
@@ -215,6 +216,8 @@ export default function Pme() {
             Démarrer un projet
           </Button>
         </section>
+
+        <RelatedLinks />
       </PageContainer>
     </main>
   )

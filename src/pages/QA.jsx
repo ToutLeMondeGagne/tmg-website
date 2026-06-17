@@ -1,4 +1,5 @@
 import { PageContainer } from '../components/layout'
+import RelatedLinks from '../components/seo/RelatedLinks'
 import { AnimatedSection, AnimatedText, Card, SectionLabel } from '../components/ui'
 
 const questions = [
@@ -48,6 +49,8 @@ export default function QA() {
             </AnimatedSection>
           ))}
         </section>
+
+        <RelatedLinks />
       </PageContainer>
     </main>
   )
