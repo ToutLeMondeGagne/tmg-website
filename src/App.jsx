@@ -1,19 +1,37 @@
-import { useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
-import Contact from './pages/Contact'
-import Services from './pages/Services'
-import { MarketingService, WebService } from './pages/ServiceDetail'
-import Stage from './pages/Stage'
-import Pme from './pages/Pme'
-import Obnl from './pages/Obnl'
-import About from './pages/About'
-import QA from './pages/QA'
-import NotFound from './pages/NotFound'
 import { Footer, Navbar, ScrollProgress, SiteIntro } from './components/layout'
 import PageSeo from './components/seo/PageSeo'
 import './App.css'
+
+const Contact = lazy(() => import('./pages/Contact'))
+const Services = lazy(() => import('./pages/Services'))
+const WebService = lazy(() =>
+  import('./pages/ServiceDetail').then((module) => ({ default: module.WebService })),
+)
+const MarketingService = lazy(() =>
+  import('./pages/ServiceDetail').then((module) => ({
+    default: module.MarketingService,
+  })),
+)
+const Stage = lazy(() => import('./pages/Stage'))
+const Pme = lazy(() => import('./pages/Pme'))
+const Obnl = lazy(() => import('./pages/Obnl'))
+const About = lazy(() => import('./pages/About'))
+const QA = lazy(() => import('./pages/QA'))
+const NotFound = lazy(() => import('./pages/NotFound'))
+
+function RouteFallback() {
+  return (
+    <div
+      className="min-h-[60svh]"
+      role="status"
+      aria-label="Chargement de la page"
+    />
+  )
+}
 
 function App() {
   const location = useLocation()
@@ -42,20 +60,22 @@ function App() {
       <ScrollProgress />
       <Navbar />
       <div className="pt-24">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/services/web" element={<WebService />} />
-          <Route path="/services/marketing" element={<MarketingService />} />
-          <Route path="/pme" element={<Pme />} />
-          <Route path="/entreprises" element={<Pme />} />
-          <Route path="/obnl" element={<Obnl />} />
-          <Route path="/stage" element={<Stage />} />
-          <Route path="/a-propos" element={<About />} />
-          <Route path="/faq" element={<QA />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<RouteFallback />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/web" element={<WebService />} />
+            <Route path="/services/marketing" element={<MarketingService />} />
+            <Route path="/pme" element={<Pme />} />
+            <Route path="/entreprises" element={<Pme />} />
+            <Route path="/obnl" element={<Obnl />} />
+            <Route path="/stage" element={<Stage />} />
+            <Route path="/a-propos" element={<About />} />
+            <Route path="/faq" element={<QA />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </div>
       <Footer />
     </>

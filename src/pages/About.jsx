@@ -89,7 +89,11 @@ export default function About() {
               <img
                 src={teamStudioImage}
                 alt="Équipe TMG en atelier de stratégie autour d'un projet web"
+                width="1672"
+                height="941"
                 className="aspect-[4/3] w-full object-cover grayscale-[10%]"
+                decoding="async"
+                fetchPriority="high"
               />
               <figcaption className="absolute bottom-0 left-0 right-0 bg-[var(--bg)]/85 px-5 py-4 text-xs font-medium uppercase text-black backdrop-blur">
                 Stratégie, design, contenu et web réunis autour du même mandat.
@@ -165,7 +169,11 @@ export default function About() {
                   <img
                     src={teamStudioImage}
                     alt={`${member.title} chez TMG`}
+                    width="1672"
+                    height="941"
                     className="aspect-[4/5] w-full object-cover"
+                    loading="lazy"
+                    decoding="async"
                     style={{ objectPosition: member.position }}
                   />
                   <div className="p-6">

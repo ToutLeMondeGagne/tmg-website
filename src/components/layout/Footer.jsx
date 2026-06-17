@@ -35,7 +35,11 @@ export default function Footer() {
             <img
               src={tmgLogo}
               alt=""
+              width="720"
+              height="356"
               className="h-20 w-auto max-w-[15rem] object-contain"
+              loading="lazy"
+              decoding="async"
             />
           </Link>
           <p className="max-w-md text-sm leading-7 text-black/65" itemProp="description">
