@@ -45,7 +45,7 @@ export default function TicketCard({
         aria-hidden="true"
       />
 
-      <span className="relative z-10 grid min-h-[23rem] grid-cols-[minmax(0,1fr)_5.4rem] overflow-hidden border border-[var(--blue)] bg-[#004cff] shadow-[0_30px_90px_rgba(0,0,0,0.24)] md:min-h-[25rem] md:grid-cols-[minmax(0,1fr)_18rem]">
+      <span className="relative z-10 grid min-h-[18.5rem] grid-cols-[minmax(0,1fr)_4.6rem] overflow-hidden border border-[var(--blue)] bg-[#004cff] shadow-[0_30px_90px_rgba(0,0,0,0.24)] sm:min-h-[21rem] sm:grid-cols-[minmax(0,1fr)_5.4rem] md:min-h-[25rem] md:grid-cols-[minmax(0,1fr)_18rem]">
         <span
           className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.13)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.10)_1px,transparent_1px)] bg-[length:25%_100%,100%_72px] opacity-65"
           aria-hidden="true"
@@ -55,7 +55,7 @@ export default function TicketCard({
           aria-hidden="true"
         />
 
-        <span className="relative z-10 flex min-h-0 flex-col justify-between p-5 sm:p-6 md:p-10">
+        <span className="relative z-10 flex min-h-0 flex-col justify-between p-4 sm:p-6 md:p-10">
           <span className="flex items-start justify-between gap-3 sm:gap-5">
             <span>
               <span className="block text-xs font-semibold uppercase tracking-normal text-[var(--green)]">
@@ -70,16 +70,16 @@ export default function TicketCard({
             </span>
           </span>
 
-          <span className="space-y-3 py-6 md:space-y-5 md:py-8">
-            <span className="block max-w-4xl text-[2.05rem] font-semibold uppercase leading-[0.86] tracking-normal text-white sm:text-5xl md:text-7xl">
+          <span className="space-y-3 py-4 sm:py-6 md:space-y-5 md:py-8">
+            <span className="block max-w-4xl text-[1.78rem] font-semibold uppercase leading-[0.84] tracking-normal text-white sm:text-5xl md:text-7xl">
               {ticketTitle}
             </span>
-            <span className="block max-w-2xl text-sm leading-5 text-white/82 sm:text-base sm:leading-6 md:text-lg md:leading-7">
+            <span className="hidden max-w-2xl text-sm leading-5 text-white/82 sm:text-base sm:leading-6 md:block md:text-lg md:leading-7">
               {ticketSubtitle}
             </span>
           </span>
 
-          <span className="grid grid-cols-3 gap-3 border-t border-white/30 pt-4 text-[0.65rem] font-semibold uppercase tracking-normal text-white/76 sm:pt-5 sm:text-xs">
+          <span className="grid grid-cols-3 gap-2 border-t border-white/30 pt-3 text-[0.58rem] font-semibold uppercase tracking-normal text-white/76 sm:gap-3 sm:pt-5 sm:text-xs">
             <span>
               <span className="block text-[var(--green)]">Durée</span>
               30 minutes
@@ -96,12 +96,12 @@ export default function TicketCard({
         </span>
 
         <span
-          className="absolute bottom-5 right-[5.4rem] top-5 z-20 border-l border-dashed border-white/35 md:bottom-8 md:right-[18rem] md:top-8"
+          className="absolute bottom-4 right-[4.6rem] top-4 z-20 border-l border-dashed border-white/35 sm:bottom-5 sm:right-[5.4rem] sm:top-5 md:bottom-8 md:right-[18rem] md:top-8"
           aria-hidden="true"
         />
 
-        <span className="relative z-10 flex min-h-0 flex-col justify-between border-l border-dashed border-white/35 p-3 sm:p-5 md:p-8">
-          <span className="space-y-4 md:space-y-6">
+        <span className="relative z-10 flex min-h-0 flex-col justify-between border-l border-dashed border-white/35 p-2.5 sm:p-5 md:p-8">
+          <span className="space-y-3 md:space-y-6">
             <span>
               <span className="block text-[0.65rem] font-semibold uppercase tracking-normal text-white/65 md:text-xs">
                 Ticket no.
@@ -120,7 +120,7 @@ export default function TicketCard({
             </span>
           </span>
 
-          <span className="my-5 block h-20 w-full overflow-hidden bg-[repeating-linear-gradient(90deg,#b7ff46_0_3px,transparent_3px_7px,#b7ff46_7px_9px,transparent_9px_14px)] opacity-95 md:my-8 md:h-28">
+          <span className="my-4 block h-16 w-full overflow-hidden bg-[repeating-linear-gradient(90deg,#b7ff46_0_3px,transparent_3px_7px,#b7ff46_7px_9px,transparent_9px_14px)] opacity-95 sm:h-20 md:my-8 md:h-28">
             <span className="sr-only">Code billet</span>
           </span>
 
