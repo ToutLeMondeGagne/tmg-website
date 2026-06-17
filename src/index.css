@@ -174,6 +174,122 @@ body::selection {
   }
 }
 
+@keyframes tmg-intro-piece {
+  0% {
+    opacity: 0;
+    transform: translate3d(
+        calc(-50% + var(--intro-start-x)),
+        calc(-50% + var(--intro-start-y)),
+        0
+      )
+      rotate(var(--intro-start-rotate)) scale(0.72);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  34% {
+    opacity: 1;
+    transform: translate3d(
+        calc(-50% + var(--intro-start-x)),
+        calc(-50% + var(--intro-start-y)),
+        0
+      )
+      rotate(var(--intro-start-rotate)) scale(1);
+  }
+
+  62%,
+  82% {
+    opacity: 1;
+    transform: translate3d(
+        calc(-50% + var(--intro-final-x)),
+        calc(-50% + var(--intro-final-y)),
+        0
+      )
+      rotate(0deg) scale(1.06);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(
+        calc(-50% + var(--intro-final-x)),
+        calc(-50% + var(--intro-final-y)),
+        0
+      )
+      rotate(0deg) scale(1);
+  }
+}
+
+@keyframes tmg-intro-piece-card {
+  0%,
+  45% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  58%,
+  100% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+
+@keyframes tmg-intro-piece-slice {
+  0%,
+  45% {
+    opacity: 0;
+  }
+
+  58%,
+  100% {
+    opacity: 1;
+  }
+}
+
+.tmg-intro-board {
+  --intro-piece-w: clamp(5rem, 19vw, 9.25rem);
+  --intro-piece-h: calc(var(--intro-piece-w) / 1.35);
+}
+
+.tmg-intro-frame {
+  width: calc(var(--intro-piece-w) * 3);
+  height: calc(var(--intro-piece-h) * 2);
+  border: 1px solid rgba(0, 76, 255, 0.22);
+  opacity: 0.36;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.tmg-intro-piece {
+  width: var(--intro-piece-w);
+  height: var(--intro-piece-h);
+  transform: translate3d(
+      calc(-50% + var(--intro-final-x)),
+      calc(-50% + var(--intro-final-y)),
+      0
+    )
+    rotate(0deg) scale(1);
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
+.tmg-intro-piece-card {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.tmg-intro-piece-slice {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: var(--intro-logo);
+  background-position: var(--intro-bg-position);
+  background-repeat: no-repeat;
+  background-size: 300% 200%;
+  opacity: 1;
+  will-change: opacity;
+}
+
 .tmg-logo-orbit {
   --logo-piece-w: clamp(3.45rem, 8vw, 4.45rem);
   --logo-piece-h: calc(var(--logo-piece-w) / 1.35);
@@ -231,6 +347,20 @@ body::selection {
   .tmg-logo-puzzle-slice {
     animation: tmg-logo-puzzle-slice 9.5s ease-in-out infinite;
     animation-delay: var(--orbit-delay, 0s);
+  }
+
+  .tmg-intro-piece {
+    animation: tmg-intro-piece 3.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .tmg-intro-piece-card {
+    animation: tmg-intro-piece-card 3.6s cubic-bezier(0.22, 1, 0.36, 1)
+      both;
+  }
+
+  .tmg-intro-piece-slice {
+    animation: tmg-intro-piece-slice 3.6s cubic-bezier(0.22, 1, 0.36, 1)
+      both;
   }
 }
 
