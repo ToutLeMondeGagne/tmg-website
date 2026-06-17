@@ -33,10 +33,36 @@ function RouteFallback() {
   )
 }
 
+function getShouldShowIntro(pathname) {
+  if (pathname !== '/' || typeof window === 'undefined') {
+    return false
+  }
+
+  const shouldReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  if (shouldReduceMotion) {
+    return false
+  }
+
+  try {
+    return window.sessionStorage.getItem('tmg:intro-seen') !== 'true'
+  } catch {
+    return true
+  }
+}
+
 function App() {
   const location = useLocation()
-  const [showIntro, setShowIntro] = useState(() => location.pathname === '/')
-  const finishIntro = useCallback(() => setShowIntro(false), [])
+  const [showIntro, setShowIntro] = useState(() => getShouldShowIntro(location.pathname))
+  const finishIntro = useCallback(() => {
+    try {
+      window.sessionStorage.setItem('tmg:intro-seen', 'true')
+    } catch {
+      // Storage can be unavailable in private or restricted browsing contexts.
+    }
+
+    setShowIntro(false)
+  }, [])
 
   useEffect(() => {
     if (!showIntro) {

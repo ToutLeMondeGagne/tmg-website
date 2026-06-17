@@ -273,14 +273,12 @@ body::selection {
   0%,
   68% {
     opacity: 0;
-    filter: blur(8px);
-    transform: translate3d(-50%, -50%, 0) scale(1.1);
+    transform: translate3d(-50%, -50%, 0) scale(1.06);
   }
 
   82%,
   100% {
     opacity: 1;
-    filter: blur(0);
     transform: translate3d(-50%, -50%, 0) scale(1);
   }
 }
@@ -463,7 +461,6 @@ body::selection {
     )
     rotate(0deg) scale(1);
   transform-origin: center;
-  will-change: opacity, transform;
 }
 
 .tmg-intro-piece::after {
@@ -488,7 +485,6 @@ body::selection {
 
 .tmg-intro-piece-card {
   opacity: 0;
-  will-change: opacity, transform;
 }
 
 .tmg-intro-piece-slice {
@@ -500,16 +496,13 @@ body::selection {
   background-repeat: no-repeat;
   background-size: 300% 200%;
   opacity: 1;
-  will-change: opacity;
 }
 
 .tmg-intro-final-logo {
   z-index: 20;
   width: calc(var(--intro-piece-w) * 3);
   opacity: 1;
-  filter: blur(0);
   transform: translate3d(-50%, -50%, 0) scale(1);
-  will-change: opacity, filter, transform;
 }
 
 .tmg-intro-progress > span {
@@ -585,52 +578,52 @@ body::selection {
   }
 
   .tmg-intro-light {
-    animation: tmg-intro-light 1.35s ease-in-out both;
+    animation: tmg-intro-light 0.88s ease-in-out both;
   }
 
   .tmg-intro-scan {
-    animation: tmg-intro-scan 1.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: tmg-intro-scan 0.84s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .tmg-intro-measure {
-    animation: tmg-intro-measure 1.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: tmg-intro-measure 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .tmg-intro-pulse-line {
-    animation: tmg-intro-pulse-line 1.28s cubic-bezier(0.22, 1, 0.36, 1)
+    animation: tmg-intro-pulse-line 0.84s cubic-bezier(0.22, 1, 0.36, 1)
       both;
   }
 
   .tmg-intro-piece {
-    animation: tmg-intro-piece 1.28s cubic-bezier(0.22, 1, 0.36, 1)
+    animation: tmg-intro-piece 0.86s cubic-bezier(0.22, 1, 0.36, 1)
       var(--intro-piece-delay, 0s) both;
   }
 
   .tmg-intro-piece-card {
-    animation: tmg-intro-piece-card 1.28s cubic-bezier(0.22, 1, 0.36, 1)
+    animation: tmg-intro-piece-card 0.86s cubic-bezier(0.22, 1, 0.36, 1)
       var(--intro-piece-delay, 0s) both;
   }
 
   .tmg-intro-piece-slice {
-    animation: tmg-intro-piece-slice 1.28s cubic-bezier(0.22, 1, 0.36, 1)
+    animation: tmg-intro-piece-slice 0.86s cubic-bezier(0.22, 1, 0.36, 1)
       var(--intro-piece-delay, 0s) both;
   }
 
   .tmg-intro-piece-number {
-    animation: tmg-intro-piece-number 1.28s cubic-bezier(0.22, 1, 0.36, 1)
+    animation: tmg-intro-piece-number 0.86s cubic-bezier(0.22, 1, 0.36, 1)
       both;
   }
 
   .tmg-intro-final-logo {
-    animation: tmg-intro-final-logo 1.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: tmg-intro-final-logo 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .tmg-intro-progress > span {
-    animation: tmg-intro-progress 1.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: tmg-intro-progress 0.92s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .tmg-intro-exit-line {
-    animation: tmg-intro-exit-line 1.48s cubic-bezier(0.22, 1, 0.36, 1)
+    animation: tmg-intro-exit-line 0.96s cubic-bezier(0.22, 1, 0.36, 1)
       both;
   }
 }

@@ -59,7 +59,7 @@ export default function SiteIntro({ onDone }) {
   useEffect(() => {
     const timer = window.setTimeout(
       () => onDone?.(),
-      shouldReduceMotion ? 250 : 1550,
+      shouldReduceMotion ? 120 : 980,
     )
 
     return () => window.clearTimeout(timer)
@@ -71,8 +71,8 @@ export default function SiteIntro({ onDone }) {
       role="status"
       aria-label="Chargement TMG"
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.02, filter: 'blur(10px)' }}
-      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+      exit={{ opacity: 0, scale: 1.01 }}
+      transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
     >
       <span
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,var(--line)_1px,transparent_1px),linear-gradient(to_bottom,var(--line)_1px,transparent_1px)] bg-[length:25vw_100%,100%_96px]"
@@ -104,7 +104,7 @@ export default function SiteIntro({ onDone }) {
           <span className="hidden text-black/45 sm:block">Signal → Structure → Impact</span>
         </div>
 
-        <div className="tmg-intro-stage relative w-full max-w-5xl overflow-hidden border border-black/15 bg-[rgba(215,215,212,0.42)] px-4 py-8 shadow-[0_34px_110px_rgba(0,0,0,0.14)] backdrop-blur-md sm:px-8">
+        <div className="tmg-intro-stage relative w-full max-w-5xl overflow-hidden border border-black/15 bg-[rgba(215,215,212,0.7)] px-4 py-8 shadow-[0_28px_82px_rgba(0,0,0,0.13)] sm:px-8">
           <span className="tmg-intro-scan pointer-events-none absolute inset-x-0 top-0 h-full" aria-hidden="true" />
           <span className="tmg-intro-measure tmg-intro-measure-top" aria-hidden="true" />
           <span className="tmg-intro-measure tmg-intro-measure-bottom" aria-hidden="true" />
@@ -118,7 +118,7 @@ export default function SiteIntro({ onDone }) {
             {introPieces.map((piece, index) => (
               <span
                 key={`${piece.bgPosition}-${piece.startRotate}`}
-                className="tmg-intro-piece absolute left-1/2 top-1/2 overflow-hidden border border-black/15 bg-[var(--bg)]/90 p-2 shadow-[0_24px_60px_rgba(0,0,0,0.16)] backdrop-blur-sm"
+                className="tmg-intro-piece absolute left-1/2 top-1/2 overflow-hidden border border-black/15 bg-[var(--bg)]/95 p-2 shadow-[0_18px_44px_rgba(0,0,0,0.14)]"
                 style={{
                   '--intro-start-x': piece.startX,
                   '--intro-start-y': piece.startY,
@@ -127,7 +127,7 @@ export default function SiteIntro({ onDone }) {
                   '--intro-final-y': piece.finalY,
                   '--intro-bg-position': piece.bgPosition,
                   '--intro-logo': `url(${tmgLogo})`,
-                  '--intro-piece-delay': `${index * 0.035}s`,
+                  '--intro-piece-delay': `${index * 0.018}s`,
                 }}
                 aria-hidden="true"
               >

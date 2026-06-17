@@ -148,6 +148,7 @@ function HeroStackVisual() {
             width="720"
             height="356"
             className="tmg-logo-card-mark h-auto w-full object-contain"
+            loading="lazy"
             decoding="async"
             draggable="false"
           />
