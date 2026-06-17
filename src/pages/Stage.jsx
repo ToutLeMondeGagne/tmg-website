@@ -54,7 +54,7 @@ export default function Stage() {
           </div>
 
           <AnimatedSection delay={0.12}>
-            <Card className="text-left text-black" padding="p-8" variant="blue">
+            <Card className="text-left text-black" padding="p-8">
               <h2 className="mb-8 text-5xl font-semibold uppercase leading-none tracking-normal text-[var(--blue)]">
                 Process
               </h2>
@@ -91,7 +91,6 @@ export default function Stage() {
                 <Card
                   className="min-h-56 text-left text-black"
                   padding="p-8"
-                  variant="blue"
                 >
                   <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
                     0{index + 1}

@@ -1,42 +1,16 @@
 import { motion } from 'framer-motion'
 
-const variants = {
-  default: {
-    className: 'border-t border-black/35 bg-[var(--card)] text-black',
-    hover: {
-      backgroundColor: 'rgba(215,215,212,0.94)',
-      boxShadow: '0 28px 90px rgba(0, 76, 255, 0.14)',
-    },
-    line: 'bg-[var(--blue)]',
-  },
-  blue: {
-    className:
-      'tmg-blue-card border border-[rgba(0,76,255,0.45)] bg-[linear-gradient(135deg,#07111f_0%,#0b2f86_52%,#004cff_100%)] text-white shadow-[0_24px_70px_rgba(0,0,0,0.18)]',
-    hover: {
-      boxShadow: '0 30px 95px rgba(0, 76, 255, 0.24)',
-    },
-    line: 'bg-[var(--green)]',
-  },
-}
-
-export default function Card({
-  children,
-  className = '',
-  hover = true,
-  padding = 'p-6',
-  variant = 'default',
-}) {
-  const currentVariant = variants[variant] ?? variants.default
-
+export default function Card({ children, className = '', hover = true, padding = 'p-6' }) {
   return (
     <motion.div
-      className={`group relative overflow-hidden ${currentVariant.className} ${padding} ${className}`}
+      className={`group relative overflow-hidden border-t border-black/35 bg-[var(--card)] ${padding} ${className}`}
       whileHover={
         hover
           ? {
               y: -7,
               scale: 1.012,
-              ...currentVariant.hover,
+              backgroundColor: 'rgba(215,215,212,0.94)',
+              boxShadow: '0 28px 90px rgba(0, 76, 255, 0.14)',
             }
           : {}
       }
@@ -45,7 +19,7 @@ export default function Card({
       {hover ? (
         <>
           <span
-            className={`pointer-events-none absolute inset-x-0 top-0 h-px origin-left scale-x-0 ${currentVariant.line} transition-transform duration-500 ease-out group-hover:scale-x-100`}
+            className="pointer-events-none absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-[var(--blue)] transition-transform duration-500 ease-out group-hover:scale-x-100"
             aria-hidden="true"
           />
           <span
