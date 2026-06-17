@@ -175,7 +175,8 @@ export default function Home() {
             <AnimatedText
               as="h1"
               split="words"
-              className="max-w-full text-[clamp(2rem,9vw,3rem)] font-semibold uppercase leading-[0.9] tracking-normal text-black md:text-[clamp(4rem,9.2vw,9rem)] md:leading-[0.86] xl:text-[clamp(7rem,8.8vw,10rem)]"
+              wordClassName="!pb-[0.04em] !pt-0"
+              className="max-w-full text-[clamp(2rem,9vw,3rem)] font-semibold uppercase leading-[0.8] tracking-normal text-black md:text-[clamp(4rem,9.2vw,9rem)] md:leading-[0.76] xl:text-[clamp(7rem,8.8vw,10rem)] xl:leading-[0.74]"
             >
               Transformez votre trafic en clients.
             </AnimatedText>

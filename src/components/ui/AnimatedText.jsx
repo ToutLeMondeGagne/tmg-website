@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
 function joinClasses(...classes) {
@@ -46,6 +47,7 @@ export default function AnimatedText({
   stagger = 0.035,
   once = true,
   amount = 0.4,
+  wordClassName = '',
   ...props
 }) {
   const shouldReduceMotion = useReducedMotion()
@@ -75,20 +77,24 @@ export default function AnimatedText({
         {...props}
       >
         {words.map((word, index) => (
-          <span
-            key={`${word}-${index}`}
-            className="inline-block overflow-hidden pb-[0.14em] pt-[0.03em] align-baseline"
-            aria-hidden="true"
-          >
-            <motion.span
-              className="inline-block"
-              variants={wordVariants}
-              custom={{ duration }}
+          <Fragment key={`${word}-${index}`}>
+            <span
+              className={joinClasses(
+                'inline-block overflow-hidden whitespace-nowrap pb-[0.14em] pt-[0.03em] align-baseline',
+                wordClassName,
+              )}
+              aria-hidden="true"
             >
-              {word}
-            </motion.span>
-            {index < words.length - 1 ? '\u00a0' : ''}
-          </span>
+              <motion.span
+                className="inline-block"
+                variants={wordVariants}
+                custom={{ duration }}
+              >
+                {word}
+              </motion.span>
+            </span>
+            {index < words.length - 1 ? ' ' : null}
+          </Fragment>
         ))}
       </MotionTag>
     )
