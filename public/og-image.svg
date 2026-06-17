@@ -1,0 +1,17 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#D7D7D4"/>
+  <path d="M0 126H1200M0 252H1200M0 378H1200M0 504H1200M240 0V630M480 0V630M720 0V630M960 0V630" stroke="#242424" stroke-opacity="0.14"/>
+  <rect x="72" y="72" width="1056" height="486" fill="#D7D7D4" fill-opacity="0.72" stroke="#242424" stroke-opacity="0.28"/>
+  <text x="104" y="150" fill="#004CFF" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="1">TMG - TOUT LE MONDE GAGNE</text>
+  <text x="100" y="322" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="86" font-weight="800">Sites web et marketing</text>
+  <text x="100" y="418" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="86" font-weight="800">pour PME et OBNL</text>
+  <text x="104" y="500" fill="#242424" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="500">Montréal, Québec - stratégie, contenu, conversion</text>
+  <rect x="962" y="100" width="70" height="70" fill="#E60033"/>
+  <rect x="1032" y="100" width="70" height="70" fill="#2F9DD0"/>
+  <rect x="1102" y="100" width="70" height="70" fill="#8CC63F"/>
+  <text x="978" y="154" fill="#D7D7D4" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="800">T</text>
+  <text x="1042" y="154" fill="#D7D7D4" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="800">M</text>
+  <text x="1116" y="154" fill="#D7D7D4" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="800">G</text>
+  <rect x="100" y="534" width="220" height="8" fill="#004CFF"/>
+  <rect x="320" y="534" width="95" height="8" fill="#B7FF46"/>
+</svg>

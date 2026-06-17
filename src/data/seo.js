@@ -1,0 +1,392 @@
+export const SITE_URL = 'https://toutlemondegagne.ca'
+export const SITE_NAME = 'TMG - Tout le Monde Gagne'
+export const SITE_LOCALE = 'fr_CA'
+export const SITE_LANGUAGE = 'fr-CA'
+export const SITE_EMAIL = 'bonjour@toutlemondegagne.ca'
+export const SITE_LOCATION = 'Montréal, Québec'
+export const DEFAULT_OG_IMAGE = '/og-image.svg'
+
+const defaultDescription =
+  'TMG aide les PME et OBNL à créer des sites web, clarifier leur marketing et transformer leur présence numérique en résultats concrets.'
+
+const baseKeywords = [
+  'agence marketing Montréal',
+  'création site web PME',
+  'site web OBNL',
+  'refonte site web',
+  'audit marketing',
+  'stratégie numérique',
+  'Tout le Monde Gagne',
+]
+
+export const seoPages = {
+  '/': {
+    title: 'TMG | Sites web et marketing pour PME et OBNL à Montréal',
+    description: defaultDescription,
+    keywords: baseKeywords,
+  },
+  '/services': {
+    title: 'Services web et marketing pour PME et OBNL | TMG',
+    description:
+      'Découvrez les services TMG : création de sites web, refonte, audit marketing, stratégie de contenu et systèmes simples pour convertir plus clairement.',
+    keywords: [
+      'services marketing PME',
+      'services web OBNL',
+      'agence web Montréal',
+      'stratégie marketing Montréal',
+    ],
+  },
+  '/services/web': {
+    title: 'Création et refonte de sites web pour PME et OBNL | TMG',
+    description:
+      'TMG crée des sites web rapides, clairs, mobile-first et optimisés SEO pour aider les PME et OBNL à être trouvés, compris et contactés.',
+    keywords: [
+      'création site web PME Montréal',
+      'refonte site web PME',
+      'site web pour OBNL',
+      'site web optimisé SEO',
+    ],
+  },
+  '/services/marketing': {
+    title: 'Audit marketing et stratégie de contenu pour PME | TMG',
+    description:
+      'Audit marketing, analyse de positionnement, personas, plan de contenu et indicateurs de succès pour clarifier vos priorités et mieux attirer vos clients.',
+    keywords: [
+      'audit marketing Montréal',
+      'stratégie marketing PME',
+      'plan de contenu',
+      'positionnement marketing',
+    ],
+  },
+  '/pme': {
+    title: 'Marketing et sites web abordables pour PME | TMG',
+    description:
+      'TMG accompagne les PME et startups avec des sites web, audits marketing et stratégies numériques adaptés à leurs budgets et objectifs de croissance.',
+    keywords: [
+      'marketing PME Montréal',
+      'site web PME',
+      'agence marketing abordable',
+      'startup Montréal marketing',
+    ],
+  },
+  '/entreprises': {
+    title: 'Marketing et sites web abordables pour PME | TMG',
+    description:
+      'TMG accompagne les PME et startups avec des sites web, audits marketing et stratégies numériques adaptés à leurs budgets et objectifs de croissance.',
+    canonicalPath: '/pme',
+    keywords: [
+      'marketing PME Montréal',
+      'site web PME',
+      'agence marketing abordable',
+      'startup Montréal marketing',
+    ],
+  },
+  '/obnl': {
+    title: 'Sites web et stratégie numérique pour OBNL | TMG',
+    description:
+      'TMG aide les OBNL à clarifier leur message, créer des sites accessibles et mobiliser donateurs, bénévoles et bénéficiaires sans frais inutiles.',
+    keywords: [
+      'site web OBNL',
+      'marketing OBNL',
+      'communication organisme sans but lucratif',
+      'stratégie numérique OBNL',
+    ],
+  },
+  '/stage': {
+    title: 'Stages marketing, web et contenu à Montréal | TMG',
+    description:
+      'TMG accueille des stagiaires en marketing, design, contenu et web sur de vrais mandats clients, avec accompagnement, portfolio et responsabilités concrètes.',
+    keywords: [
+      'stage marketing Montréal',
+      'stage web Montréal',
+      'stage contenu numérique',
+      'stage design web',
+    ],
+  },
+  '/a-propos': {
+    title: 'À propos de TMG | Agence web et marketing propulsée par la relève',
+    description:
+      'Découvrez TMG - Tout le Monde Gagne : une agence qui relie PME, OBNL et stagiaires autour de projets web et marketing concrets.',
+    keywords: [
+      'agence TMG',
+      'Tout le Monde Gagne',
+      'agence web Montréal',
+      'agence marketing relève',
+    ],
+  },
+  '/faq': {
+    title: 'FAQ | Questions fréquentes sur les services TMG',
+    description:
+      'Réponses aux questions fréquentes sur les services TMG, les types de clients accompagnés, les mandats web, marketing et les premières étapes.',
+    keywords: [
+      'FAQ agence web',
+      'questions marketing PME',
+      'questions site web OBNL',
+    ],
+  },
+  '/contact': {
+    title: 'Contact | Lancer un projet web ou marketing avec TMG',
+    description:
+      'Contactez TMG pour discuter de votre site web, refonte, audit marketing, stratégie de contenu ou projet numérique pour PME et OBNL.',
+    keywords: [
+      'contact agence marketing Montréal',
+      'lancer projet web',
+      'demande site web PME',
+    ],
+  },
+}
+
+export const notFoundSeo = {
+  title: 'Page introuvable | TMG',
+  description:
+    'La page demandée est introuvable. Retournez à l’accueil de TMG pour découvrir nos services web et marketing.',
+  robots: 'noindex, follow',
+}
+
+export function normalizePath(pathname) {
+  if (!pathname || pathname === '/') {
+    return '/'
+  }
+
+  return pathname.replace(/\/+$/, '') || '/'
+}
+
+export function absoluteUrl(path = '/') {
+  if (path.startsWith('http')) {
+    return path
+  }
+
+  return `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`
+}
+
+export function getSeoForPath(pathname) {
+  const path = normalizePath(pathname)
+  const pageSeo = seoPages[path]
+
+  if (!pageSeo) {
+    return {
+      ...notFoundSeo,
+      canonicalUrl: absoluteUrl(path),
+      ogImage: absoluteUrl(DEFAULT_OG_IMAGE),
+    }
+  }
+
+  const canonicalPath = pageSeo.canonicalPath || path
+
+  return {
+    robots: 'index, follow',
+    ...pageSeo,
+    canonicalUrl: absoluteUrl(canonicalPath),
+    ogImage: absoluteUrl(pageSeo.ogImage || DEFAULT_OG_IMAGE),
+  }
+}
+
+function buildBreadcrumbItems(path) {
+  const labels = {
+    services: 'Services',
+    web: 'Création et refonte web',
+    marketing: 'Audit marketing',
+    pme: 'PME',
+    entreprises: 'PME',
+    obnl: 'OBNL',
+    stage: 'Stagiaires',
+    'a-propos': 'À propos',
+    faq: 'FAQ',
+    contact: 'Contact',
+  }
+
+  const segments = normalizePath(path).split('/').filter(Boolean)
+  const items = [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Accueil',
+      item: SITE_URL,
+    },
+  ]
+
+  segments.forEach((segment, index) => {
+    const pathname = `/${segments.slice(0, index + 1).join('/')}`
+
+    items.push({
+      '@type': 'ListItem',
+      position: index + 2,
+      name: labels[segment] || segment,
+      item: absoluteUrl(pathname),
+    })
+  })
+
+  return items
+}
+
+function buildOrganizationSchema() {
+  return {
+    '@type': ['Organization', 'ProfessionalService'],
+    '@id': `${SITE_URL}/#organization`,
+    name: SITE_NAME,
+    alternateName: 'TMG',
+    url: SITE_URL,
+    logo: absoluteUrl('/favicon.svg'),
+    image: absoluteUrl(DEFAULT_OG_IMAGE),
+    email: SITE_EMAIL,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Montréal',
+      addressRegion: 'Québec',
+      addressCountry: 'CA',
+    },
+    areaServed: [
+      {
+        '@type': 'AdministrativeArea',
+        name: 'Québec',
+      },
+      {
+        '@type': 'Country',
+        name: 'Canada',
+      },
+    ],
+    description: defaultDescription,
+  }
+}
+
+function buildWebSiteSchema() {
+  return {
+    '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: SITE_NAME,
+    inLanguage: SITE_LANGUAGE,
+    publisher: {
+      '@id': `${SITE_URL}/#organization`,
+    },
+  }
+}
+
+function buildWebPageSchema(seo, path) {
+  return {
+    '@type': 'WebPage',
+    '@id': `${seo.canonicalUrl}#webpage`,
+    url: seo.canonicalUrl,
+    name: seo.title,
+    description: seo.description,
+    inLanguage: SITE_LANGUAGE,
+    isPartOf: {
+      '@id': `${SITE_URL}/#website`,
+    },
+    about: {
+      '@id': `${SITE_URL}/#organization`,
+    },
+    breadcrumb: {
+      '@id': `${seo.canonicalUrl}#breadcrumb`,
+    },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: seo.ogImage,
+    },
+    potentialAction:
+      path === '/contact'
+        ? {
+            '@type': 'ContactAction',
+            target: seo.canonicalUrl,
+          }
+        : undefined,
+  }
+}
+
+function buildBreadcrumbSchema(seo, path) {
+  return {
+    '@type': 'BreadcrumbList',
+    '@id': `${seo.canonicalUrl}#breadcrumb`,
+    itemListElement: buildBreadcrumbItems(path),
+  }
+}
+
+function buildServiceSchema(path) {
+  const services = {
+    '/services/web': {
+      name: 'Création et refonte de sites web',
+      description:
+        'Création, refonte, optimisation SEO, design mobile-first et suivi analytique pour PME et OBNL.',
+      serviceType: 'Création de site web',
+    },
+    '/services/marketing': {
+      name: 'Audit marketing et stratégie de contenu',
+      description:
+        'Audit de présence actuelle, personas, stratégie de contenu, plan d’action et indicateurs de succès.',
+      serviceType: 'Audit marketing',
+    },
+  }
+
+  const service = services[path]
+
+  if (!service) {
+    return null
+  }
+
+  return {
+    '@type': 'Service',
+    '@id': `${absoluteUrl(path)}#service`,
+    ...service,
+    provider: {
+      '@id': `${SITE_URL}/#organization`,
+    },
+    areaServed: {
+      '@type': 'AdministrativeArea',
+      name: 'Québec',
+    },
+  }
+}
+
+function buildFaqSchema(path) {
+  if (path !== '/faq') {
+    return null
+  }
+
+  return {
+    '@type': 'FAQPage',
+    '@id': `${absoluteUrl('/faq')}#faq`,
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Avec quels types de clients travaillez-vous ?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'TMG travaille principalement avec des PME, OBNL et équipes qui veulent clarifier leur présence numérique.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Pouvez-vous partir d’un site existant ?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Oui. TMG peut auditer, simplifier et faire évoluer une base déjà en place.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Comment commence un mandat ?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Un mandat commence par la compréhension de vos objectifs, de vos contraintes et des actions prioritaires.',
+        },
+      },
+    ],
+  }
+}
+
+export function getStructuredData(pathname, seo = getSeoForPath(pathname)) {
+  const path = normalizePath(pathname)
+  const graph = [
+    buildOrganizationSchema(),
+    buildWebSiteSchema(),
+    buildWebPageSchema(seo, path),
+    buildBreadcrumbSchema(seo, path),
+    buildServiceSchema(path),
+    buildFaqSchema(path),
+  ].filter(Boolean)
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': graph,
+  }
+}

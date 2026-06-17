@@ -12,6 +12,7 @@ import About from './pages/About'
 import QA from './pages/QA'
 import NotFound from './pages/NotFound'
 import { Footer, Navbar, ScrollProgress, SiteIntro } from './components/layout'
+import PageSeo from './components/seo/PageSeo'
 import './App.css'
 
 function App() {
@@ -32,11 +33,9 @@ function App() {
     }
   }, [showIntro])
 
-  console.log(import.meta.env)
-  console.log(import.meta.env.VITE_EMAILJS_SERVICE_ID)
-
   return (
     <>
+      <PageSeo />
       <AnimatePresence>
         {showIntro ? <SiteIntro key="site-intro" onDone={finishIntro} /> : null}
       </AnimatePresence>
