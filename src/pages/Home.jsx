@@ -144,7 +144,10 @@ function HeroStackVisual() {
           <img
             src={tmgLogo}
             alt=""
+            width="720"
+            height="356"
             className="tmg-logo-card-mark h-auto w-full object-contain"
+            decoding="async"
             draggable="false"
           />
         </span>
@@ -152,7 +155,11 @@ function HeroStackVisual() {
       <img
         src={heroStackImage}
         alt="Couches visuelles TMG superposées"
+        width="343"
+        height="361"
         className="tmg-stack-float relative z-10 w-[min(72vw,17rem)] drop-shadow-[0_34px_42px_rgba(0,0,0,0.24)] md:w-[18rem] lg:w-[20rem]"
+        decoding="async"
+        fetchPriority="high"
       />
       <span
         className="tmg-stack-scan pointer-events-none absolute left-1/2 top-1/2 z-20 h-28 w-[72%] -translate-x-1/2 -translate-y-1/2 border-y border-[var(--blue)]/60 bg-[linear-gradient(90deg,transparent,rgba(0,76,255,0.1),transparent)]"

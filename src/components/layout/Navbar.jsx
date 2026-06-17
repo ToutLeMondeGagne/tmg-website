@@ -189,7 +189,11 @@ export default function Navbar() {
           <img
             src={tmgLogo}
             alt=""
+            width="720"
+            height="356"
             className="h-12 w-auto max-w-[10rem] object-contain sm:h-14 sm:max-w-[12rem]"
+            decoding="async"
+            fetchPriority="high"
           />
         </Link>
 

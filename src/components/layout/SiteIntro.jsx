@@ -136,7 +136,10 @@ export default function SiteIntro({ onDone }) {
                 <img
                   src={tmgLogo}
                   alt=""
+                  width="720"
+                  height="356"
                   className="tmg-intro-piece-card relative z-10 h-auto w-full object-contain"
+                  decoding="async"
                   draggable="false"
                 />
               </span>
@@ -145,7 +148,11 @@ export default function SiteIntro({ onDone }) {
               <img
                 src={tmgLogo}
                 alt="TMG - Tout le Monde Gagne"
+                width="720"
+                height="356"
                 className="h-auto w-full object-contain"
+                decoding="async"
+                fetchPriority="high"
                 draggable="false"
               />
             </span>

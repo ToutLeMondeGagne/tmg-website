@@ -3,7 +3,9 @@ import { useLocation } from 'react-router-dom'
 import {
   SITE_LANGUAGE,
   SITE_LOCALE,
+  SITE_LOCATION,
   SITE_NAME,
+  SITE_REGION,
   getSeoForPath,
   getStructuredData,
 } from '../../data/seo'
@@ -65,6 +67,8 @@ export default function PageSeo() {
     ensureMeta('name', 'keywords', seo.keywords?.join(', '))
     ensureMeta('name', 'author', SITE_NAME)
     ensureMeta('name', 'theme-color', '#d7d7d4')
+    ensureMeta('name', 'geo.region', SITE_REGION)
+    ensureMeta('name', 'geo.placename', SITE_LOCATION)
 
     ensureMeta('property', 'og:locale', SITE_LOCALE)
     ensureMeta('property', 'og:type', 'website')
