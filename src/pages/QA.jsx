@@ -4,11 +4,11 @@ import { AnimatedSection, AnimatedText, Card, SectionLabel } from '../components
 const questions = [
   {
     question: 'Avec quels types de clients travaillez-vous ?',
-    answer: 'Principalement avec des PME, OBNL et equipes qui veulent clarifier leur presence numerique.',
+    answer: 'Principalement avec des PME, OBNL et équipes qui veulent clarifier leur présence numérique.',
   },
   {
-    question: 'Pouvez-vous partir d un site existant ?',
-    answer: 'Oui, on peut auditer, simplifier et faire evoluer une base deja en place.',
+    question: 'Pouvez-vous partir d’un site existant ?',
+    answer: 'Oui, on peut auditer, simplifier et faire évoluer une base déjà en place.',
   },
   {
     question: 'Comment commence un mandat ?',
@@ -27,7 +27,7 @@ export default function QA() {
             split="words"
             className="max-w-6xl text-[clamp(3rem,8vw,9rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black"
           >
-            Questions frequentes.
+            Questions fréquentes sur les services web et marketing.
           </AnimatedText>
         </section>
 

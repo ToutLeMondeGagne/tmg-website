@@ -41,11 +41,11 @@ export default function Stage() {
               split="words"
               className="text-[clamp(3rem,6vw,6.6rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black"
             >
-              Learn by building.
+              Stage marketing, contenu et web sur de vrais mandats.
             </AnimatedText>
             <AnimatedText as="p" delay={0.16} className="text-xl leading-8 text-black/70">
               TMG accueille les profils curieux qui veulent pratiquer le
-              marketing, le design, le contenu et le web dans des projets reels.
+              marketing, le design, le contenu et le web dans des projets réels.
             </AnimatedText>
             <Button href="#candidature" variant="secondary">
               Proposer une candidature
@@ -58,10 +58,10 @@ export default function Stage() {
                 Process
               </h2>
               <ul className="space-y-4 text-xl text-black/70">
-                <li>Autonomie accompagnee</li>
-                <li>Curiosite et envie d apprendre</li>
+                <li>Autonomie accompagnée</li>
+                <li>Curiosité et envie d&apos;apprendre</li>
                 <li>Communication claire</li>
-                <li>Livrables utiles, pas seulement decoratifs</li>
+                <li>Livrables utiles, pas seulement décoratifs</li>
               </ul>
             </Card>
           </AnimatedSection>
@@ -118,12 +118,12 @@ export default function Stage() {
                 split="words"
                 className="text-[clamp(3rem,6vw,6rem)] font-medium leading-[0.92] tracking-normal text-black"
               >
-                Un formulaire pense pour les stagiaires.
+                Un formulaire pensé pour les stagiaires.
               </AnimatedText>
               <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
                 Ici, on ne demande pas un budget ou un objectif de conversion.
                 On veut comprendre ce que vous voulez apprendre, vos
-                disponibilites et le type de projets qui vous motive.
+                disponibilités et le type de projets qui vous motive.
               </AnimatedText>
             </div>
             <div className="space-y-2 text-sm text-black/70">

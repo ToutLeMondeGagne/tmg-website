@@ -4,20 +4,20 @@ import { AnimatedSection, AnimatedText, Button, SectionLabel } from '../componen
 const services = [
   {
     id: 'pme',
-    title: 'PME',
-    text: 'Clarifier votre offre, renforcer votre presence web et attirer des clients mieux alignes.',
+    title: 'PME et startups',
+    text: 'Clarifier votre offre, renforcer votre présence web et attirer des clients mieux alignés.',
     href: '/pme',
   },
   {
     id: 'obnl',
-    title: 'OBNL',
-    text: 'Structurer votre message, mobiliser votre communaute et faciliter le passage a l action.',
+    title: 'OBNL et organismes',
+    text: 'Structurer votre message, mobiliser votre communauté et faciliter le passage à l’action.',
     href: '/obnl',
   },
   {
     id: 'strategie',
-    title: 'Croissance',
-    text: 'Prioriser les bons canaux, mesurer ce qui compte et faire evoluer les contenus au bon rythme.',
+    title: 'Audit marketing',
+    text: 'Prioriser les bons canaux, mesurer ce qui compte et faire évoluer les contenus au bon rythme.',
     href: '/services/marketing',
   },
 ]
@@ -54,7 +54,7 @@ export default function Services() {
             split="words"
             className="max-w-5xl text-[clamp(3rem,8vw,9rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black"
           >
-            Build. Launch. Grow.
+            Services web et marketing pour PME et OBNL.
           </AnimatedText>
         </section>
 
@@ -82,7 +82,7 @@ export default function Services() {
                 variant="ghost"
                 className="self-start justify-self-start lg:justify-self-end"
               >
-                Learn more ↗
+                Découvrir ↗
               </Button>
             </AnimatedSection>
           ))}

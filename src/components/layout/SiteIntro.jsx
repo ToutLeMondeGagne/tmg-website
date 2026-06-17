@@ -59,7 +59,7 @@ export default function SiteIntro({ onDone }) {
   useEffect(() => {
     const timer = window.setTimeout(
       () => onDone?.(),
-      shouldReduceMotion ? 450 : 2200,
+      shouldReduceMotion ? 250 : 1550,
     )
 
     return () => window.clearTimeout(timer)
@@ -72,7 +72,7 @@ export default function SiteIntro({ onDone }) {
       aria-label="Chargement TMG"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.02, filter: 'blur(10px)' }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
     >
       <span
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,var(--line)_1px,transparent_1px),linear-gradient(to_bottom,var(--line)_1px,transparent_1px)] bg-[length:25vw_100%,100%_96px]"

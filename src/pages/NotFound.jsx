@@ -15,9 +15,9 @@ export default function NotFound() {
             Page introuvable.
           </AnimatedText>
           <AnimatedText as="p" delay={0.12} className="max-w-xl text-xl leading-8 text-black/70">
-            Le lien est peut-etre incomplet ou la page a ete deplacee.
+            Le lien est peut-être incomplet ou la page a été déplacée.
           </AnimatedText>
-          <Button href="/">Retour a l accueil</Button>
+          <Button href="/">Retour à l’accueil</Button>
         </section>
       </PageContainer>
     </main>
