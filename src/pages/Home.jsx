@@ -1,7 +1,6 @@
-import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { PageContainer } from '../components/layout'
 import RelatedLinks from '../components/seo/RelatedLinks'
+import ProjectsShowcase from '../components/sections/ProjectsShowcase'
 import {
   AnimatedSection,
   AnimatedText,
@@ -11,7 +10,6 @@ import {
   TicketCard,
 } from '../components/ui'
 import heroStackImage from '../assets/hero.png'
-import projectPlaceholderImage from '../assets/images/tmg-team-studio.webp'
 import tmgLogo from '../assets/logos/tmg-logo.png'
 
 const highlights = [
@@ -26,51 +24,6 @@ const highlights = [
   {
     title: 'Systèmes',
     text: 'Une expérience structurée pour guider les prospects du premier clic au rendez-vous.',
-  },
-]
-
-const projects = [
-  {
-    number: '01',
-    title: 'Projet client 01',
-    category: 'Nos projets',
-    date: 'Photo temporaire',
-    summary:
-      'Un espace pour présenter le prochain site réalisé par TMG: le contexte, les objectifs et le résultat livré.',
-    result:
-      'La photo est volontairement temporaire: elle pourra être remplacée par la capture du site final.',
-    image: projectPlaceholderImage,
-    imageAlt: 'Photo temporaire pour un projet client TMG',
-    objectPosition: 'center',
-    accent: '#004cff',
-  },
-  {
-    number: '02',
-    title: 'Projet client 02',
-    category: 'Refonte web',
-    date: 'Photo temporaire',
-    summary:
-      'Une deuxième fiche prête à recevoir une capture de projet: objectif, parcours utilisateur et résultat visible.',
-    result:
-      'Elle sert de placeholder pour montrer le rythme de la section avant d’ajouter les vrais visuels.',
-    image: projectPlaceholderImage,
-    imageAlt: 'Photo temporaire pour un second projet client TMG',
-    objectPosition: 'left center',
-    accent: '#8cc63f',
-  },
-  {
-    number: '03',
-    title: 'Projet client 03',
-    category: 'Stratégie marketing',
-    date: 'Photo temporaire',
-    summary:
-      'Une troisième entrée pour compléter l’effet de défilement et donner une vraie sensation de portfolio vivant.',
-    result:
-      'Quand le dernier projet est passé, le scroll continue naturellement vers la section suivante.',
-    image: projectPlaceholderImage,
-    imageAlt: 'Photo temporaire pour un troisième projet client TMG',
-    objectPosition: 'right center',
-    accent: '#111827',
   },
 ]
 
@@ -223,314 +176,6 @@ function HeroStackVisual() {
   )
 }
 
-function ProjectPreview({ project }) {
-  return (
-    <figure className="relative overflow-hidden border border-black/15 bg-black/10 shadow-[0_24px_70px_rgba(0,0,0,0.14)]">
-      <span
-        className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.16)_1px,transparent_1px)] bg-[length:25%_100%,100%_72px]"
-        aria-hidden="true"
-      />
-      <span
-        className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,transparent_52%,rgba(0,0,0,0.24))]"
-        aria-hidden="true"
-      />
-      <img
-        src={project.image}
-        alt={project.imageAlt}
-        width="1600"
-        height="1000"
-        className="aspect-[16/10] h-full w-full object-cover"
-        style={{ objectPosition: project.objectPosition }}
-        loading="lazy"
-        decoding="async"
-      />
-      <figcaption className="absolute bottom-4 left-4 z-20 flex items-center gap-3 bg-[var(--bg)]/90 px-3 py-2 text-xs font-semibold uppercase text-black backdrop-blur-sm">
-        <span className="h-2 w-2 bg-[var(--project-accent)]" aria-hidden="true" />
-        {project.number} / Image temporaire
-      </figcaption>
-    </figure>
-  )
-}
-
-function ProjectStackCard({ project, index, total, progress }) {
-  const segment = 1 / total
-  const start = index * segment
-  const exit = Math.min(1, start + segment)
-  const enter = Math.max(0, start - segment * 0.65)
-  const isFirst = index === 0
-  const isLast = index === total - 1
-  const opacityInput = isFirst
-    ? [0, exit - segment * 0.16, exit]
-    : isLast
-      ? [enter, start + segment * 0.16, 1]
-      : [enter, start + segment * 0.12, exit - segment * 0.14, exit]
-  const opacityOutput = isFirst ? [1, 1, 0] : isLast ? [0.52, 1, 1] : [0.5, 1, 1, 0]
-  const yInput = opacityInput
-  const yOutput = isFirst
-    ? [0, 0, -74]
-    : isLast
-      ? [66, 0, 0]
-      : [48, 0, 0, -74]
-  const scaleOutput = isFirst
-    ? [1, 1, 0.94]
-    : isLast
-      ? [0.9, 1, 1]
-      : [0.92, 1, 1, 0.94]
-  const rotateOutput = isFirst
-    ? [-1.2, -1.2, -4]
-    : isLast
-      ? [3.4, 0, 0]
-      : [2.4, 0, 0, -4]
-  const imageY = useTransform(
-    progress,
-    [Math.max(0, start - segment * 0.5), Math.min(1, exit)],
-    ['2%', '-5%'],
-  )
-  const opacity = useTransform(progress, opacityInput, opacityOutput)
-  const y = useTransform(progress, yInput, yOutput)
-  const scale = useTransform(progress, yInput, scaleOutput)
-  const rotate = useTransform(progress, yInput, rotateOutput)
-
-  return (
-    <motion.figure
-      className="absolute inset-0 overflow-hidden border border-black/15 bg-black/10 shadow-[0_24px_70px_rgba(0,0,0,0.16)]"
-      style={{
-        '--project-accent': project.accent,
-        opacity,
-        y,
-        scale,
-        rotate,
-        zIndex: total - index,
-        transformOrigin: 'center bottom',
-      }}
-    >
-      <span
-        className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.16)_1px,transparent_1px)] bg-[length:25%_100%,100%_72px]"
-        aria-hidden="true"
-      />
-      <span
-        className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,transparent_52%,rgba(0,0,0,0.28))]"
-        aria-hidden="true"
-      />
-      <motion.img
-        src={project.image}
-        alt={project.imageAlt}
-        width="1600"
-        height="1000"
-        className="h-full w-full scale-110 object-cover"
-        style={{ y: imageY, objectPosition: project.objectPosition }}
-        loading="lazy"
-        decoding="async"
-      />
-      <figcaption className="absolute bottom-4 left-4 z-20 flex items-center gap-3 bg-[var(--bg)]/90 px-3 py-2 text-xs font-semibold uppercase text-black backdrop-blur-sm">
-        <span className="h-2 w-2 bg-[var(--project-accent)]" aria-hidden="true" />
-        {project.number} / Image temporaire
-      </figcaption>
-    </motion.figure>
-  )
-}
-
-function ProjectMeta({ project }) {
-  return (
-    <div className="flex items-center gap-4">
-      <img
-        src={project.image}
-        alt=""
-        width="96"
-        height="72"
-        className="h-12 w-16 border border-black/15 object-cover"
-        loading="lazy"
-        decoding="async"
-      />
-      <div>
-        <p className="text-base font-medium text-black">{project.title}</p>
-        <p className="text-sm text-black/55">{project.date}</p>
-      </div>
-    </div>
-  )
-}
-
-function ProjectStory({ project, index, total, progress }) {
-  const segment = 1 / total
-  const start = index * segment
-  const exit = Math.min(1, start + segment)
-  const enter = Math.max(0, start - segment * 0.54)
-  const isFirst = index === 0
-  const isLast = index === total - 1
-  const input = isFirst
-    ? [0, exit - segment * 0.18, exit]
-    : isLast
-      ? [enter, start + segment * 0.12, 1]
-      : [enter, start + segment * 0.12, exit - segment * 0.16, exit]
-  const opacity = useTransform(
-    progress,
-    input,
-    isFirst ? [1, 1, 0] : isLast ? [0, 1, 1] : [0, 1, 1, 0],
-  )
-  const y = useTransform(
-    progress,
-    input,
-    isFirst ? [0, 0, -28] : isLast ? [28, 0, 0] : [28, 0, 0, -28],
-  )
-
-  return (
-    <motion.article
-      className="absolute inset-0 flex flex-col justify-between"
-      style={{
-        '--project-accent': project.accent,
-        opacity,
-        y,
-      }}
-    >
-      <div className="space-y-5">
-        <SectionLabel>{index === 0 ? 'Nos projets' : project.category}</SectionLabel>
-        <span className="block text-sm font-semibold uppercase text-[var(--project-accent)]">
-          {project.number}
-        </span>
-        <h2 className="text-[clamp(2.8rem,5.5vw,5.8rem)] font-semibold uppercase leading-[0.9] tracking-normal text-black">
-          {project.title}
-        </h2>
-      </div>
-
-      <div className="space-y-8">
-        <p className="max-w-md text-lg leading-8 text-black/72 lg:text-xl">
-          {project.summary}
-        </p>
-        <p className="max-w-md border-t border-black/20 pt-5 text-sm font-semibold uppercase leading-6 text-black/58">
-          {project.result}
-        </p>
-        <ProjectMeta project={project} />
-      </div>
-    </motion.article>
-  )
-}
-
-function MobileProjectItem({ project, index }) {
-  return (
-    <AnimatedSection
-      as="article"
-      className="border-b border-black/20 py-12 last:border-b-0"
-      delay={index * 0.05}
-      amount={0.16}
-      style={{ '--project-accent': project.accent }}
-    >
-      <div className="space-y-6">
-        <SectionLabel>{index === 0 ? 'Nos projets' : project.category}</SectionLabel>
-        <span className="block text-sm font-semibold uppercase text-[var(--project-accent)]">
-          {project.number}
-        </span>
-        <h2 className="text-[clamp(2.5rem,13vw,4.8rem)] font-semibold uppercase leading-[0.9] tracking-normal text-black">
-          {project.title}
-        </h2>
-        <ProjectPreview project={project} />
-        <div className="space-y-6">
-          <p className="text-lg leading-8 text-black/72">{project.summary}</p>
-          <p className="border-t border-black/20 pt-5 text-sm font-semibold uppercase leading-6 text-black/58">
-            {project.result}
-          </p>
-          <ProjectMeta project={project} />
-        </div>
-      </div>
-    </AnimatedSection>
-  )
-}
-
-function ProjectsShowcase() {
-  const sectionRef = useRef(null)
-  const shouldReduceMotion = useReducedMotion()
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end end'],
-  })
-
-  return (
-    <section
-      id="nos-projets"
-      ref={sectionRef}
-      className="scroll-mt-24 border-b border-black/20 text-left"
-    >
-      <div className="border-t border-black/20 lg:hidden">
-        {projects.map((project, index) => (
-          <MobileProjectItem key={project.title} project={project} index={index} />
-        ))}
-      </div>
-
-      {!shouldReduceMotion ? (
-        <div
-          className="relative hidden border-t border-black/20 lg:block"
-          style={{ height: `${projects.length * 100}svh` }}
-        >
-          <div className="sticky top-24 flex min-h-[calc(100svh-6rem)] items-center py-10">
-            <div className="grid w-full gap-10 lg:grid-cols-[0.29fr_0.71fr] lg:items-center">
-              <div className="relative min-h-[34rem]">
-                {projects.map((project, index) => (
-                  <ProjectStory
-                    key={project.title}
-                    project={project}
-                    index={index}
-                    total={projects.length}
-                    progress={scrollYProgress}
-                  />
-                ))}
-              </div>
-
-              <div
-                className="relative h-[min(62svh,46rem)]"
-                style={{ perspective: '1200px' }}
-              >
-                {projects.map((project, index) => (
-                  <ProjectStackCard
-                    key={project.title}
-                    project={project}
-                    index={index}
-                    total={projects.length}
-                    progress={scrollYProgress}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="pointer-events-none absolute bottom-10 left-0 right-0 flex justify-between text-xs font-semibold uppercase text-black/45">
-            <span>Scroll sur place</span>
-            <span className="text-[var(--blue)]">01 → 03</span>
-            <span>Suite de la page</span>
-          </div>
-        </div>
-      ) : null}
-
-      {shouldReduceMotion ? (
-        <div className="hidden border-t border-black/20 lg:block">
-          {projects.map((project, index) => (
-            <article
-              key={project.title}
-              className="grid gap-10 border-b border-black/20 py-16 last:border-b-0 lg:grid-cols-[0.29fr_0.71fr] lg:items-center"
-              style={{ '--project-accent': project.accent }}
-            >
-              <div className="space-y-8">
-                <div className="space-y-5">
-                  <SectionLabel>{index === 0 ? 'Nos projets' : project.category}</SectionLabel>
-                  <span className="block text-sm font-semibold uppercase text-[var(--project-accent)]">
-                    {project.number}
-                  </span>
-                  <h2 className="text-[clamp(2.8rem,5.5vw,5.8rem)] font-semibold uppercase leading-[0.9] tracking-normal text-black">
-                    {project.title}
-                  </h2>
-                </div>
-                <p className="max-w-md text-xl leading-8 text-black/72">
-                  {project.summary}
-                </p>
-                <ProjectMeta project={project} />
-              </div>
-              <ProjectPreview project={project} />
-            </article>
-          ))}
-        </div>
-      ) : null}
-    </section>
-  )
-}
-
 export default function Home() {
   return (
     <main>
@@ -605,8 +250,6 @@ export default function Home() {
           </div>
         </section>
 
-        <ProjectsShowcase />
-
         <section className="grid gap-5 border-b border-black/20 py-20 md:grid-cols-3">
           {highlights.map((item, index) => (
             <AnimatedSection key={item.title} delay={index * 0.08}>
@@ -619,6 +262,8 @@ export default function Home() {
             </AnimatedSection>
           ))}
         </section>
+
+        <ProjectsShowcase />
 
         <RelatedLinks />
 
