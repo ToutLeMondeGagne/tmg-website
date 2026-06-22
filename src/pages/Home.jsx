@@ -9,6 +9,7 @@ import {
   TicketCard,
 } from '../components/ui'
 import heroStackImage from '../assets/hero.png'
+import projectPlaceholderImage from '../assets/images/tmg-team-studio.webp'
 import tmgLogo from '../assets/logos/tmg-logo.png'
 
 const highlights = [
@@ -23,6 +24,21 @@ const highlights = [
   {
     title: 'Systèmes',
     text: 'Une expérience structurée pour guider les prospects du premier clic au rendez-vous.',
+  },
+]
+
+const projects = [
+  {
+    number: '01',
+    title: 'Projet client',
+    category: 'Nos projets',
+    date: 'Photo temporaire',
+    summary:
+      'Un espace pour présenter le prochain site réalisé par TMG: le contexte, les objectifs et le résultat livré.',
+    result:
+      'La photo est volontairement temporaire: elle pourra être remplacée par la capture du site final.',
+    image: projectPlaceholderImage,
+    imageAlt: 'Photo temporaire pour un projet client TMG',
   },
 ]
 
@@ -175,6 +191,84 @@ function HeroStackVisual() {
   )
 }
 
+function ProjectPreview({ project }) {
+  return (
+    <figure className="relative overflow-hidden border border-black/15 bg-black/10 shadow-[0_24px_70px_rgba(0,0,0,0.14)]">
+      <span
+        className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.16)_1px,transparent_1px)] bg-[length:25%_100%,100%_72px]"
+        aria-hidden="true"
+      />
+      <img
+        src={project.image}
+        alt={project.imageAlt}
+        width="1600"
+        height="1000"
+        className="aspect-[16/10] h-full w-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption className="absolute bottom-4 left-4 z-20 bg-[var(--bg)]/90 px-3 py-2 text-xs font-semibold uppercase text-black backdrop-blur-sm">
+        Image temporaire
+      </figcaption>
+    </figure>
+  )
+}
+
+function ProjectMeta({ project }) {
+  return (
+    <div className="flex items-center gap-4">
+      <img
+        src={project.image}
+        alt=""
+        width="96"
+        height="72"
+        className="h-12 w-16 border border-black/15 object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+      <div>
+        <p className="text-base font-medium text-black">{project.title}</p>
+        <p className="text-sm text-black/55">{project.date}</p>
+      </div>
+    </div>
+  )
+}
+
+function ProjectsShowcase() {
+  const project = projects[0]
+
+  return (
+    <section id="nos-projets" className="scroll-mt-24 border-b border-black/20 text-left">
+      <AnimatedSection
+        className="grid gap-10 border-t border-black/20 py-20 lg:grid-cols-[0.29fr_0.71fr] lg:items-center"
+        delay={0.04}
+        amount={0.18}
+      >
+        <div className="flex flex-col justify-between gap-24 lg:min-h-[34rem]">
+          <div className="space-y-5">
+            <SectionLabel>{project.category}</SectionLabel>
+            <h2 className="text-[clamp(2.8rem,5.5vw,5.8rem)] font-semibold uppercase leading-[0.9] tracking-normal text-black">
+              {project.title}
+            </h2>
+          </div>
+
+          <div className="space-y-8">
+            <p className="max-w-md text-lg leading-8 text-black/72 lg:text-xl">
+              {project.summary}
+            </p>
+            <p className="max-w-md border-t border-black/20 pt-5 text-sm font-semibold uppercase leading-6 text-black/58">
+              {project.result}
+            </p>
+            <ProjectMeta project={project} />
+          </div>
+        </div>
+
+        <ProjectPreview project={project} />
+      </AnimatedSection>
+    </section>
+  )
+}
+
 export default function Home() {
   return (
     <main>
@@ -248,6 +342,8 @@ export default function Home() {
             </AnimatedSection>
           </div>
         </section>
+
+        <ProjectsShowcase />
 
         <section className="grid gap-5 border-b border-black/20 py-20 md:grid-cols-3">
           {highlights.map((item, index) => (
