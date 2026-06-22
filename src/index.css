@@ -643,7 +643,7 @@ a {
 #root {
   min-height: 100svh;
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1,

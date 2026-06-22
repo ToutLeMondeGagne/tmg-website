@@ -1,8 +1,7 @@
-import { useState, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   AnimatePresence,
   motion,
-  useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useTransform,
@@ -56,6 +55,16 @@ function clampProjectIndex(progress) {
   return Math.min(projects.length - 1, Math.max(0, Math.floor(progress * projects.length)))
 }
 
+function getSectionProgress(section) {
+  const scrollableDistance = section.offsetHeight - window.innerHeight
+
+  if (scrollableDistance <= 0) {
+    return 0
+  }
+
+  return (window.scrollY - section.offsetTop) / scrollableDistance
+}
+
 function ProjectThumbnail({ project }) {
   return (
     <div className="flex items-center gap-4">
@@ -82,26 +91,29 @@ function ProjectText({ project, shouldReduceMotion }) {
     <AnimatePresence mode="wait">
       <motion.div
         key={project.title}
-        className="flex h-full flex-col justify-between gap-12"
-        initial={shouldReduceMotion ? false : { opacity: 0, y: 34 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={shouldReduceMotion ? undefined : { opacity: 0, y: -28 }}
-        transition={{ duration: shouldReduceMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
+        className="flex h-full flex-col justify-between gap-8"
+        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 36, filter: 'blur(8px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -28, filter: 'blur(8px)' }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="space-y-5">
+        <div className="space-y-4">
           <span className="inline-flex bg-[var(--blue)] px-3 py-1 text-xs font-semibold uppercase tracking-normal text-white">
-            Nos projets
+            Our work
           </span>
           <p className="text-sm font-semibold uppercase text-[var(--active-accent)]">
             {project.number} / {project.eyebrow}
           </p>
-          <h2 className="max-w-xl text-[clamp(3rem,5.8vw,6.4rem)] font-semibold uppercase leading-[0.88] tracking-normal text-black">
+          <h2
+            data-project-title
+            className="max-w-[34rem] text-[clamp(2.4rem,2.75vw,3.65rem)] font-semibold uppercase leading-none tracking-normal text-black"
+          >
             {project.title}
           </h2>
         </div>
 
-        <div className="space-y-8">
-          <p className="max-w-md text-xl leading-8 text-black/72">
+        <div className="space-y-6">
+          <p className="max-w-[28rem] text-lg leading-7 text-black/72 xl:text-xl xl:leading-8">
             {project.description}
           </p>
           <ProjectThumbnail project={project} />
@@ -115,13 +127,17 @@ function ProjectImage({ project, activeIndex, shouldReduceMotion }) {
   const nextProjects = projects.slice(activeIndex + 1, activeIndex + 3)
 
   return (
-    <div className="relative min-h-[32rem]" style={{ perspective: '1200px' }}>
+    <div
+      data-project-image
+      className="relative h-[clamp(30rem,68vh,44rem)] overflow-visible"
+      style={{ perspective: '1200px' }}
+    >
       {nextProjects.map((nextProject, index) => (
         <div
           key={nextProject.title}
           className="absolute inset-0 border border-black/15 bg-black/10 shadow-[0_22px_60px_rgba(0,0,0,0.13)]"
           style={{
-            transform: `translate3d(${(index + 1) * 18}px, ${(index + 1) * 20}px, ${-(index + 1) * 80}px) rotate(${(index + 1) * 1.4}deg)`,
+            transform: `translate3d(${(index + 1) * 14}px, ${(index + 1) * 16}px, ${-(index + 1) * 70}px) rotate(${(index + 1) * 1.1}deg)`,
             opacity: 0.34 - index * 0.08,
           }}
           aria-hidden="true"
@@ -140,11 +156,11 @@ function ProjectImage({ project, activeIndex, shouldReduceMotion }) {
       <AnimatePresence mode="wait">
         <motion.figure
           key={project.title}
-          className="absolute inset-0 overflow-hidden border border-black/15 bg-black/10 shadow-[0_30px_90px_rgba(0,0,0,0.16)]"
-          initial={shouldReduceMotion ? false : { opacity: 0, x: 60, scale: 0.96 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          exit={shouldReduceMotion ? undefined : { opacity: 0, x: -48, scale: 0.96 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0 overflow-hidden border border-black/15 bg-black/10 shadow-[0_34px_92px_rgba(0,0,0,0.18)]"
+          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: 72, scale: 0.965, filter: 'blur(6px)' }}
+          animate={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
+          exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -52, scale: 1.015, filter: 'blur(6px)' }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <span
             className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.16)_1px,transparent_1px)] bg-[length:25%_100%,100%_72px]"
@@ -237,23 +253,48 @@ export default function ProjectsShowcase() {
   const shouldReduceMotion = useReducedMotion()
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start start', 'end end'],
+    offset: ['start start', 'end start'],
   })
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
   const activeProject = projects[activeIndex] ?? projects[0]
 
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const nextIndex = clampProjectIndex(latest)
-    setActiveIndex((currentIndex) => (
-      currentIndex === nextIndex ? currentIndex : nextIndex
-    ))
-  })
+  useEffect(() => {
+    let animationFrame = 0
+
+    const updateActiveProject = () => {
+      if (!sectionRef.current) {
+        return
+      }
+
+      const nextIndex = clampProjectIndex(getSectionProgress(sectionRef.current))
+      setActiveIndex((currentIndex) => (
+        currentIndex === nextIndex ? currentIndex : nextIndex
+      ))
+    }
+
+    const requestUpdate = () => {
+      window.cancelAnimationFrame(animationFrame)
+      animationFrame = window.requestAnimationFrame(updateActiveProject)
+    }
+
+    updateActiveProject()
+    window.addEventListener('scroll', requestUpdate, { passive: true })
+    window.addEventListener('resize', requestUpdate)
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame)
+      window.removeEventListener('scroll', requestUpdate)
+      window.removeEventListener('resize', requestUpdate)
+    }
+  }, [])
 
   return (
     <section
       ref={sectionRef}
       id="nos-projets"
-      className="scroll-mt-24 border-b border-black/20 bg-[var(--bg)] text-left"
+      data-active-project-index={activeIndex}
+      data-active-project-title={activeProject.title}
+      className="scroll-mt-32 border-b border-black/20 bg-[var(--bg)] pt-10 text-left lg:pt-12"
       style={{ '--active-accent': activeProject.accent }}
     >
       <div className="lg:hidden">
@@ -262,10 +303,16 @@ export default function ProjectsShowcase() {
         ))}
       </div>
 
-      <div className="relative hidden h-[400vh] border-t border-black/20 lg:block">
-        <div className="sticky top-0 flex h-screen items-center pt-24">
-          <div className="grid w-full gap-10 lg:grid-cols-[0.35fr_0.65fr] lg:items-center">
-            <div className="flex min-h-[min(68vh,42rem)] flex-col justify-between">
+      <div className="relative hidden h-[360vh] border-t border-black/20 lg:block">
+        <div
+          data-projects-sticky
+          className="sticky top-24 flex h-[calc(100vh-6rem)] items-center"
+        >
+          <div
+            data-projects-grid
+            className="grid w-full gap-12 lg:grid-cols-[minmax(20rem,0.34fr)_minmax(0,0.66fr)] lg:items-center xl:gap-16"
+          >
+            <div className="flex h-[clamp(30rem,68vh,44rem)] flex-col justify-between gap-10 self-center">
               <ProjectText
                 project={activeProject}
                 shouldReduceMotion={shouldReduceMotion}

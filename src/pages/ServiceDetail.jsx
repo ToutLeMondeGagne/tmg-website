@@ -174,14 +174,29 @@ function ServiceDetail({ service }) {
             </AnimatedText>
           </div>
 
-          <div className="grid overflow-hidden border border-black/20 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid border border-black/20 md:grid-cols-2 xl:grid-cols-3">
             {service.deliverables.map((deliverable, index) => (
               <AnimatedSection
                 key={deliverable.title}
-                className="border-b border-r border-black/15 bg-[var(--card)] p-8 text-left text-black"
+                as="article"
+                className="group relative overflow-hidden border-b border-r border-black/15 bg-[var(--card)] p-8 text-left text-black transition-colors duration-300 hover:z-10 hover:border-[var(--blue)] hover:bg-[rgba(215,215,212,0.94)]"
                 delay={(index % 3) * 0.05}
+                whileHover={{
+                  y: -7,
+                  scale: 1.012,
+                  boxShadow: '0 28px 90px rgba(0, 76, 255, 0.14)',
+                }}
+                transition={{ type: 'spring', stiffness: 260, damping: 22 }}
               >
-                <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
+                <span
+                  className="pointer-events-none absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-[var(--blue)] transition-transform duration-500 ease-out group-hover:scale-x-100"
+                  aria-hidden="true"
+                />
+                <span
+                  className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-white/20 opacity-0 blur-md transition duration-700 group-hover:translate-x-[420%] group-hover:opacity-100"
+                  aria-hidden="true"
+                />
+                <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105">
                   0{index + 1}
                 </span>
                 <h3 className="mb-4 text-2xl font-semibold leading-tight text-black">

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
@@ -51,6 +51,34 @@ function getShouldShowIntro(pathname) {
   }
 }
 
+function ScrollToRouteStart() {
+  const { hash, pathname, search } = useLocation()
+
+  useLayoutEffect(() => {
+    const animationFrame = window.requestAnimationFrame(() => {
+      const previousScrollBehavior = document.documentElement.style.scrollBehavior
+      document.documentElement.style.scrollBehavior = 'auto'
+
+      if (hash) {
+        const target = document.getElementById(hash.slice(1))
+
+        if (target) {
+          target.scrollIntoView({ block: 'start' })
+          document.documentElement.style.scrollBehavior = previousScrollBehavior
+          return
+        }
+      }
+
+      window.scrollTo(0, 0)
+      document.documentElement.style.scrollBehavior = previousScrollBehavior
+    })
+
+    return () => window.cancelAnimationFrame(animationFrame)
+  }, [hash, pathname, search])
+
+  return null
+}
+
 function App() {
   const location = useLocation()
   const [showIntro, setShowIntro] = useState(() => getShouldShowIntro(location.pathname))
@@ -80,6 +108,7 @@ function App() {
   return (
     <>
       <PageSeo />
+      <ScrollToRouteStart />
       <AnimatePresence>
         {showIntro ? <SiteIntro key="site-intro" onDone={finishIntro} /> : null}
       </AnimatePresence>
