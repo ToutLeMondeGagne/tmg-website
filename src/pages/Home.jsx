@@ -26,6 +26,48 @@ const highlights = [
   },
 ]
 
+const projects = [
+  {
+    number: '01',
+    title: 'Intellecte',
+    category: 'Éducation internationale',
+    summary:
+      'Une présence web plus claire pour guider les étudiants vers le bon parcours, du premier intérêt jusqu’à la prise de contact.',
+    result: 'Parcours simplifié, message clarifié et vitrine pensée pour convertir les demandes.',
+    tags: ['Site web', 'UX', 'Conversion'],
+    accent: '#004cff',
+    soft: '#e5edff',
+    mockTitle: 'Expand Your Horizons',
+    mockText: 'Programmes, destinations et accompagnement réunis dans une expérience lisible.',
+  },
+  {
+    number: '02',
+    title: 'PME en croissance',
+    category: 'Services professionnels',
+    summary:
+      'Une refonte orientée crédibilité pour expliquer l’offre, rassurer les prospects et générer des rendez-vous qualifiés.',
+    result: 'Pages services plus précises, appels à l’action visibles et structure SEO plus solide.',
+    tags: ['Positionnement', 'SEO', 'Landing pages'],
+    accent: '#111827',
+    soft: '#e5e7eb',
+    mockTitle: 'Votre offre, enfin claire',
+    mockText: 'Une structure simple pour comprendre, comparer et passer à l’action.',
+  },
+  {
+    number: '03',
+    title: 'OBNL local',
+    category: 'Mission sociale',
+    summary:
+      'Un site plus accessible pour raconter la mission, présenter les services et faciliter les dons, bénévolats et prises de contact.',
+    result: 'Contenus mieux hiérarchisés, expérience mobile plus directe et autonomie de mise à jour.',
+    tags: ['Accessibilité', 'Contenu', 'Autonomie'],
+    accent: '#8cc63f',
+    soft: '#ecffd6',
+    mockTitle: 'Votre mission à sa hauteur',
+    mockText: 'Un parcours qui aide la communauté à comprendre vite et agir simplement.',
+  },
+]
+
 const heroLogoOrbitItems = [
   {
     x: 'clamp(-8.5rem, -28vw, -5.8rem)',
@@ -175,6 +217,138 @@ function HeroStackVisual() {
   )
 }
 
+function ProjectPreview({ project }) {
+  return (
+    <div className="relative min-h-[20rem] overflow-hidden border border-black/20 bg-[var(--project-soft)] shadow-[0_24px_70px_rgba(0,0,0,0.14)] lg:min-h-[30rem]">
+      <div className="flex items-center justify-between border-b border-black/15 bg-[var(--bg)]/88 px-4 py-3 text-[0.62rem] font-semibold uppercase text-black/55 sm:px-5">
+        <span>{project.title}</span>
+        <span className="text-[var(--project-accent)]">TMG build</span>
+      </div>
+
+      <div className="grid min-h-[17rem] gap-0 md:grid-cols-[0.52fr_0.48fr] lg:min-h-[26rem]">
+        <div className="flex flex-col justify-between border-b border-black/15 bg-[rgba(255,255,255,0.48)] p-5 md:border-b-0 md:border-r md:p-7">
+          <div className="space-y-5">
+            <span className="inline-flex w-fit bg-[var(--project-accent)] px-3 py-1 text-xs font-semibold uppercase text-white">
+              {project.category}
+            </span>
+            <h3 className="max-w-sm text-[clamp(2rem,5vw,4.6rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black">
+              {project.mockTitle}
+            </h3>
+            <p className="max-w-md text-sm leading-6 text-black/66 md:text-base md:leading-7">
+              {project.mockText}
+            </p>
+          </div>
+
+          <span className="mt-8 inline-flex w-fit border border-black/25 px-4 py-2 text-xs font-semibold uppercase text-black">
+            Voir le parcours ↗
+          </span>
+        </div>
+
+        <div className="relative min-h-[16rem] overflow-hidden bg-[linear-gradient(135deg,rgba(255,255,255,0.62),rgba(255,255,255,0.18))] p-5 md:p-7">
+          <span
+            className="absolute -right-16 top-8 h-48 w-48 rounded-full bg-[var(--project-accent)] opacity-20 blur-3xl"
+            aria-hidden="true"
+          />
+          <span
+            className="absolute bottom-0 left-0 h-24 w-full bg-[linear-gradient(90deg,var(--project-accent),transparent)] opacity-25"
+            aria-hidden="true"
+          />
+
+          <div className="relative z-10 ml-auto flex h-full max-w-sm flex-col justify-between border border-black/15 bg-[var(--bg)] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.12)]">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between border-b border-black/15 pb-3">
+                <span className="h-2.5 w-20 bg-[var(--project-accent)]" />
+                <span className="h-2.5 w-10 bg-black/20" />
+              </div>
+              <span className="block h-24 bg-[linear-gradient(135deg,var(--project-accent),rgba(255,255,255,0.36))]" />
+              <span className="block h-3 w-10/12 bg-black/18" />
+              <span className="block h-3 w-7/12 bg-black/18" />
+            </div>
+
+            <div className="grid grid-cols-3 gap-2">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="border border-black/15 bg-white/45 px-2 py-3 text-[0.58rem] font-semibold uppercase leading-tight text-black/62"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ProjectsShowcase() {
+  return (
+    <section className="border-b border-black/20 text-left">
+      <div className="grid gap-10 lg:grid-cols-[0.32fr_0.68fr]">
+        <aside className="py-20 lg:sticky lg:top-24 lg:flex lg:min-h-[calc(100svh-6rem)] lg:flex-col lg:justify-between">
+          <div className="space-y-6">
+            <SectionLabel>Nos projets</SectionLabel>
+            <AnimatedText
+              as="h2"
+              split="words"
+              className="max-w-xl text-[clamp(2.8rem,6vw,6.6rem)] font-medium leading-[0.92] tracking-normal text-black"
+            >
+              Ce qu’on a construit, concrètement.
+            </AnimatedText>
+            <AnimatedText as="p" delay={0.12} className="max-w-sm text-lg leading-7 text-black/68">
+              Chaque projet clarifie une offre, structure un parcours et donne
+              aux visiteurs une raison simple de passer à l’action.
+            </AnimatedText>
+          </div>
+
+          <div className="mt-10 hidden border-t border-black/25 pt-6 text-sm font-medium uppercase text-black/55 lg:block">
+            <span className="text-[var(--blue)]">01</span> / {projects.length
+              .toString()
+              .padStart(2, '0')}{' '}
+            projets sélectionnés
+          </div>
+        </aside>
+
+        <div className="pb-20 lg:pb-0">
+          {projects.map((project, index) => (
+            <article
+              key={project.title}
+              className="relative border-t border-black/20 py-10 first:border-t-0 lg:sticky lg:top-24 lg:flex lg:min-h-[calc(100svh-6rem)] lg:items-center lg:bg-[var(--bg)]"
+              style={{
+                '--project-accent': project.accent,
+                '--project-soft': project.soft,
+                zIndex: index + 1,
+              }}
+            >
+              <AnimatedSection
+                className="grid w-full gap-8 lg:grid-cols-[0.34fr_0.66fr] lg:items-center"
+                delay={0.04}
+                amount={0.18}
+              >
+                <div className="space-y-6">
+                  <span className="text-sm font-semibold uppercase text-[var(--project-accent)]">
+                    {project.number}
+                  </span>
+                  <h3 className="text-[clamp(2.6rem,5vw,5.7rem)] font-semibold uppercase leading-[0.88] tracking-normal text-black">
+                    {project.title}
+                  </h3>
+                  <p className="text-lg leading-8 text-black/72">{project.summary}</p>
+                  <p className="border-t border-black/20 pt-5 text-sm font-semibold uppercase leading-6 text-black/58">
+                    {project.result}
+                  </p>
+                </div>
+
+                <ProjectPreview project={project} />
+              </AnimatedSection>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function Home() {
   return (
     <main>
@@ -248,6 +422,8 @@ export default function Home() {
             </AnimatedSection>
           </div>
         </section>
+
+        <ProjectsShowcase />
 
         <section className="grid gap-5 border-b border-black/20 py-20 md:grid-cols-3">
           {highlights.map((item, index) => (
