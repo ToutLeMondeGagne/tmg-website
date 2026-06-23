@@ -24,13 +24,6 @@ const availability = [
   { value: 'flexible', label: 'Flexible' },
 ]
 
-const durations = [
-  { value: '4-8-semaines', label: '4 à 8 semaines' },
-  { value: '2-3-mois', label: '2 à 3 mois' },
-  { value: '3-6-mois', label: '3 à 6 mois' },
-  { value: 'a-definir', label: 'À définir' },
-]
-
 function FormSection({ number, title, children }) {
   return (
     <section className="border-b border-black/25 pb-8 last:border-b-0 last:pb-0">
@@ -110,17 +103,11 @@ export default function InternshipForm() {
             required
           />
           <DropdownField
+            className="md:col-span-2"
             label="Disponibilité"
             name="availability"
             placeholder="Choisir une disponibilité"
             options={availability}
-            required
-          />
-          <DropdownField
-            label="Durée souhaitée"
-            name="duration"
-            placeholder="Choisir une durée"
-            options={durations}
             required
           />
         </div>
@@ -145,14 +132,6 @@ export default function InternshipForm() {
             label="Pourquoi TMG"
             name="motivation"
             placeholder="Expliquez ce que vous voulez apprendre et pourquoi ce stage vous intéresse."
-            required
-          />
-          <TextArea
-            className="md:col-span-2"
-            label="Compétences à pratiquer"
-            name="skills"
-            placeholder="Marketing, design, contenu, développement, outils, recherche, stratégie..."
-            rows={4}
             required
           />
           <TextArea
