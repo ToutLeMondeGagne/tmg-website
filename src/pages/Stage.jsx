@@ -30,6 +30,25 @@ const internshipBenefits = [
   },
 ]
 
+const internshipProcess = [
+  {
+    title: 'Autonomie accompagnée',
+    text: 'Tu avances avec un cadre clair, des retours réguliers et de la place pour proposer.',
+  },
+  {
+    title: "Curiosité et envie d'apprendre",
+    text: 'On cherche des profils qui posent des questions, testent et progressent avec sérieux.',
+  },
+  {
+    title: 'Communication claire',
+    text: 'Tu apprends à expliquer tes choix, tes blocages et tes livrables de façon simple.',
+  },
+  {
+    title: 'Livrables utiles',
+    text: 'Chaque production doit servir un vrai besoin client, pas seulement remplir un portfolio.',
+  },
+]
+
 export default function Stage() {
   return (
     <main>
@@ -53,19 +72,28 @@ export default function Stage() {
             </Button>
           </div>
 
-          <AnimatedSection delay={0.12}>
-            <Card className="text-left text-black" padding="p-8">
-              <h2 className="mb-8 text-5xl font-semibold uppercase leading-none tracking-normal text-[var(--blue)]">
-                Process
-              </h2>
-              <ul className="space-y-4 text-xl text-black/70">
-                <li>Autonomie accompagnée</li>
-                <li>Curiosité et envie d&apos;apprendre</li>
-                <li>Communication claire</li>
-                <li>Livrables utiles, pas seulement décoratifs</li>
-              </ul>
-            </Card>
-          </AnimatedSection>
+          <div className="space-y-5">
+            <span className="text-sm font-medium uppercase text-[var(--blue)]">
+              Process
+            </span>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {internshipProcess.map((item, index) => (
+                <AnimatedSection key={item.title} delay={index * 0.05}>
+                  <Card className="min-h-52 text-left text-black" padding="p-6">
+                    <span className="mb-7 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105">
+                      0{index + 1}
+                    </span>
+                    <h2 className="mb-4 text-2xl font-semibold leading-tight text-black">
+                      {item.title}
+                    </h2>
+                    <p className="text-base leading-7 text-black/70">
+                      {item.text}
+                    </p>
+                  </Card>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section className="border-b border-black/20 py-20 text-left">
