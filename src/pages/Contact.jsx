@@ -16,7 +16,7 @@ export default function Contact() {
             <AnimatedText
               as="h1"
               split="words"
-              className="max-w-4xl text-[clamp(3.8rem,8vw,8rem)] font-medium leading-[0.92] tracking-normal text-black"
+              className="max-w-4xl text-[clamp(2.6rem,13vw,4.6rem)] font-medium leading-[0.92] tracking-normal text-black sm:text-[clamp(3.8rem,8vw,8rem)]"
             >
               Dites-nous ce que vous construisez.
             </AnimatedText>

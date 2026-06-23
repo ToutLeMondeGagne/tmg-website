@@ -9,6 +9,7 @@ const websiteTypes = [
   { value: 'site-complet', label: 'Site complet' },
   { value: 'croissance', label: 'Croissance web' },
   { value: 'refonte', label: 'Refonte d’un site existant' },
+  { value: 'consultation-marketing', label: 'Consultation marketing et stratégie web' },
 ]
 
 const goals = [
@@ -59,7 +60,7 @@ export default function ContactForm() {
           <DropdownField
             label="Type de site"
             name="websiteType"
-            placeholder="Choisir un type"
+            placeholder="Choisir un type de projet..."
             options={websiteTypes}
             required
           />

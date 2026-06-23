@@ -10,7 +10,7 @@ export default function NotFound() {
           <AnimatedText
             as="h1"
             split="words"
-            className="max-w-5xl text-[clamp(3rem,10vw,11rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black"
+            className="max-w-5xl text-[clamp(2.6rem,12vw,5rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black sm:text-[clamp(3rem,10vw,11rem)]"
           >
             Page introuvable.
           </AnimatedText>

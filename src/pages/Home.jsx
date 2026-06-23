@@ -216,7 +216,7 @@ export default function Home() {
 
           <div className="pointer-events-none absolute inset-x-0 bottom-5 hidden items-center justify-between text-xs font-medium uppercase tracking-normal text-black md:flex">
             <span>Instagram, LinkedIn</span>
-            <span className="text-[var(--blue)]">↓ Scroll down</span>
+            <span className="text-[var(--blue)]">↓ Faites défiler</span>
             <span>bonjour@toutlemondegagne.ca</span>
           </div>
         </section>

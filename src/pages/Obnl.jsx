@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom'
 import { PageContainer } from '../components/layout'
 import RelatedLinks from '../components/seo/RelatedLinks'
-import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../components/ui'
+import {
+  AnimatedSection,
+  AnimatedText,
+  Button,
+  Card,
+  ChallengePair,
+  SectionLabel,
+} from '../components/ui'
 
 const promises = [
   {
@@ -63,7 +70,7 @@ export default function Obnl() {
         <section className="grid min-h-[calc(100svh-6rem)] gap-12 border-b border-black/20 py-20 text-left lg:grid-cols-[0.52fr_0.48fr] lg:items-center">
           <div className="space-y-8">
             <SectionLabel>Pour les OBNL & organismes</SectionLabel>
-            <h1 className="max-w-4xl text-[clamp(3.2rem,7vw,8rem)] font-medium leading-[0.92] tracking-normal text-black">
+            <h1 className="max-w-4xl text-[clamp(2.6rem,12vw,4.8rem)] font-medium leading-[0.92] tracking-normal text-black sm:text-[clamp(3.2rem,7vw,8rem)]">
               <AnimatedText split="words">Votre mission mérite une présence</AnimatedText>{' '}
               <AnimatedText split="words" delay={0.24} className="text-[var(--blue)]">
                 à sa hauteur.
@@ -124,27 +131,16 @@ export default function Obnl() {
             {constraints.map((item) => (
               <AnimatedSection
                 key={item.challengeTitle}
-                className="grid gap-5 lg:grid-cols-2"
+                className="min-w-0"
               >
-                <Card className="text-left text-black" padding="p-8">
-                  <span className="mb-3 block text-sm font-medium uppercase text-red-500">
-                    Défi
-                  </span>
-                  <h3 className="mb-4 text-2xl font-semibold leading-tight text-black">
-                    {item.challengeTitle}
-                  </h3>
-                  <p className="text-lg leading-8 text-black/70">{item.challenge}</p>
-                </Card>
-
-                <Card className="text-left text-black" padding="p-8">
-                  <span className="mb-3 block text-sm font-medium uppercase text-[var(--blue)]">
-                    Réponse TMG
-                  </span>
-                  <h3 className="mb-4 text-2xl font-semibold leading-tight text-black">
-                    {item.answerTitle}
-                  </h3>
-                  <p className="text-lg leading-8 text-black/70">{item.answer}</p>
-                </Card>
+                <ChallengePair
+                  problemLabel="Défi"
+                  problemTitle={item.challengeTitle}
+                  problemText={item.challenge}
+                  solutionLabel="Réponse TMG"
+                  solutionTitle={item.answerTitle}
+                  solutionText={item.answer}
+                />
               </AnimatedSection>
             ))}
           </div>

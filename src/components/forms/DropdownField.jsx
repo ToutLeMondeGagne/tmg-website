@@ -13,10 +13,18 @@ export default function DropdownField({
   selectClassName = '',
   placeholder,
   required = false,
+  value,
+  defaultValue,
   ...props
 }) {
   const generatedId = useId()
   const selectId = id ?? generatedId
+  const selectValueProps =
+    value !== undefined
+      ? { value }
+      : defaultValue !== undefined || placeholder
+        ? { defaultValue: defaultValue ?? '' }
+        : {}
 
   return (
     <div className={joinClasses('relative pt-3', className)}>
@@ -41,6 +49,7 @@ export default function DropdownField({
           'disabled:cursor-not-allowed disabled:opacity-50',
           selectClassName,
         )}
+        {...selectValueProps}
         {...props}
       >
         {placeholder ? (

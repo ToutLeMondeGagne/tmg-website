@@ -27,6 +27,27 @@
   box-sizing: border-box;
 }
 
+main,
+section,
+article,
+aside,
+div {
+  min-width: 0;
+}
+
+h1,
+h2,
+h3,
+p,
+li,
+a,
+button,
+label,
+span,
+strong {
+  overflow-wrap: break-word;
+}
+
 html {
   min-width: 320px;
   background: var(--bg);

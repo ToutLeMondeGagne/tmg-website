@@ -1,5 +1,6 @@
 export { default as Button } from './Button'
 export { default as Card } from './Card'
+export { default as ChallengePair } from './ChallengePair'
 export { default as SectionLabel } from './SectionLabel'
 export { default as AnimatedText } from './AnimatedText'
 export { default as AnimatedSection } from './AnimatedSection'
