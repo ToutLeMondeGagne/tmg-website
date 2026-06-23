@@ -59,7 +59,7 @@ export default function Stage() {
             <AnimatedText
               as="h1"
               split="words"
-              className="text-[clamp(3rem,6vw,6.6rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black"
+              className="text-[clamp(2.4rem,11vw,4.5rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black sm:text-[clamp(3rem,6vw,6.6rem)]"
             >
               Stage marketing, contenu et web sur de vrais mandats.
             </AnimatedText>
@@ -133,8 +133,6 @@ export default function Stage() {
           </div>
         </section>
 
-        <RelatedLinks />
-
         <section
           id="candidature"
           className="grid scroll-mt-32 gap-12 py-16 text-left lg:grid-cols-[0.42fr_0.58fr]"
@@ -147,7 +145,7 @@ export default function Stage() {
               <AnimatedText
                 as="h2"
                 split="words"
-                className="text-[clamp(3rem,6vw,6rem)] font-medium leading-[0.92] tracking-normal text-black"
+                className="text-[clamp(2.5rem,11vw,4.2rem)] font-medium leading-[0.92] tracking-normal text-black sm:text-[clamp(3rem,6vw,6rem)]"
               >
                 Un formulaire pensé pour les stagiaires.
               </AnimatedText>
@@ -170,6 +168,8 @@ export default function Stage() {
 
           <InternshipForm />
         </section>
+
+        <RelatedLinks />
       </PageContainer>
     </main>
   )

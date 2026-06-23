@@ -67,7 +67,7 @@ export default function About() {
             <AnimatedText
               as="h1"
               split="words"
-              className="max-w-6xl text-[clamp(3.2rem,7vw,8rem)] font-medium leading-[0.92] tracking-normal text-black"
+              className="max-w-6xl text-[clamp(2.6rem,12vw,4.8rem)] font-medium leading-[0.92] tracking-normal text-black sm:text-[clamp(3.2rem,7vw,8rem)]"
             >
               Une agence propulsée par la relève.
             </AnimatedText>

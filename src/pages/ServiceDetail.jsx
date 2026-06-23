@@ -117,7 +117,7 @@ function ServiceDetail({ service }) {
             <SectionLabel>{service.label}</SectionLabel>
             <AnimatedText
               as="h1"
-              className="max-w-4xl text-[clamp(3rem,7vw,7.5rem)] font-medium leading-[0.92] tracking-normal text-black"
+              className="max-w-4xl text-[clamp(2.6rem,12vw,4.8rem)] font-medium leading-[0.92] tracking-normal text-black sm:text-[clamp(3rem,7vw,7.5rem)]"
             >
               {service.title}
             </AnimatedText>
