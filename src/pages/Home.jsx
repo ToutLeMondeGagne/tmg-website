@@ -1,6 +1,7 @@
 import { PageContainer } from '../components/layout'
 import RelatedLinks from '../components/seo/RelatedLinks'
 import ProjectsShowcase from '../components/sections/ProjectsShowcase'
+import { useSiteContent } from '../context/useSiteContent'
 import {
   AnimatedSection,
   AnimatedText,
@@ -11,21 +12,6 @@ import {
 } from '../components/ui'
 import heroStackImage from '../assets/hero.png'
 import tmgLogo from '../assets/logos/tmg-logo.png'
-
-const highlights = [
-  {
-    title: 'Sites web',
-    text: 'Des pages rapides, claires et pensées pour convertir les bons visiteurs.',
-  },
-  {
-    title: 'Marketing',
-    text: 'Des campagnes simples à comprendre, solides à mesurer et faciles à ajuster.',
-  },
-  {
-    title: 'Systèmes',
-    text: 'Une expérience structurée pour guider les prospects du premier clic au rendez-vous.',
-  },
-]
 
 const heroLogoOrbitItems = [
   {
@@ -177,6 +163,9 @@ function HeroStackVisual() {
 }
 
 export default function Home() {
+  const { content } = useSiteContent()
+  const { global, home } = content
+
   return (
     <main>
       <PageContainer>
@@ -188,7 +177,7 @@ export default function Home() {
               wordClassName="!pb-[0.04em] !pt-0"
               className="max-w-full text-[clamp(2rem,9vw,3rem)] font-semibold uppercase leading-[0.8] tracking-normal text-black md:text-[clamp(4rem,9.2vw,9rem)] md:leading-[0.76] xl:text-[clamp(7rem,8.8vw,10rem)] xl:leading-[0.74]"
             >
-              Sites web et marketing qui transforment votre trafic en clients.
+              {home.hero.title}
             </AnimatedText>
 
             <div className="space-y-8 lg:translate-y-16 xl:translate-y-20">
@@ -199,15 +188,14 @@ export default function Home() {
                   delay={0.18}
                   className="max-w-md text-xl leading-7 text-black/75"
                 >
-                  On construit des sites et systèmes marketing pour les équipes qui
-                  veulent être vues, comprises et choisies.
+                  {home.hero.subtitle}
                 </AnimatedText>
                 <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                   <Button href="/contact" className="w-full sm:w-auto">
-                    Construisons le vôtre
+                    {home.hero.primaryCta}
                   </Button>
                   <Button href="/services" variant="outline" className="w-full sm:w-auto">
-                    Voir les services ↗
+                    {home.hero.secondaryCta}
                   </Button>
                 </div>
               </div>
@@ -215,15 +203,15 @@ export default function Home() {
           </div>
 
           <div className="pointer-events-none absolute inset-x-0 bottom-5 hidden items-center justify-between text-xs font-medium uppercase tracking-normal text-black md:flex">
-            <span>Instagram, LinkedIn</span>
-            <span className="text-[var(--blue)]">↓ Faites défiler</span>
-            <span>bonjour@toutlemondegagne.ca</span>
+            <span>{global.socialLabel}</span>
+            <span className="text-[var(--blue)]">↓ {global.scrollHint}</span>
+            <span>{global.contactEmail}</span>
           </div>
         </section>
 
         <section className="grid gap-10 border-b border-black/20 py-20 text-left lg:grid-cols-[0.28fr_1fr]">
           <div>
-            <SectionLabel>À propos de TMG</SectionLabel>
+            <SectionLabel>{home.about.label}</SectionLabel>
           </div>
           <div className="space-y-8">
             <AnimatedText
@@ -231,27 +219,25 @@ export default function Home() {
               split="words"
               className="max-w-5xl text-[clamp(2.6rem,5vw,5.8rem)] font-medium leading-[0.98] tracking-normal text-black"
             >
-              La plupart des sites restent là. Le vôtre doit devenir la raison
-              pour laquelle on vous contacte.
+              {home.about.title}
             </AnimatedText>
             <AnimatedText
               as="p"
               delay={0.12}
               className="max-w-3xl border-t border-black/30 pt-8 text-xl leading-8 text-black/70"
             >
-              TMG cartographie votre offre, clarifie votre message et transforme
-              votre présence web en expérience qui éduque, rassure et convertit.
+              {home.about.body}
             </AnimatedText>
             <AnimatedSection delay={0.18}>
               <Button href="/a-propos" variant="outline">
-                Découvrir TMG ↗
+                {home.about.cta}
               </Button>
             </AnimatedSection>
           </div>
         </section>
 
         <section className="grid gap-5 border-b border-black/20 py-20 md:grid-cols-3">
-          {highlights.map((item, index) => (
+          {home.highlights.map((item, index) => (
             <AnimatedSection key={item.title} delay={index * 0.08}>
               <Card className="text-left text-black">
                 <h2 className="mb-8 text-5xl font-semibold uppercase leading-none tracking-normal text-[var(--blue)]">
@@ -270,8 +256,8 @@ export default function Home() {
         <section className="py-20">
           <AnimatedSection>
             <TicketCard
-              title="Première rencontre gratuite"
-              subtitle="Un billet pour 30 minutes de clarté: on regarde votre projet, vos besoins et la meilleure prochaine étape."
+              title={home.ticket.title}
+              subtitle={home.ticket.subtitle}
               href="/contact"
             />
           </AnimatedSection>

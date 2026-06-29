@@ -1,11 +1,1 @@
-export const siteContent = {
-  hero: {
-    title: '',
-    subtitle: '',
-    cta: '',
-  },
-  about: {
-    title: '',
-    body: '',
-  },
-};
+export { defaultSiteContent as siteContent } from '../content/defaultSiteContent'

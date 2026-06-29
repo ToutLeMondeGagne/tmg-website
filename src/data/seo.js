@@ -186,6 +186,12 @@ export const seoPages = {
       'demande site web PME',
     ],
   },
+  '/admin': {
+    title: 'Admin contenu | TMG',
+    description: 'Interface privée pour modifier les textes du site TMG.',
+    robots: 'noindex, nofollow',
+    keywords: [],
+  },
 }
 
 export const relatedPageLinks = {
