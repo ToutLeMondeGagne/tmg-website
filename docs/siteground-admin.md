@@ -26,7 +26,9 @@ Il faut envoyer le contenu de `dist/`, pas le dossier `dist` lui-même.
 
 Le fichier `.htaccess` inclus dans le build est important : il permet aux routes React comme `/contact`, `/services/web` et `/admin` de fonctionner même après rafraîchissement.
 
-## 3. Configurer le token admin
+Le build retire automatiquement `dist/api/admin-config.php` s’il existe, pour éviter d’envoyer un fichier secret local. Ce fichier doit être créé directement sur SiteGround.
+
+## 3. Configurer le compte admin
 
 Sur SiteGround, créer ce fichier :
 
@@ -34,16 +36,26 @@ Sur SiteGround, créer ce fichier :
 public_html/api/admin-config.php
 ```
 
-Mettre ce contenu en remplaçant le token :
+Générer d’abord un hash du mot de passe sur votre machine :
+
+```bash
+php -r 'echo password_hash("votre-mot-de-passe-fort", PASSWORD_DEFAULT), PHP_EOL;'
+```
+
+Mettre ensuite ce contenu en remplaçant `admin` au besoin et en collant le hash généré :
 
 ```php
 <?php
 return [
-    'token' => 'un-token-long-secret-a-changer',
+    'username' => 'admin',
+    'password_hash' => 'coller-le-hash-du-mot-de-passe',
+    'session_name' => 'TMG_ADMIN_SESSION',
 ];
 ```
 
 Ce fichier n’est pas versionné par Git.
+
+Si un ancien `public_html/api/admin-config.php` existe déjà avec l’ancien format `token`, le remplacer par le nouveau format `username` + `password_hash`.
 
 ## 4. Vérifier les permissions
 
@@ -63,11 +75,12 @@ Ouvrir :
 https://votre-domaine.com/admin
 ```
 
-Entrer le token admin, modifier les champs, prévisualiser, puis sauvegarder.
+Entrer l’identifiant admin et le mot de passe, modifier les champs,
+prévisualiser, puis sauvegarder.
 
 ## Notes importantes
 
-- La première version admin couvre les textes principaux de la page d’accueil.
-- Le même système peut être étendu aux pages PME, OBNL, Stagiaires, Services et Contact.
-- Le token protège la sauvegarde, mais l’URL `/admin` reste accessible. Le vrai contrôle est côté API PHP.
+- L’admin couvre les textes centralisés dans `defaultSiteContent.js`.
+- La sauvegarde est protégée par une session PHP créée après connexion.
+- L’URL `/admin` reste accessible, mais les actions de modification exigent le compte admin.
 - Le contenu public reste lisible dans `/content/site-content.json`, ce qui est normal pour un site vitrine.

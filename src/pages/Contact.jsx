@@ -4,6 +4,7 @@ import RelatedLinks from '../components/seo/RelatedLinks'
 import { useSiteContent } from '../context/useSiteContent'
 import { AnimatedText } from '../components/ui'
 import { SITE_LOCATION } from '../data/seo'
+import { socialLinks } from '../data/socialLinks'
 
 export default function Contact() {
   const { content } = useSiteContent()
@@ -26,22 +27,17 @@ export default function Contact() {
             </AnimatedText>
           </div>
           <div className="flex items-end justify-start gap-5 text-sm font-medium uppercase text-black lg:justify-end">
-            <a
-              href="https://www.instagram.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://www.linkedin.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
-            >
-              LinkedIn
-            </a>
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </section>
 

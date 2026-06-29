@@ -210,6 +210,7 @@ export const siteContentFields = [
       { path: 'stage.application.title', label: 'Titre', type: 'textarea', rows: 2 },
       { path: 'stage.application.body', label: 'Paragraphe', type: 'textarea', rows: 3 },
       { path: 'stage.application.contactLabel', label: 'Texte avant l\'email de contact' },
+      { path: 'stage.application.contactEmail', label: 'Email stagiaire' },
     ],
   },
 
