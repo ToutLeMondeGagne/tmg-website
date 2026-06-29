@@ -2,7 +2,7 @@ export const defaultSiteContent = {
   global: {
     socialLabel: 'Instagram, LinkedIn',
     scrollHint: 'Faites défiler',
-    contactEmail: 'bonjour@toutlemondegagne.ca',
+    contactEmail: 'ensemble@tmgconsultation.org',
   },
   home: {
     hero: {
@@ -213,6 +213,7 @@ export const defaultSiteContent = {
       body:
         'Ici, on ne demande pas un budget ou un objectif de conversion. On veut comprendre ce que vous voulez apprendre, vos disponibilités et le type de projets qui vous motive.',
       contactLabel: 'Pour une question rapide :',
+      contactEmail: 'stage@tmgconsultation.org',
     },
   },
   contact: {

@@ -7,6 +7,7 @@ import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../co
 export default function Stage() {
   const { content } = useSiteContent()
   const { stage, global } = content
+  const stageContactEmail = stage.application.contactEmail || global.contactEmail
 
   return (
     <main>
@@ -113,10 +114,10 @@ export default function Stage() {
             <div className="space-y-2 text-sm text-black/70">
               <p>{stage.application.contactLabel}</p>
               <a
-                href={`mailto:${global.contactEmail}`}
+                href={`mailto:${stageContactEmail}`}
                 className="font-medium uppercase text-[var(--blue)] transition hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
               >
-                {global.contactEmail}
+                {stageContactEmail}
               </a>
             </div>
           </aside>
