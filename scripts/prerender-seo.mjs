@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
@@ -16,6 +16,7 @@ const currentDir = path.dirname(fileURLToPath(import.meta.url))
 const projectRoot = path.resolve(currentDir, '..')
 const distDir = path.join(projectRoot, 'dist')
 const templatePath = path.join(distDir, 'index.html')
+const distAdminConfigPath = path.join(distDir, 'api', 'admin-config.php')
 
 function escapeAttribute(value = '') {
   return String(value)
@@ -120,5 +121,7 @@ await Promise.all(
     await writeFile(outputPath, applySeo(templateHtml, routePath))
   }),
 )
+
+await rm(distAdminConfigPath, { force: true })
 
 console.log(`SEO prerender complete: ${routes.length} routes generated.`)
