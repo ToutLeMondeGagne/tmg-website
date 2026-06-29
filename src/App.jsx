@@ -4,7 +4,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import { Footer, Navbar, ScrollProgress, SiteIntro } from './components/layout'
 import PageSeo from './components/seo/PageSeo'
-import { SiteContentProvider } from './context/SiteContentContext'
+import { SiteContentProvider } from './context/SiteContentContext.jsx'
 import './App.css'
 
 const Contact = lazy(() => import('./pages/Contact'))

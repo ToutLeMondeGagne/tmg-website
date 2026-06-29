@@ -1,69 +1,33 @@
 import { PageContainer } from '../components/layout'
 import RelatedLinks from '../components/seo/RelatedLinks'
+import { useSiteContent } from '../context/useSiteContent'
 import { AnimatedSection, AnimatedText, Button, SectionLabel } from '../components/ui'
 
-const services = [
-  {
-    id: 'pme',
-    title: 'PME et startups',
-    text: 'Clarifier votre offre, renforcer votre présence web et attirer des clients mieux alignés.',
-    href: '/pme',
-  },
-  {
-    id: 'obnl',
-    title: 'OBNL et organismes',
-    text: 'Structurer votre message, mobiliser votre communauté et faciliter le passage à l’action.',
-    href: '/obnl',
-  },
-  {
-    id: 'strategie',
-    title: 'Audit marketing',
-    text: 'Prioriser les bons canaux, mesurer ce qui compte et faire évoluer les contenus au bon rythme.',
-    href: '/services/marketing',
-  },
-]
-
-const enterpriseFocus = [
-  {
-    number: '01',
-    title: 'Sites web',
-    text: 'Des pages rapides, claires et pensées pour convertir les bons visiteurs en demandes concrètes.',
-    detail: 'Refonte, landing page, SEO, formulaires et expérience mobile.',
-  },
-  {
-    number: '02',
-    title: 'Marketing',
-    text: 'Des actions simples à comprendre, solides à mesurer et faciles à ajuster avec votre équipe.',
-    detail: 'Audit, positionnement, contenu, campagnes et indicateurs de suivi.',
-  },
-  {
-    number: '03',
-    title: 'Systèmes',
-    text: "Une expérience structurée pour guider les prospects du premier clic jusqu'au rendez-vous.",
-    detail: 'Parcours client, automatisations légères, CRM et suivi des conversions.',
-  },
-]
+const serviceHrefs = ['/pme', '/obnl', '/services/marketing']
 
 export default function Services() {
+  const { content } = useSiteContent()
+  const { services } = content
+
   return (
     <main>
       <PageContainer>
         <section className="grid gap-8 border-b border-black/20 py-20 text-left lg:grid-cols-[0.28fr_1fr]">
-          <SectionLabel>Nos services</SectionLabel>
+          <SectionLabel>{services.hero.label}</SectionLabel>
           <AnimatedText
             as="h1"
             split="words"
             className="max-w-5xl text-[clamp(2.6rem,12vw,5rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black sm:text-[clamp(3rem,8vw,9rem)]"
           >
-            Services web et marketing pour PME et OBNL.
+            {services.hero.title}
           </AnimatedText>
         </section>
 
         <section>
-          {services.map((service, index) => (
+          {services.list.map((service, index) => (
             <AnimatedSection
-              key={service.id}
-              id={service.id}
+              key={service.title}
+              id={['pme', 'obnl', 'strategie'][index]}
               className="grid scroll-mt-32 gap-8 border-b border-black/20 py-14 text-left lg:grid-cols-[0.08fr_0.42fr_0.32fr_0.18fr]"
               delay={index * 0.05}
             >
@@ -79,11 +43,11 @@ export default function Services() {
                 {service.text}
               </AnimatedText>
               <Button
-                href={service.href ?? '/contact'}
+                href={serviceHrefs[index] ?? '/contact'}
                 variant="ghost"
                 className="self-start justify-self-start lg:justify-self-end"
               >
-                Découvrir ↗
+                {service.cta}
               </Button>
             </AnimatedSection>
           ))}
@@ -93,13 +57,13 @@ export default function Services() {
           <div className="border-t border-black/45 pt-8">
             <div className="grid gap-8 lg:grid-cols-[0.36fr_0.64fr]">
               <div className="max-w-sm">
-                <SectionLabel>Notre terrain</SectionLabel>
+                <SectionLabel>{services.focus.label}</SectionLabel>
                 <AnimatedText
                   as="h2"
                   split="words"
                   className="mt-6 text-[clamp(2.6rem,4vw,4.2rem)] font-semibold uppercase leading-none tracking-normal text-black"
                 >
-                  Ce qu'on construit avec vous.
+                  {services.focus.title}
                 </AnimatedText>
               </div>
               <AnimatedText
@@ -107,21 +71,19 @@ export default function Services() {
                 delay={0.1}
                 className="max-w-3xl self-end text-lg leading-7 text-black/68 md:text-xl md:leading-8"
               >
-                TMG aide les entreprises, OBNL et équipes en croissance à
-                transformer une présence numérique floue en système clair pour
-                attirer, expliquer et convertir.
+                {services.focus.body}
               </AnimatedText>
             </div>
 
             <div className="mt-16 grid gap-8 md:grid-cols-3">
-              {enterpriseFocus.map((item, index) => (
+              {services.focus.items.map((item, index) => (
                 <AnimatedSection
                   key={item.title}
                   delay={index * 0.08}
                   className="group relative min-h-[22rem] border-t border-black/45 pt-7 text-left"
                 >
                   <span className="mb-12 block text-sm font-medium text-black/55">
-                    {item.number}
+                    0{index + 1}
                   </span>
                   <h3 className="text-[clamp(2.7rem,4vw,4.2rem)] font-semibold uppercase leading-[0.86] tracking-normal text-[var(--blue)]">
                     {item.title}
