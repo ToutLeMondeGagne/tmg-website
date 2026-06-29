@@ -1,3 +1,5 @@
+import { socialProfileUrls } from './socialLinks.js'
+
 export const SITE_URL = 'https://toutlemondegagne.ca'
 export const SITE_NAME = 'TMG - Tout le Monde Gagne'
 export const SITE_LOCALE = 'fr_CA'
@@ -466,6 +468,7 @@ function buildOrganizationSchema() {
     alternateName: 'TMG',
     slogan: 'Tout le Monde Gagne',
     url: SITE_URL,
+    sameAs: socialProfileUrls,
     logo: absoluteUrl('/favicon.svg'),
     image: absoluteUrl(DEFAULT_OG_IMAGE),
     email: SITE_EMAIL,

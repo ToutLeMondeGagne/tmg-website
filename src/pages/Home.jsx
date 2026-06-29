@@ -2,6 +2,7 @@ import { PageContainer } from '../components/layout'
 import RelatedLinks from '../components/seo/RelatedLinks'
 import ProjectsShowcase from '../components/sections/ProjectsShowcase'
 import { useSiteContent } from '../context/useSiteContent'
+import { socialLinks } from '../data/socialLinks'
 import {
   AnimatedSection,
   AnimatedText,
@@ -203,7 +204,20 @@ export default function Home() {
           </div>
 
           <div className="pointer-events-none absolute inset-x-0 bottom-5 hidden items-center justify-between text-xs font-medium uppercase tracking-normal text-black md:flex">
-            <span>{global.socialLabel}</span>
+            <div className="pointer-events-auto flex items-center gap-3">
+              {socialLinks.map((link, index) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
+                >
+                  {link.label}
+                  {index < socialLinks.length - 1 ? ',' : ''}
+                </a>
+              ))}
+            </div>
             <span className="text-[var(--blue)]">↓ {global.scrollHint}</span>
             <span>{global.contactEmail}</span>
           </div>
