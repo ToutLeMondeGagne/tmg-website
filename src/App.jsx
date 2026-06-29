@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import { Footer, Navbar, ScrollProgress, SiteIntro } from './components/layout'
 import PageSeo from './components/seo/PageSeo'
+import { SiteContentProvider } from './context/SiteContentContext'
 import './App.css'
 
 const Contact = lazy(() => import('./pages/Contact'))
@@ -21,6 +22,7 @@ const Pme = lazy(() => import('./pages/Pme'))
 const Obnl = lazy(() => import('./pages/Obnl'))
 const About = lazy(() => import('./pages/About'))
 const QA = lazy(() => import('./pages/QA'))
+const Admin = lazy(() => import('./pages/Admin'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 function RouteFallback() {
@@ -106,7 +108,7 @@ function App() {
   }, [showIntro])
 
   return (
-    <>
+    <SiteContentProvider>
       <PageSeo />
       <ScrollToRouteStart />
       <AnimatePresence>
@@ -128,12 +130,13 @@ function App() {
             <Route path="/stage" element={<Stage />} />
             <Route path="/a-propos" element={<About />} />
             <Route path="/faq" element={<QA />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </div>
       <Footer />
-    </>
+    </SiteContentProvider>
   )
 }
 
