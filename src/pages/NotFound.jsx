@@ -17,7 +17,7 @@ export default function NotFound() {
           <AnimatedText as="p" delay={0.12} className="max-w-xl text-xl leading-8 text-black/70">
             Le lien est peut-être incomplet ou la page a été déplacée.
           </AnimatedText>
-          <Button href="/">Retour à l’accueil</Button>
+          <Button href="/">Retour à l'accueil</Button>
         </section>
       </PageContainer>
     </main>
