@@ -12,6 +12,14 @@ npm run build
 
 Le dossier à envoyer sur SiteGround est `dist/`.
 
+Si l’espace partenaire doit afficher Calendly, ajouter d’abord le lien de l’événement dans `.env` :
+
+```bash
+VITE_CALENDLY_URL=https://calendly.com/votre-compte/votre-evenement
+```
+
+Puis relancer `npm run build`.
+
 ## 2. Envoyer les fichiers sur SiteGround
 
 Dans SiteGround, ouvrir le gestionnaire de fichiers ou utiliser FTP/SFTP.
@@ -90,6 +98,7 @@ prévisualiser, puis sauvegarder.
 
 - L’admin couvre les textes centralisés dans `defaultSiteContent.js`.
 - L’admin permet aussi de créer des comptes clients pour `/partenaires`.
+- Les disponibilités de rencontre sont gérées dans Calendly, puis affichées dans l’espace partenaire.
 - La sauvegarde est protégée par une session PHP créée après connexion.
 - L’URL `/admin` reste accessible, mais les actions de modification exigent le compte admin.
 - Les comptes partenaires sont stockés côté serveur avec des mots de passe hashés.
@@ -112,3 +121,19 @@ Depuis `/admin`, créer un compte avec :
 - un message visible par le client.
 
 Transmettre ensuite au client le nom d’entreprise et le mot de passe. Le mot de passe n’est jamais affiché dans l’admin après création.
+
+## Calendly
+
+Créer un événement dans Calendly, par exemple :
+
+```text
+Rencontre TMG / 30 minutes
+```
+
+Copier le lien public de l’événement, puis le mettre dans `.env` :
+
+```bash
+VITE_CALENDLY_URL=https://calendly.com/votre-compte/rencontre-tmg
+```
+
+Après le build, les partenaires connectés verront Calendly directement dans leur espace privé. Les disponibilités, confirmations et rappels restent gérés dans Calendly.

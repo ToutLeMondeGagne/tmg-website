@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PageContainer } from '../components/layout'
 import { Button, Card, SectionLabel } from '../components/ui'
+import { createPartnerCalendlyUrl } from '../config/calendly'
 
 const partnerAuthEndpoint = '/api/partner-auth.php'
 
@@ -187,6 +188,55 @@ function PartnerDashboard({ partner, onLogout }) {
           {portalMessage}
         </p>
       </div>
+
+      <CalendlyBooking partner={partner} />
+    </section>
+  )
+}
+
+function CalendlyBooking({ partner }) {
+  const calendlyUrl = createPartnerCalendlyUrl(partner)
+
+  return (
+    <section className="mt-5 border border-black/20 bg-[var(--card)] p-6">
+      <div className="mb-6 grid gap-4 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+        <div>
+          <span className="text-sm font-semibold uppercase text-[var(--blue)]">
+            Rencontre
+          </span>
+          <h3 className="mt-3 text-3xl font-semibold leading-tight text-black">
+            Réserver une rencontre directe.
+          </h3>
+        </div>
+        <p className="max-w-2xl text-base leading-7 text-black/65">
+          Les disponibilités sont gérées dans Calendly par l’équipe TMG. Choisissez
+          le moment qui vous convient, puis la confirmation arrivera par courriel.
+        </p>
+      </div>
+
+      {calendlyUrl ? (
+        <div className="overflow-hidden border border-black/15 bg-white shadow-[0_24px_80px_rgba(0,0,0,0.08)]">
+          <iframe
+            title="Réservation Calendly TMG"
+            src={calendlyUrl}
+            className="h-[720px] w-full"
+            loading="lazy"
+          />
+        </div>
+      ) : (
+        <div className="border border-black/15 bg-white/10 p-6">
+          <h4 className="text-xl font-semibold text-black">
+            Calendly n’est pas encore configuré.
+          </h4>
+          <p className="mt-3 max-w-2xl text-base leading-7 text-black/65">
+            Ajoutez le lien de votre événement Calendly dans
+            {' '}
+            <span className="font-semibold text-black">VITE_CALENDLY_URL</span>
+            {' '}
+            avant de faire le build du site.
+          </p>
+        </div>
+      )}
     </section>
   )
 }
