@@ -200,6 +200,13 @@ export const seoPages = {
     robots: 'noindex, nofollow',
     keywords: [],
   },
+  '/partenaire': {
+    title: 'Espace partenaires | TMG',
+    description: 'Espace privé réservé aux clients accompagnés par TMG.',
+    canonicalPath: '/partenaires',
+    robots: 'noindex, nofollow',
+    keywords: [],
+  },
   '/espace-partenaire': {
     title: 'Espace partenaires | TMG',
     description: 'Espace privé réservé aux clients accompagnés par TMG.',
@@ -446,6 +453,7 @@ function buildBreadcrumbItems(path) {
     'a-propos': 'À propos',
     faq: 'FAQ',
     contact: 'Contact',
+    partenaire: 'Espace partenaires',
     partenaires: 'Espace partenaires',
     'espace-partenaire': 'Espace partenaires',
   }

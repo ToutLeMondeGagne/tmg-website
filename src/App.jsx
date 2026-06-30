@@ -132,6 +132,7 @@ function App() {
             <Route path="/a-propos" element={<About />} />
             <Route path="/faq" element={<QA />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/partenaire" element={<Partners />} />
             <Route path="/partenaires" element={<Partners />} />
             <Route path="/espace-partenaire" element={<Partners />} />
             <Route path="*" element={<NotFound />} />
