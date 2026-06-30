@@ -228,6 +228,55 @@ export const defaultSiteContent = {
       locationDesc: 'Services web et marketing pour PME, OBNL et équipes au Québec, avec accompagnement à distance.',
     },
   },
+  partner: {
+    hero: {
+      label: 'Espace partenaires',
+      title: 'Votre mandat, au même endroit.',
+      subtitle:
+        'Une zone privée pour les clients accompagnés par TMG : accès projet, contexte, statut et messages importants.',
+    },
+    login: {
+      title: 'Accès réservé aux clients TMG.',
+      body:
+        'Utilisez le nom d’entreprise et le mot de passe fournis par l’équipe TMG. Cet espace sert à centraliser les informations importantes de votre mandat.',
+      companyLabel: 'Nom de l\'entreprise',
+      companyPlaceholder: 'Ex: Entreprise ABC',
+      passwordLabel: 'Mot de passe',
+      passwordPlaceholder: 'Mot de passe fourni par TMG',
+      submitLabel: 'Se connecter',
+      submittingLabel: 'Connexion...',
+      missingFieldsMessage: 'Entrez le nom de votre entreprise et votre mot de passe.',
+      defaultStatus: 'Connexion privée partenaire.',
+      loadingMessage: 'Vérification de la session partenaire...',
+    },
+    dashboard: {
+      sessionLabel: 'Session partenaire',
+      welcomePrefix: 'Bienvenue',
+      logoutLabel: 'Déconnexion',
+      fallbackProjectName: 'Mandat TMG',
+      fallbackProjectStatus: 'En accompagnement',
+      fallbackContactName: 'Équipe TMG',
+      fallbackContactText: 'Votre contact principal sera confirmé par l’équipe.',
+      fallbackPortalMessage:
+        'Votre espace partenaire est activé. Les prochaines informations de mandat seront ajoutées ici par TMG.',
+      projectLabel: 'Projet',
+      projectText: 'Espace privé associé à votre organisation.',
+      statusLabel: 'Statut',
+      statusText:
+        'Suivez le contexte du mandat et les prochaines étapes partagées par TMG.',
+      contactLabel: 'Contact',
+      messageLabel: 'Message TMG',
+    },
+    calendly: {
+      label: 'Rencontre',
+      title: 'Réserver une rencontre directe.',
+      body:
+        'Les disponibilités sont gérées dans Calendly par l’équipe TMG. Choisissez le moment qui vous convient, puis la confirmation arrivera par courriel.',
+      missingTitle: 'Calendly n’est pas encore configuré.',
+      missingBody:
+        'Ajoutez le lien de votre événement Calendly dans VITE_CALENDLY_URL avant de faire le build du site.',
+    },
+  },
   faq: {
     hero: {
       label: 'FAQ',

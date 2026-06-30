@@ -235,6 +235,65 @@ export const siteContentFields = [
     ],
   },
 
+  // ─── Espace partenaires ───────────────────────────────────────────────────
+  {
+    title: 'Espace partenaires - Hero',
+    description: 'En-tête de la page privée des partenaires.',
+    fields: [
+      { path: 'partner.hero.label', label: 'Label de section' },
+      { path: 'partner.hero.title', label: 'Titre principal', type: 'textarea', rows: 2 },
+      { path: 'partner.hero.subtitle', label: 'Paragraphe intro', type: 'textarea', rows: 3 },
+    ],
+  },
+  {
+    title: 'Espace partenaires - Connexion',
+    description: 'Textes affichés avant la connexion client.',
+    fields: [
+      { path: 'partner.login.title', label: 'Titre connexion', type: 'textarea', rows: 2 },
+      { path: 'partner.login.body', label: 'Paragraphe connexion', type: 'textarea', rows: 3 },
+      { path: 'partner.login.companyLabel', label: 'Label entreprise' },
+      { path: 'partner.login.companyPlaceholder', label: 'Placeholder entreprise' },
+      { path: 'partner.login.passwordLabel', label: 'Label mot de passe' },
+      { path: 'partner.login.passwordPlaceholder', label: 'Placeholder mot de passe' },
+      { path: 'partner.login.submitLabel', label: 'Bouton connexion' },
+      { path: 'partner.login.submittingLabel', label: 'Bouton pendant connexion' },
+      { path: 'partner.login.missingFieldsMessage', label: 'Message champs manquants', type: 'textarea', rows: 2 },
+      { path: 'partner.login.defaultStatus', label: 'Message sous formulaire' },
+      { path: 'partner.login.loadingMessage', label: 'Message chargement session' },
+    ],
+  },
+  {
+    title: 'Espace partenaires - Tableau de bord',
+    description: 'Labels, textes de cartes et message par défaut après connexion.',
+    fields: [
+      { path: 'partner.dashboard.sessionLabel', label: 'Label session' },
+      { path: 'partner.dashboard.welcomePrefix', label: 'Préfixe bienvenue' },
+      { path: 'partner.dashboard.logoutLabel', label: 'Bouton déconnexion' },
+      { path: 'partner.dashboard.fallbackProjectName', label: 'Projet par défaut' },
+      { path: 'partner.dashboard.fallbackProjectStatus', label: 'Statut par défaut' },
+      { path: 'partner.dashboard.fallbackContactName', label: 'Contact par défaut' },
+      { path: 'partner.dashboard.fallbackContactText', label: 'Texte contact par défaut', type: 'textarea', rows: 2 },
+      { path: 'partner.dashboard.fallbackPortalMessage', label: 'Message TMG par défaut', type: 'textarea', rows: 3 },
+      { path: 'partner.dashboard.projectLabel', label: 'Carte projet - label' },
+      { path: 'partner.dashboard.projectText', label: 'Carte projet - texte', type: 'textarea', rows: 2 },
+      { path: 'partner.dashboard.statusLabel', label: 'Carte statut - label' },
+      { path: 'partner.dashboard.statusText', label: 'Carte statut - texte', type: 'textarea', rows: 2 },
+      { path: 'partner.dashboard.contactLabel', label: 'Carte contact - label' },
+      { path: 'partner.dashboard.messageLabel', label: 'Label message TMG' },
+    ],
+  },
+  {
+    title: 'Espace partenaires - Calendly',
+    description: 'Bloc de réservation affiché dans le compte partenaire.',
+    fields: [
+      { path: 'partner.calendly.label', label: 'Label de section' },
+      { path: 'partner.calendly.title', label: 'Titre', type: 'textarea', rows: 2 },
+      { path: 'partner.calendly.body', label: 'Paragraphe', type: 'textarea', rows: 3 },
+      { path: 'partner.calendly.missingTitle', label: 'Titre si Calendly absent' },
+      { path: 'partner.calendly.missingBody', label: 'Texte si Calendly absent', type: 'textarea', rows: 2 },
+    ],
+  },
+
   // ─── FAQ ───────────────────────────────────────────────────────────────────
   {
     title: 'FAQ - Hero',

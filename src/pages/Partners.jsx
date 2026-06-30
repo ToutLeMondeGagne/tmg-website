@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { PageContainer } from '../components/layout'
 import { Button, Card, SectionLabel } from '../components/ui'
 import { createPartnerCalendlyUrl } from '../config/calendly'
+import { useSiteContent } from '../context/useSiteContent'
 
 const partnerAuthEndpoint = '/api/partner-auth.php'
 
@@ -29,7 +30,7 @@ function PartnerField({
   )
 }
 
-function PartnerLogin({ message, onAuthenticated }) {
+function PartnerLogin({ copy, message, onAuthenticated }) {
   const [company, setCompany] = useState('')
   const [password, setPassword] = useState('')
   const [status, setStatus] = useState(message)
@@ -39,12 +40,12 @@ function PartnerLogin({ message, onAuthenticated }) {
     event.preventDefault()
 
     if (!company.trim() || !password) {
-      setStatus('Entrez le nom de votre entreprise et votre mot de passe.')
+      setStatus(copy.login.missingFieldsMessage)
       return
     }
 
     setIsLoggingIn(true)
-    setStatus('Connexion en cours...')
+    setStatus(copy.login.submittingLabel)
 
     try {
       const response = await fetch(partnerAuthEndpoint, {
@@ -78,11 +79,10 @@ function PartnerLogin({ message, onAuthenticated }) {
     <section className="grid gap-10 border-t border-black/25 py-12 lg:grid-cols-[0.75fr_1fr]">
       <div className="max-w-md space-y-4">
         <h2 className="text-3xl font-semibold leading-tight text-black">
-          Accès réservé aux clients TMG.
+          {copy.login.title}
         </h2>
         <p className="text-base leading-7 text-black/65">
-          Utilisez le nom d’entreprise et le mot de passe fournis par l’équipe TMG.
-          Cet espace sert à centraliser les informations importantes de votre mandat.
+          {copy.login.body}
         </p>
       </div>
 
@@ -92,30 +92,30 @@ function PartnerLogin({ message, onAuthenticated }) {
       >
         <PartnerField
           id="partner-company"
-          label="Nom de l'entreprise"
+          label={copy.login.companyLabel}
           type="text"
           value={company}
           onChange={(event) => setCompany(event.target.value)}
           autoComplete="organization"
-          placeholder="Ex: Entreprise ABC"
+          placeholder={copy.login.companyPlaceholder}
           required
         />
         <PartnerField
           id="partner-password"
-          label="Mot de passe"
+          label={copy.login.passwordLabel}
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           autoComplete="current-password"
-          placeholder="Mot de passe fourni par TMG"
+          placeholder={copy.login.passwordPlaceholder}
           required
         />
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm leading-6 text-black/60" aria-live="polite">
-            {status || 'Connexion privée partenaire.'}
+            {status || copy.login.defaultStatus}
           </p>
           <Button type="submit" disabled={isLoggingIn}>
-            {isLoggingIn ? 'Connexion...' : 'Se connecter'}
+            {isLoggingIn ? copy.login.submittingLabel : copy.login.submitLabel}
           </Button>
         </div>
       </form>
@@ -123,28 +123,28 @@ function PartnerLogin({ message, onAuthenticated }) {
   )
 }
 
-function PartnerDashboard({ partner, onLogout }) {
-  const projectName = partner?.project_name || 'Mandat TMG'
-  const projectStatus = partner?.project_status || 'En accompagnement'
+function PartnerDashboard({ copy, partner, onLogout }) {
+  const projectName = partner?.project_name || copy.dashboard.fallbackProjectName
+  const projectStatus = partner?.project_status || copy.dashboard.fallbackProjectStatus
   const portalMessage =
     partner?.portal_message ||
-    'Votre espace partenaire est activé. Les prochaines informations de mandat seront ajoutées ici par TMG.'
+    copy.dashboard.fallbackPortalMessage
 
   const dashboardCards = [
     {
-      label: 'Projet',
+      label: copy.dashboard.projectLabel,
       title: projectName,
-      text: `Espace privé associé à ${partner?.company || 'votre organisation'}.`,
+      text: copy.dashboard.projectText,
     },
     {
-      label: 'Statut',
+      label: copy.dashboard.statusLabel,
       title: projectStatus,
-      text: 'Suivez le contexte du mandat et les prochaines étapes partagées par TMG.',
+      text: copy.dashboard.statusText,
     },
     {
-      label: 'Contact',
-      title: partner?.contact_name || 'Équipe TMG',
-      text: partner?.email || 'Votre contact principal sera confirmé par l’équipe.',
+      label: copy.dashboard.contactLabel,
+      title: partner?.contact_name || copy.dashboard.fallbackContactName,
+      text: partner?.email || copy.dashboard.fallbackContactText,
     },
   ]
 
@@ -153,14 +153,14 @@ function PartnerDashboard({ partner, onLogout }) {
       <div className="mb-8 flex flex-col gap-5 border border-black/20 bg-[var(--card)] p-6 md:flex-row md:items-center md:justify-between">
         <div>
           <span className="mb-2 block text-sm font-semibold uppercase text-[var(--blue)]">
-            Session partenaire
+            {copy.dashboard.sessionLabel}
           </span>
           <h2 className="text-3xl font-semibold leading-tight text-black">
-            Bienvenue, {partner?.company}.
+            {copy.dashboard.welcomePrefix}, {partner?.company}.
           </h2>
         </div>
         <Button type="button" variant="outline" onClick={onLogout}>
-          Déconnexion
+          {copy.dashboard.logoutLabel}
         </Button>
       </div>
 
@@ -182,19 +182,19 @@ function PartnerDashboard({ partner, onLogout }) {
 
       <div className="mt-5 border border-black/20 bg-[var(--card)] p-6">
         <span className="text-sm font-semibold uppercase text-[var(--blue)]">
-          Message TMG
+          {copy.dashboard.messageLabel}
         </span>
         <p className="mt-4 max-w-3xl text-lg leading-8 text-black/70">
           {portalMessage}
         </p>
       </div>
 
-      <CalendlyBooking partner={partner} />
+      <CalendlyBooking copy={copy} partner={partner} />
     </section>
   )
 }
 
-function CalendlyBooking({ partner }) {
+function CalendlyBooking({ copy, partner }) {
   const calendlyUrl = createPartnerCalendlyUrl(partner)
 
   return (
@@ -202,15 +202,14 @@ function CalendlyBooking({ partner }) {
       <div className="mb-6 grid gap-4 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
         <div>
           <span className="text-sm font-semibold uppercase text-[var(--blue)]">
-            Rencontre
+            {copy.calendly.label}
           </span>
           <h3 className="mt-3 text-3xl font-semibold leading-tight text-black">
-            Réserver une rencontre directe.
+            {copy.calendly.title}
           </h3>
         </div>
         <p className="max-w-2xl text-base leading-7 text-black/65">
-          Les disponibilités sont gérées dans Calendly par l’équipe TMG. Choisissez
-          le moment qui vous convient, puis la confirmation arrivera par courriel.
+          {copy.calendly.body}
         </p>
       </div>
 
@@ -226,14 +225,10 @@ function CalendlyBooking({ partner }) {
       ) : (
         <div className="border border-black/15 bg-white/10 p-6">
           <h4 className="text-xl font-semibold text-black">
-            Calendly n’est pas encore configuré.
+            {copy.calendly.missingTitle}
           </h4>
           <p className="mt-3 max-w-2xl text-base leading-7 text-black/65">
-            Ajoutez le lien de votre événement Calendly dans
-            {' '}
-            <span className="font-semibold text-black">VITE_CALENDLY_URL</span>
-            {' '}
-            avant de faire le build du site.
+            {copy.calendly.missingBody}
           </p>
         </div>
       )}
@@ -242,6 +237,8 @@ function CalendlyBooking({ partner }) {
 }
 
 export default function Partners() {
+  const { content } = useSiteContent()
+  const copy = content.partner
   const [authStatus, setAuthStatus] = useState('checking')
   const [partner, setPartner] = useState(null)
   const [message, setMessage] = useState('')
@@ -316,13 +313,12 @@ export default function Partners() {
       <PageContainer>
         <section className="py-14 text-left">
           <div className="max-w-5xl space-y-6">
-            <SectionLabel>Espace partenaires</SectionLabel>
+            <SectionLabel>{copy.hero.label}</SectionLabel>
             <h1 className="text-[clamp(3.4rem,10vw,8.5rem)] font-semibold uppercase leading-[0.86] text-black">
-              Votre mandat, au même endroit.
+              {copy.hero.title}
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-black/70">
-              Une zone privée pour les clients accompagnés par TMG : accès projet,
-              contexte, statut et messages importants.
+              {copy.hero.subtitle}
             </p>
           </div>
         </section>
@@ -330,13 +326,13 @@ export default function Partners() {
         {authStatus === 'checking' ? (
           <section className="border-t border-black/25 py-12">
             <p className="border border-black/20 bg-[var(--card)] p-6 text-sm uppercase text-black/65">
-              Vérification de la session partenaire...
+              {copy.login.loadingMessage}
             </p>
           </section>
         ) : authStatus === 'authenticated' ? (
-          <PartnerDashboard partner={partner} onLogout={handleLogout} />
+          <PartnerDashboard copy={copy} partner={partner} onLogout={handleLogout} />
         ) : (
-          <PartnerLogin message={message} onAuthenticated={handleAuthenticated} />
+          <PartnerLogin copy={copy} message={message} onAuthenticated={handleAuthenticated} />
         )}
       </PageContainer>
     </main>
