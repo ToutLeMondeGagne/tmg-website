@@ -17,6 +17,7 @@ const projectRoot = path.resolve(currentDir, '..')
 const distDir = path.join(projectRoot, 'dist')
 const templatePath = path.join(distDir, 'index.html')
 const distAdminConfigPath = path.join(distDir, 'api', 'admin-config.php')
+const distPartnerStorePath = path.join(distDir, 'api', 'private', 'partners.json')
 
 function escapeAttribute(value = '') {
   return String(value)
@@ -123,5 +124,6 @@ await Promise.all(
 )
 
 await rm(distAdminConfigPath, { force: true })
+await rm(distPartnerStorePath, { force: true })
 
 console.log(`SEO prerender complete: ${routes.length} routes generated.`)

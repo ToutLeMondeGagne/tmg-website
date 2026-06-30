@@ -67,6 +67,14 @@ public_html/content/site-content.json
 
 Si la sauvegarde admin échoue, donner les permissions d’écriture au fichier ou au dossier `content`.
 
+Pour les comptes partenaires, PHP doit aussi pouvoir créer et modifier :
+
+```text
+public_html/api/private/partners.json
+```
+
+Le dossier `public_html/api/private/` contient un `.htaccess` qui bloque l’accès direct depuis le navigateur. Ne le supprimez pas.
+
 ## 5. Utiliser l’admin
 
 Ouvrir :
@@ -81,6 +89,26 @@ prévisualiser, puis sauvegarder.
 ## Notes importantes
 
 - L’admin couvre les textes centralisés dans `defaultSiteContent.js`.
+- L’admin permet aussi de créer des comptes clients pour `/partenaires`.
 - La sauvegarde est protégée par une session PHP créée après connexion.
 - L’URL `/admin` reste accessible, mais les actions de modification exigent le compte admin.
+- Les comptes partenaires sont stockés côté serveur avec des mots de passe hashés.
 - Le contenu public reste lisible dans `/content/site-content.json`, ce qui est normal pour un site vitrine.
+
+## Espace partenaires
+
+Les clients se connectent à :
+
+```text
+https://votre-domaine.com/partenaires
+```
+
+Depuis `/admin`, créer un compte avec :
+
+- le nom exact de l’entreprise ;
+- un mot de passe temporaire de 10 caractères minimum ;
+- le nom du projet ;
+- le statut du projet ;
+- un message visible par le client.
+
+Transmettre ensuite au client le nom d’entreprise et le mot de passe. Le mot de passe n’est jamais affiché dans l’admin après création.

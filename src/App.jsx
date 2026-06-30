@@ -23,6 +23,7 @@ const Obnl = lazy(() => import('./pages/Obnl'))
 const About = lazy(() => import('./pages/About'))
 const QA = lazy(() => import('./pages/QA'))
 const Admin = lazy(() => import('./pages/Admin'))
+const Partners = lazy(() => import('./pages/Partners'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 function RouteFallback() {
@@ -131,6 +132,8 @@ function App() {
             <Route path="/a-propos" element={<About />} />
             <Route path="/faq" element={<QA />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/partenaires" element={<Partners />} />
+            <Route path="/espace-partenaire" element={<Partners />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

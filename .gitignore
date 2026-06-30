@@ -13,6 +13,7 @@ dist-ssr
 *.local
 .env
 public/api/admin-config.php
+public/api/private/partners.json
 
 # Editor directories and files
 .vscode/*

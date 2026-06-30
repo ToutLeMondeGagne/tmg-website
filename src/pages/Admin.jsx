@@ -12,6 +12,7 @@ import {
 import { useSiteContent } from '../context/useSiteContent'
 
 const adminAuthEndpoint = '/api/admin-auth.php'
+const partnerAccountsEndpoint = '/api/partner-accounts.php'
 
 function AdminField({ field, value, onChange }) {
   const inputId = `admin-${field.path.replaceAll('.', '-')}`
@@ -349,6 +350,8 @@ function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent }
         </div>
       </section>
 
+      <PartnerAccountsManager />
+
       {siteContentFields.map((group) => (
         <section
           key={group.title}
@@ -384,5 +387,338 @@ function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent }
         </Button>
       </section>
     </form>
+  )
+}
+
+function AdminPartnerField({
+  label,
+  id,
+  value,
+  onChange,
+  type = 'text',
+  required = false,
+  placeholder = '',
+  rows,
+}) {
+  const commonClasses =
+    'w-full border border-[var(--blue)] bg-transparent px-4 py-3 text-base text-black outline-none transition placeholder:text-black/45 focus:bg-white/30 focus-visible:ring-2 focus-visible:ring-[var(--blue)]'
+
+  return (
+    <label className="block min-w-0">
+      <span className="mb-2 block text-sm font-medium uppercase text-[var(--blue)]">
+        {label}
+        {required ? <span aria-hidden="true">*</span> : null}
+      </span>
+      {rows ? (
+        <textarea
+          id={id}
+          rows={rows}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          className={`${commonClasses} resize-y leading-7`}
+          placeholder={placeholder}
+          required={required}
+        />
+      ) : (
+        <input
+          id={id}
+          type={type}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          className={commonClasses}
+          placeholder={placeholder}
+          required={required}
+        />
+      )}
+    </label>
+  )
+}
+
+function PartnerAccountsManager() {
+  const [accounts, setAccounts] = useState([])
+  const [form, setForm] = useState({
+    company: '',
+    password: '',
+    contact_name: '',
+    email: '',
+    project_name: '',
+    project_status: '',
+    portal_message: '',
+  })
+  const [status, setStatus] = useState('Chargement des comptes partenaires...')
+  const [isLoadingAccounts, setIsLoadingAccounts] = useState(true)
+  const [isSavingAccount, setIsSavingAccount] = useState(false)
+
+  useEffect(() => {
+    let isMounted = true
+    const controller = new AbortController()
+
+    async function loadAccounts() {
+      try {
+        const response = await fetch(partnerAccountsEndpoint, {
+          cache: 'no-store',
+          credentials: 'same-origin',
+          signal: controller.signal,
+        })
+        const payload = await response.json().catch(() => ({}))
+
+        if (!isMounted) {
+          return
+        }
+
+        if (!response.ok) {
+          throw new Error(payload.message || 'Impossible de charger les partenaires.')
+        }
+
+        setAccounts(Array.isArray(payload.accounts) ? payload.accounts : [])
+        setStatus('Comptes partenaires chargés.')
+      } catch (loadError) {
+        if (isMounted && loadError.name !== 'AbortError') {
+          setStatus(`${loadError.message} Cette section fonctionne sur SiteGround après connexion admin.`)
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoadingAccounts(false)
+        }
+      }
+    }
+
+    loadAccounts()
+
+    return () => {
+      isMounted = false
+      controller.abort()
+    }
+  }, [])
+
+  const updateForm = (field, value) => {
+    setForm((currentForm) => ({
+      ...currentForm,
+      [field]: value,
+    }))
+  }
+
+  const createAccount = async (event) => {
+    event.preventDefault()
+
+    if (!form.company.trim() || form.password.length < 10) {
+      setStatus('Ajoutez une entreprise et un mot de passe de 10 caractères minimum.')
+      return
+    }
+
+    setIsSavingAccount(true)
+    setStatus('Création du compte partenaire...')
+
+    try {
+      const response = await fetch(partnerAccountsEndpoint, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'create',
+          ...form,
+          company: form.company.trim(),
+        }),
+      })
+      const payload = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        throw new Error(payload.message || 'La création du compte a échoué.')
+      }
+
+      setAccounts(Array.isArray(payload.accounts) ? payload.accounts : [])
+      setForm({
+        company: '',
+        password: '',
+        contact_name: '',
+        email: '',
+        project_name: '',
+        project_status: '',
+        portal_message: '',
+      })
+      setStatus('Compte partenaire créé. Transmettez le nom d’entreprise et le mot de passe au client.')
+    } catch (createError) {
+      setStatus(createError.message)
+    } finally {
+      setIsSavingAccount(false)
+    }
+  }
+
+  const deleteAccount = async (account) => {
+    const confirmed = window.confirm(`Supprimer le compte partenaire ${account.company} ?`)
+
+    if (!confirmed) {
+      return
+    }
+
+    setStatus('Suppression du compte partenaire...')
+
+    try {
+      const response = await fetch(partnerAccountsEndpoint, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'delete',
+          id: account.id,
+        }),
+      })
+      const payload = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        throw new Error(payload.message || 'La suppression du compte a échoué.')
+      }
+
+      setAccounts(Array.isArray(payload.accounts) ? payload.accounts : [])
+      setStatus('Compte partenaire supprimé.')
+    } catch (deleteError) {
+      setStatus(deleteError.message)
+    }
+  }
+
+  return (
+    <section className="border-t border-black/25 pt-8">
+      <div className="mb-8 max-w-3xl">
+        <h2 className="text-3xl font-semibold leading-tight text-black">
+          Comptes partenaires
+        </h2>
+        <p className="mt-2 text-base leading-7 text-black/60">
+          Créez les accès privés pour les clients TMG. Le client se connecte sur
+          {' '}
+          <span className="font-semibold text-black">/partenaires</span>
+          {' '}
+          avec son nom d’entreprise et le mot de passe transmis.
+        </p>
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+        <section className="border border-black/20 bg-[var(--card)] p-6">
+          <h3 className="mb-5 text-xl font-semibold text-black">
+            Nouveau partenaire
+          </h3>
+          <div className="grid gap-5 md:grid-cols-2">
+            <AdminPartnerField
+              id="partner-company"
+              label="Entreprise"
+              value={form.company}
+              onChange={(value) => updateForm('company', value)}
+              placeholder="Nom exact que le client utilisera"
+              required
+            />
+            <AdminPartnerField
+              id="partner-password"
+              label="Mot de passe"
+              type="password"
+              value={form.password}
+              onChange={(value) => updateForm('password', value)}
+              placeholder="Minimum 10 caractères"
+              required
+            />
+            <AdminPartnerField
+              id="partner-contact"
+              label="Contact client"
+              value={form.contact_name}
+              onChange={(value) => updateForm('contact_name', value)}
+              placeholder="Nom de la personne contact"
+            />
+            <AdminPartnerField
+              id="partner-email"
+              label="Email"
+              type="email"
+              value={form.email}
+              onChange={(value) => updateForm('email', value)}
+              placeholder="client@entreprise.ca"
+            />
+            <AdminPartnerField
+              id="partner-project"
+              label="Nom du projet"
+              value={form.project_name}
+              onChange={(value) => updateForm('project_name', value)}
+              placeholder="Refonte site web, audit marketing..."
+            />
+            <AdminPartnerField
+              id="partner-status"
+              label="Statut du projet"
+              value={form.project_status}
+              onChange={(value) => updateForm('project_status', value)}
+              placeholder="En démarrage, en production..."
+            />
+            <div className="md:col-span-2">
+              <AdminPartnerField
+                id="partner-message"
+                label="Message visible client"
+                value={form.portal_message}
+                onChange={(value) => updateForm('portal_message', value)}
+                placeholder="Prochaine étape, rappel, lien important..."
+                rows={4}
+              />
+            </div>
+          </div>
+          <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm leading-6 text-black/65" aria-live="polite">
+              {status}
+            </p>
+            <Button type="button" onClick={createAccount} disabled={isSavingAccount}>
+              {isSavingAccount ? 'Création...' : 'Créer le compte'}
+            </Button>
+          </div>
+        </section>
+
+        <section className="border border-black/20 bg-[var(--card)] p-6">
+          <h3 className="mb-5 text-xl font-semibold text-black">
+            Accès existants
+          </h3>
+          {isLoadingAccounts ? (
+            <p className="text-sm uppercase text-black/60">
+              Chargement...
+            </p>
+          ) : accounts.length > 0 ? (
+            <div className="space-y-4">
+              {accounts.map((account) => (
+                <article
+                  key={account.id}
+                  className="border border-black/15 bg-white/10 p-4"
+                >
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <h4 className="text-lg font-semibold text-black">
+                        {account.company}
+                      </h4>
+                      <p className="mt-1 text-sm leading-6 text-black/60">
+                        {account.project_name || 'Projet à préciser'}
+                        {' '}
+                        ·
+                        {' '}
+                        {account.project_status || 'Statut à préciser'}
+                      </p>
+                      {account.last_login_at ? (
+                        <p className="mt-1 text-xs uppercase text-black/45">
+                          Dernière connexion : {account.last_login_at}
+                        </p>
+                      ) : null}
+                    </div>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={() => deleteAccount(account)}
+                    >
+                      Supprimer
+                    </Button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm leading-6 text-black/60">
+              Aucun compte partenaire créé pour le moment.
+            </p>
+          )}
+        </section>
+      </div>
+    </section>
   )
 }
