@@ -73,6 +73,12 @@ Pour les comptes partenaires, PHP doit aussi pouvoir créer et modifier :
 public_html/api/private/partners.json
 ```
 
+Pour les disponibilités de rencontre et les réservations partenaires, PHP doit pouvoir créer et modifier :
+
+```text
+public_html/api/private/meeting-slots.json
+```
+
 Le dossier `public_html/api/private/` contient un `.htaccess` qui bloque l’accès direct depuis le navigateur. Ne le supprimez pas.
 
 ## 5. Utiliser l’admin
@@ -90,9 +96,11 @@ prévisualiser, puis sauvegarder.
 
 - L’admin couvre les textes centralisés dans `defaultSiteContent.js`.
 - L’admin permet aussi de créer des comptes clients pour `/partenaires`.
+- L’admin permet d’ajouter des disponibilités de rencontre que les partenaires peuvent réserver.
 - La sauvegarde est protégée par une session PHP créée après connexion.
 - L’URL `/admin` reste accessible, mais les actions de modification exigent le compte admin.
 - Les comptes partenaires sont stockés côté serveur avec des mots de passe hashés.
+- Les rendez-vous sont stockés côté serveur dans le dossier privé `api/private`.
 - Le contenu public reste lisible dans `/content/site-content.json`, ce qui est normal pour un site vitrine.
 
 ## Espace partenaires
@@ -112,3 +120,21 @@ Depuis `/admin`, créer un compte avec :
 - un message visible par le client.
 
 Transmettre ensuite au client le nom d’entreprise et le mot de passe. Le mot de passe n’est jamais affiché dans l’admin après création.
+
+## Calendrier partenaire
+
+Depuis `/admin`, la section **Disponibilités de rencontre** permet d’ajouter :
+
+- une date ;
+- une heure ;
+- une durée ;
+- un lieu ou lien de rencontre ;
+- une note utile.
+
+Les partenaires connectés dans `/partenaires` voient uniquement les créneaux disponibles et peuvent réserver une rencontre. Une fois réservé, le créneau n’est plus proposé aux autres partenaires.
+
+L’admin peut ensuite :
+
+- voir quel partenaire a réservé ;
+- libérer une réservation ;
+- supprimer une disponibilité.

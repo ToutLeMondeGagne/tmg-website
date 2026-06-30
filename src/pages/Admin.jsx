@@ -13,6 +13,27 @@ import { useSiteContent } from '../context/useSiteContent'
 
 const adminAuthEndpoint = '/api/admin-auth.php'
 const partnerAccountsEndpoint = '/api/partner-accounts.php'
+const meetingSlotsEndpoint = '/api/meeting-slots.php'
+
+function formatMeetingSlot(slot) {
+  if (!slot?.date || !slot?.start_time) {
+    return 'Date à préciser'
+  }
+
+  const date = new Date(`${slot.date}T${slot.start_time}`)
+
+  if (Number.isNaN(date.getTime())) {
+    return `${slot.date} à ${slot.start_time}`
+  }
+
+  return new Intl.DateTimeFormat('fr-CA', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date)
+}
 
 function AdminField({ field, value, onChange }) {
   const inputId = `admin-${field.path.replaceAll('.', '-')}`
@@ -350,6 +371,8 @@ function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent }
         </div>
       </section>
 
+      <MeetingAvailabilityManager />
+
       <PartnerAccountsManager />
 
       {siteContentFields.map((group) => (
@@ -431,6 +454,311 @@ function AdminPartnerField({
         />
       )}
     </label>
+  )
+}
+
+function MeetingAvailabilityManager() {
+  const [slots, setSlots] = useState([])
+  const [form, setForm] = useState({
+    date: '',
+    start_time: '',
+    duration_minutes: '30',
+    timezone: 'America/Toronto',
+    title: 'Rencontre TMG',
+    location: 'Google Meet',
+    note: '',
+  })
+  const [status, setStatus] = useState('Chargement des disponibilités...')
+  const [isLoadingSlots, setIsLoadingSlots] = useState(true)
+  const [isSavingSlot, setIsSavingSlot] = useState(false)
+
+  useEffect(() => {
+    let isMounted = true
+    const controller = new AbortController()
+
+    async function loadSlots() {
+      try {
+        const response = await fetch(meetingSlotsEndpoint, {
+          cache: 'no-store',
+          credentials: 'same-origin',
+          signal: controller.signal,
+        })
+        const payload = await response.json().catch(() => ({}))
+
+        if (!isMounted) {
+          return
+        }
+
+        if (!response.ok) {
+          throw new Error(payload.message || 'Impossible de charger les disponibilités.')
+        }
+
+        setSlots(Array.isArray(payload.slots) ? payload.slots : [])
+        setStatus('Disponibilités chargées.')
+      } catch (loadError) {
+        if (isMounted && loadError.name !== 'AbortError') {
+          setStatus(`${loadError.message} Cette section fonctionne sur SiteGround après connexion admin.`)
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoadingSlots(false)
+        }
+      }
+    }
+
+    loadSlots()
+
+    return () => {
+      isMounted = false
+      controller.abort()
+    }
+  }, [])
+
+  const updateForm = (field, value) => {
+    setForm((currentForm) => ({
+      ...currentForm,
+      [field]: value,
+    }))
+  }
+
+  const createSlot = async () => {
+    if (!form.date || !form.start_time) {
+      setStatus('Ajoutez une date et une heure de début.')
+      return
+    }
+
+    setIsSavingSlot(true)
+    setStatus('Ajout de la disponibilité...')
+
+    try {
+      const response = await fetch(meetingSlotsEndpoint, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'create',
+          ...form,
+          duration_minutes: Number(form.duration_minutes),
+        }),
+      })
+      const payload = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        throw new Error(payload.message || 'Impossible d’ajouter cette disponibilité.')
+      }
+
+      setSlots(Array.isArray(payload.slots) ? payload.slots : [])
+      setForm((currentForm) => ({
+        ...currentForm,
+        date: '',
+        start_time: '',
+        note: '',
+      }))
+      setStatus('Disponibilité ajoutée. Les partenaires connectés peuvent la réserver.')
+    } catch (createError) {
+      setStatus(createError.message)
+    } finally {
+      setIsSavingSlot(false)
+    }
+  }
+
+  const runSlotAction = async (slot, action) => {
+    const labels = {
+      delete: 'supprimer cette disponibilité',
+      release: 'libérer cette réservation',
+    }
+    const confirmed = window.confirm(`Voulez-vous ${labels[action]} ?`)
+
+    if (!confirmed) {
+      return
+    }
+
+    setStatus(action === 'delete' ? 'Suppression du créneau...' : 'Libération de la réservation...')
+
+    try {
+      const response = await fetch(meetingSlotsEndpoint, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action,
+          id: slot.id,
+        }),
+      })
+      const payload = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        throw new Error(payload.message || 'Action impossible sur ce créneau.')
+      }
+
+      setSlots(Array.isArray(payload.slots) ? payload.slots : [])
+      setStatus(payload.message || 'Calendrier mis à jour.')
+    } catch (slotError) {
+      setStatus(slotError.message)
+    }
+  }
+
+  return (
+    <section className="border-t border-black/25 pt-8">
+      <div className="mb-8 max-w-3xl">
+        <h2 className="text-3xl font-semibold leading-tight text-black">
+          Disponibilités de rencontre
+        </h2>
+        <p className="mt-2 text-base leading-7 text-black/60">
+          Ajoutez les créneaux que les partenaires peuvent réserver directement
+          depuis leur compte privé.
+        </p>
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
+        <section className="border border-black/20 bg-[var(--card)] p-6">
+          <h3 className="mb-5 text-xl font-semibold text-black">
+            Nouveau créneau
+          </h3>
+          <div className="grid gap-5 md:grid-cols-2">
+            <AdminPartnerField
+              id="meeting-date"
+              label="Date"
+              type="date"
+              value={form.date}
+              onChange={(value) => updateForm('date', value)}
+              required
+            />
+            <AdminPartnerField
+              id="meeting-time"
+              label="Heure"
+              type="time"
+              value={form.start_time}
+              onChange={(value) => updateForm('start_time', value)}
+              required
+            />
+            <AdminPartnerField
+              id="meeting-duration"
+              label="Durée minutes"
+              type="number"
+              value={form.duration_minutes}
+              onChange={(value) => updateForm('duration_minutes', value)}
+              placeholder="30"
+              required
+            />
+            <AdminPartnerField
+              id="meeting-timezone"
+              label="Fuseau horaire"
+              value={form.timezone}
+              onChange={(value) => updateForm('timezone', value)}
+              placeholder="America/Toronto"
+              required
+            />
+            <AdminPartnerField
+              id="meeting-title"
+              label="Titre"
+              value={form.title}
+              onChange={(value) => updateForm('title', value)}
+              placeholder="Rencontre TMG"
+            />
+            <AdminPartnerField
+              id="meeting-location"
+              label="Lieu ou lien"
+              value={form.location}
+              onChange={(value) => updateForm('location', value)}
+              placeholder="Google Meet, Zoom, bureau..."
+            />
+            <div className="md:col-span-2">
+              <AdminPartnerField
+                id="meeting-note"
+                label="Note interne/visible"
+                value={form.note}
+                onChange={(value) => updateForm('note', value)}
+                placeholder="Préparation, contexte ou détails utiles."
+                rows={3}
+              />
+            </div>
+          </div>
+          <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm leading-6 text-black/65" aria-live="polite">
+              {status}
+            </p>
+            <Button type="button" onClick={createSlot} disabled={isSavingSlot}>
+              {isSavingSlot ? 'Ajout...' : 'Ajouter le créneau'}
+            </Button>
+          </div>
+        </section>
+
+        <section className="border border-black/20 bg-[var(--card)] p-6">
+          <h3 className="mb-5 text-xl font-semibold text-black">
+            Calendrier publié
+          </h3>
+          {isLoadingSlots ? (
+            <p className="text-sm uppercase text-black/60">
+              Chargement...
+            </p>
+          ) : slots.length > 0 ? (
+            <div className="space-y-4">
+              {slots.map((slot) => (
+                <article
+                  key={slot.id}
+                  className="border border-black/15 bg-white/10 p-4"
+                >
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                    <div>
+                      <p className="text-sm font-semibold uppercase text-[var(--blue)]">
+                        {slot.is_booked ? 'Réservé' : 'Disponible'}
+                      </p>
+                      <h4 className="mt-2 text-lg font-semibold text-black">
+                        {formatMeetingSlot(slot)}
+                      </h4>
+                      <p className="mt-1 text-sm leading-6 text-black/60">
+                        {slot.title || 'Rencontre TMG'}
+                        {' '}
+                        ·
+                        {' '}
+                        {slot.duration_minutes || 30}
+                        {' '}
+                        min
+                        {slot.location ? ` · ${slot.location}` : ''}
+                      </p>
+                      {slot.booked_by_company ? (
+                        <p className="mt-2 text-sm leading-6 text-black/70">
+                          Réservé par
+                          {' '}
+                          <span className="font-semibold">{slot.booked_by_company}</span>
+                        </p>
+                      ) : null}
+                    </div>
+                    <div className="flex flex-col gap-2 sm:flex-row lg:flex-col">
+                      {slot.is_booked ? (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => runSlotAction(slot, 'release')}
+                        >
+                          Libérer
+                        </Button>
+                      ) : null}
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        onClick={() => runSlotAction(slot, 'delete')}
+                      >
+                        Supprimer
+                      </Button>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm leading-6 text-black/60">
+              Aucune disponibilité publiée pour le moment.
+            </p>
+          )}
+        </section>
+      </div>
+    </section>
   )
 }
 
