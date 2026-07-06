@@ -4,18 +4,11 @@ import DropdownField from './DropdownField'
 import TextArea from './TextArea'
 import TextInput from './TextInput'
 
-const interests = [
-  { value: 'marketing', label: 'Marketing numérique' },
-  { value: 'design', label: 'Design / expérience utilisateur' },
-  { value: 'contenu', label: 'Création de contenu' },
-  { value: 'developpement', label: 'Développement web' },
-  { value: 'gestion-projet', label: 'Gestion de projet' },
-]
-
-const levels = [
-  { value: 'debutant', label: 'Débutant curieux' },
-  { value: 'intermediaire', label: 'Intermédiaire' },
-  { value: 'avance', label: 'Avancé' },
+const positions = [
+  { value: 'consultant-strategie', label: 'Consultant en stratégie' },
+  { value: 'consultant-marketing', label: 'Consultant marketing' },
+  { value: 'gestionnaire-projet', label: 'Gestionnaire de projet' },
+  { value: 'consultation-web', label: 'Consultation web' },
 ]
 
 const availability = [
@@ -89,21 +82,13 @@ export default function InternshipForm() {
       <FormSection number="02" title="Votre stage">
         <div className="grid gap-6 md:grid-cols-2">
           <DropdownField
-            label="Centre d’intérêt"
-            name="interest"
-            placeholder="Choisir un domaine"
-            options={interests}
+            label="Poste"
+            name="position"
+            placeholder="Choisir un poste"
+            options={positions}
             required
           />
           <DropdownField
-            label="Niveau"
-            name="level"
-            placeholder="Choisir un niveau"
-            options={levels}
-            required
-          />
-          <DropdownField
-            className="md:col-span-2"
             label="Disponibilité"
             name="availability"
             placeholder="Choisir une disponibilité"
@@ -120,12 +105,6 @@ export default function InternshipForm() {
             name="portfolio"
             type="url"
             placeholder="Lien vers CV, portfolio ou LinkedIn"
-          />
-          <TextInput
-            label="Date de début"
-            name="startDate"
-            type="text"
-            placeholder="Ex: septembre, dès maintenant"
           />
           <TextArea
             className="md:col-span-2"
