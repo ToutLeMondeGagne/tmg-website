@@ -290,8 +290,7 @@ function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent }
     setStatus('Textes réinitialisés aux valeurs par défaut dans l’aperçu.')
   }
 
-  const saveDraft = async (event) => {
-    event.preventDefault()
+  const saveDraft = async () => {
 
     setIsSaving(true)
     setStatus('Sauvegarde en cours...')
@@ -311,7 +310,11 @@ function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent }
         throw new Error(payload.message || 'La sauvegarde serveur a échoué.')
       }
 
-      replaceContent(mergeContent(defaultSiteContent, draft))
+      const savedContent =
+        payload.content && typeof payload.content === 'object' ? payload.content : draft
+
+      setDraft(cloneContent(savedContent))
+      replaceContent(mergeContent(defaultSiteContent, savedContent))
       setStatus('Contenu sauvegardé. Les visiteurs verront les nouveaux textes.')
     } catch (saveError) {
       setStatus(
@@ -323,7 +326,7 @@ function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent }
   }
 
   return (
-    <form className="space-y-10 py-12 text-left" onSubmit={saveDraft}>
+    <div className="space-y-10 py-12 text-left">
       <section className="grid gap-5 border border-black/20 bg-[var(--card)] p-6 md:grid-cols-[1fr_0.9fr] md:items-center">
         <div>
           <span className="mb-2 block text-sm font-medium uppercase text-[var(--blue)]">
@@ -344,7 +347,7 @@ function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent }
           <Button type="button" variant="ghost" onClick={onLogout}>
             Déconnexion
           </Button>
-          <Button type="submit" disabled={isSaving || isLoading}>
+          <Button type="button" onClick={saveDraft} disabled={isSaving || isLoading}>
             {isSaving ? 'Sauvegarde...' : 'Sauvegarder'}
           </Button>
         </div>
@@ -386,7 +389,7 @@ function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent }
           Réinitialiser les textes
         </Button>
       </section>
-    </form>
+    </div>
   )
 }
 

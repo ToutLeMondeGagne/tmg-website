@@ -51,10 +51,11 @@ export default function AnimatedText({
   const shouldReduceMotion = useReducedMotion()
   const MotionTag = motion[as] ?? motion.span
   const viewport = { once, amount, margin: '0px 0px -10% 0px' }
+  const textKey = typeof children === 'string' ? children : undefined
 
   if (shouldReduceMotion) {
     return (
-      <MotionTag className={className} {...props}>
+      <MotionTag key={textKey} className={className} {...props}>
         {children}
       </MotionTag>
     )
@@ -65,6 +66,7 @@ export default function AnimatedText({
 
     return (
       <MotionTag
+        key={textKey}
         className={joinClasses('inline-block', className)}
         initial="hidden"
         whileInView="visible"
@@ -100,6 +102,7 @@ export default function AnimatedText({
 
   return (
     <MotionTag
+      key={textKey}
       className={joinClasses('inline-block', className)}
       initial="hidden"
       whileInView="visible"

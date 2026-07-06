@@ -155,6 +155,142 @@ export const siteContentFields = [
     ],
   },
 
+  // ─── PME ──────────────────────────────────────────────────────────────────
+  {
+    title: 'PME - Hero',
+    description: 'Première section de la page PME / Entreprises.',
+    fields: [
+      { path: 'pme.hero.label', label: 'Label de section' },
+      { path: 'pme.hero.title', label: 'Titre principal', type: 'textarea', rows: 2 },
+      { path: 'pme.hero.accent', label: 'Mot ou phrase en bleu' },
+      { path: 'pme.hero.subtitle', label: 'Paragraphe intro', type: 'textarea', rows: 3 },
+      { path: 'pme.hero.cta', label: 'Bouton' },
+    ],
+  },
+  {
+    title: 'PME - Cartes promesses',
+    description: 'Les quatre cartes affichées dans le hero PME.',
+    fields: [
+      { path: 'pme.promises.0.title', label: 'Carte 1 - titre' },
+      { path: 'pme.promises.0.text', label: 'Carte 1 - texte' },
+      { path: 'pme.promises.1.title', label: 'Carte 2 - titre' },
+      { path: 'pme.promises.1.text', label: 'Carte 2 - texte' },
+      { path: 'pme.promises.2.title', label: 'Carte 3 - titre' },
+      { path: 'pme.promises.2.text', label: 'Carte 3 - texte' },
+      { path: 'pme.promises.3.title', label: 'Carte 4 - titre' },
+      { path: 'pme.promises.3.text', label: 'Carte 4 - texte' },
+    ],
+  },
+  {
+    title: 'PME - Problèmes et solutions',
+    description: 'Les deux paires problème / solution de la page PME.',
+    fields: [
+      { path: 'pme.challenges.label', label: 'Label de section' },
+      { path: 'pme.challenges.title', label: 'Titre', type: 'textarea', rows: 2 },
+      { path: 'pme.challenges.subtitle', label: 'Sous-titre' },
+      { path: 'pme.challenges.items.0.problemTitle', label: 'Problème 1 - titre' },
+      { path: 'pme.challenges.items.0.problem', label: 'Problème 1 - texte', type: 'textarea', rows: 3 },
+      { path: 'pme.challenges.items.0.answerTitle', label: 'Solution 1 - titre' },
+      { path: 'pme.challenges.items.0.answer', label: 'Solution 1 - texte', type: 'textarea', rows: 3 },
+      { path: 'pme.challenges.items.1.problemTitle', label: 'Problème 2 - titre' },
+      { path: 'pme.challenges.items.1.problem', label: 'Problème 2 - texte', type: 'textarea', rows: 3 },
+      { path: 'pme.challenges.items.1.answerTitle', label: 'Solution 2 - titre' },
+      { path: 'pme.challenges.items.1.answer', label: 'Solution 2 - texte', type: 'textarea', rows: 3 },
+    ],
+  },
+  {
+    title: 'PME - Services',
+    description: 'La liste des services affichée sur la page PME.',
+    fields: [
+      { path: 'pme.services.label', label: 'Label de section' },
+      { path: 'pme.services.title', label: 'Titre', type: 'textarea', rows: 2 },
+      { path: 'pme.services.subtitle', label: 'Sous-titre', type: 'textarea', rows: 2 },
+      { path: 'pme.services.items.0.title', label: 'Service 1 - titre' },
+      { path: 'pme.services.items.0.text', label: 'Service 1 - texte', type: 'textarea', rows: 3 },
+      { path: 'pme.services.items.0.timeline', label: 'Service 1 - délai' },
+      { path: 'pme.services.items.1.title', label: 'Service 2 - titre' },
+      { path: 'pme.services.items.1.text', label: 'Service 2 - texte', type: 'textarea', rows: 3 },
+      { path: 'pme.services.items.1.timeline', label: 'Service 2 - délai' },
+    ],
+  },
+  {
+    title: 'PME - CTA final',
+    description: 'Bloc final avant les liens de navigation.',
+    fields: [
+      { path: 'pme.cta.title', label: 'Titre', type: 'textarea', rows: 2 },
+      { path: 'pme.cta.body', label: 'Paragraphe', type: 'textarea', rows: 3 },
+      { path: 'pme.cta.button', label: 'Bouton' },
+    ],
+  },
+
+  // ─── OBNL ─────────────────────────────────────────────────────────────────
+  {
+    title: 'OBNL - Hero',
+    description: 'Première section de la page OBNL.',
+    fields: [
+      { path: 'obnl.hero.label', label: 'Label de section' },
+      { path: 'obnl.hero.title', label: 'Titre principal', type: 'textarea', rows: 2 },
+      { path: 'obnl.hero.accent', label: 'Mot ou phrase en bleu' },
+      { path: 'obnl.hero.subtitle', label: 'Paragraphe intro', type: 'textarea', rows: 3 },
+      { path: 'obnl.hero.cta', label: 'Bouton' },
+    ],
+  },
+  {
+    title: 'OBNL - Cartes promesses',
+    description: 'Les quatre cartes affichées dans le hero OBNL.',
+    fields: [
+      { path: 'obnl.promises.0.title', label: 'Carte 1 - titre' },
+      { path: 'obnl.promises.0.text', label: 'Carte 1 - texte' },
+      { path: 'obnl.promises.1.title', label: 'Carte 2 - titre' },
+      { path: 'obnl.promises.1.text', label: 'Carte 2 - texte' },
+      { path: 'obnl.promises.2.title', label: 'Carte 3 - titre' },
+      { path: 'obnl.promises.2.text', label: 'Carte 3 - texte' },
+      { path: 'obnl.promises.3.title', label: 'Carte 4 - titre' },
+      { path: 'obnl.promises.3.text', label: 'Carte 4 - texte' },
+    ],
+  },
+  {
+    title: 'OBNL - Défis et réponses',
+    description: 'Les deux paires défi / réponse de la page OBNL.',
+    fields: [
+      { path: 'obnl.challenges.label', label: 'Label de section' },
+      { path: 'obnl.challenges.title', label: 'Titre', type: 'textarea', rows: 2 },
+      { path: 'obnl.challenges.subtitle', label: 'Sous-titre' },
+      { path: 'obnl.challenges.items.0.problemTitle', label: 'Défi 1 - titre' },
+      { path: 'obnl.challenges.items.0.problem', label: 'Défi 1 - texte', type: 'textarea', rows: 3 },
+      { path: 'obnl.challenges.items.0.answerTitle', label: 'Réponse 1 - titre' },
+      { path: 'obnl.challenges.items.0.answer', label: 'Réponse 1 - texte', type: 'textarea', rows: 3 },
+      { path: 'obnl.challenges.items.1.problemTitle', label: 'Défi 2 - titre' },
+      { path: 'obnl.challenges.items.1.problem', label: 'Défi 2 - texte', type: 'textarea', rows: 3 },
+      { path: 'obnl.challenges.items.1.answerTitle', label: 'Réponse 2 - titre' },
+      { path: 'obnl.challenges.items.1.answer', label: 'Réponse 2 - texte', type: 'textarea', rows: 3 },
+    ],
+  },
+  {
+    title: 'OBNL - Services',
+    description: 'La liste des services affichée sur la page OBNL.',
+    fields: [
+      { path: 'obnl.services.label', label: 'Label de section' },
+      { path: 'obnl.services.title', label: 'Titre', type: 'textarea', rows: 2 },
+      { path: 'obnl.services.subtitle', label: 'Sous-titre', type: 'textarea', rows: 2 },
+      { path: 'obnl.services.items.0.title', label: 'Service 1 - titre' },
+      { path: 'obnl.services.items.0.text', label: 'Service 1 - texte', type: 'textarea', rows: 3 },
+      { path: 'obnl.services.items.0.timeline', label: 'Service 1 - délai' },
+      { path: 'obnl.services.items.1.title', label: 'Service 2 - titre' },
+      { path: 'obnl.services.items.1.text', label: 'Service 2 - texte', type: 'textarea', rows: 3 },
+      { path: 'obnl.services.items.1.timeline', label: 'Service 2 - délai' },
+    ],
+  },
+  {
+    title: 'OBNL - CTA final',
+    description: 'Bloc final avant les liens de navigation.',
+    fields: [
+      { path: 'obnl.cta.title', label: 'Titre', type: 'textarea', rows: 2 },
+      { path: 'obnl.cta.body', label: 'Paragraphe', type: 'textarea', rows: 3 },
+      { path: 'obnl.cta.button', label: 'Bouton' },
+    ],
+  },
+
   // ─── Stage ─────────────────────────────────────────────────────────────────
   {
     title: 'Stage - Hero',
