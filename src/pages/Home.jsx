@@ -1,6 +1,13 @@
+import { motion } from 'framer-motion'
 import { PageContainer } from '../components/layout'
 import RelatedLinks from '../components/seo/RelatedLinks'
+import NewsletterSection from '../components/sections/NewsletterSection'
 import ProjectsShowcase from '../components/sections/ProjectsShowcase'
+
+// Les sections en validation (infolettre, etc.) ne sont visibles que si le
+// build est fait avec les fonctionnalités de prévisualisation actives.
+// Prod : VITE_PREVIEW_FEATURES=false npm run build  |  Secours : npm run build
+const SHOW_NEWSLETTER_SECTION = import.meta.env.VITE_PREVIEW_FEATURES !== 'false'
 import { useSiteContent } from '../context/useSiteContent'
 import { socialLinks } from '../data/socialLinks'
 import {
@@ -11,155 +18,188 @@ import {
   SectionLabel,
   TicketCard,
 } from '../components/ui'
-import heroStackImage from '../assets/hero.png'
-import tmgLogo from '../assets/logos/tmg-logo.png'
 
-const heroLogoOrbitItems = [
-  {
-    x: 'clamp(-8.5rem, -28vw, -5.8rem)',
-    y: 'clamp(-5.6rem, -18vw, -3.9rem)',
-    driftX: '0.8rem',
-    driftY: '-0.35rem',
-    rotateStart: '-8deg',
-    rotateEnd: '5deg',
-    puzzleX: 'calc(var(--logo-piece-w) * -1)',
-    puzzleY: 'calc(var(--logo-piece-h) * -0.5)',
-    bgPosition: '0% 0%',
-    delay: '0s',
-  },
-  {
-    x: 'clamp(-1.8rem, -6vw, -1rem)',
-    y: 'clamp(-7.3rem, -22vw, -5.4rem)',
-    driftX: '0.55rem',
-    driftY: '0.65rem',
-    rotateStart: '5deg',
-    rotateEnd: '-6deg',
-    puzzleX: '0rem',
-    puzzleY: 'calc(var(--logo-piece-h) * -0.5)',
-    bgPosition: '50% 0%',
-    delay: '0s',
-  },
-  {
-    x: 'clamp(5.9rem, 28vw, 8.6rem)',
-    y: 'clamp(-5.5rem, -18vw, -3.7rem)',
-    driftX: '-0.75rem',
-    driftY: '-0.25rem',
-    rotateStart: '7deg',
-    rotateEnd: '-4deg',
-    puzzleX: 'var(--logo-piece-w)',
-    puzzleY: 'calc(var(--logo-piece-h) * -0.5)',
-    bgPosition: '100% 0%',
-    delay: '0s',
-  },
-  {
-    x: 'clamp(-8.2rem, -27vw, -5.6rem)',
-    y: 'clamp(3.8rem, 17vw, 5.6rem)',
-    driftX: '0.7rem',
-    driftY: '0.45rem',
-    rotateStart: '4deg',
-    rotateEnd: '-7deg',
-    puzzleX: 'calc(var(--logo-piece-w) * -1)',
-    puzzleY: 'calc(var(--logo-piece-h) * 0.5)',
-    bgPosition: '0% 100%',
-    delay: '0s',
-  },
-  {
-    x: 'clamp(-1.4rem, -4vw, -0.8rem)',
-    y: 'clamp(5.4rem, 22vw, 7.2rem)',
-    driftX: '-0.45rem',
-    driftY: '-0.6rem',
-    rotateStart: '-6deg',
-    rotateEnd: '6deg',
-    puzzleX: '0rem',
-    puzzleY: 'calc(var(--logo-piece-h) * 0.5)',
-    bgPosition: '50% 100%',
-    delay: '0s',
-  },
-  {
-    x: 'clamp(5.7rem, 27vw, 8.3rem)',
-    y: 'clamp(3.5rem, 17vw, 5.4rem)',
-    driftX: '-0.85rem',
-    driftY: '0.35rem',
-    rotateStart: '-5deg',
-    rotateEnd: '8deg',
-    puzzleX: 'var(--logo-piece-w)',
-    puzzleY: 'calc(var(--logo-piece-h) * 0.5)',
-    bgPosition: '100% 100%',
-    delay: '0s',
-  },
-]
+// Scène pleine largeur (viewBox 640 × 360), reproduisant la maquette Canva :
+// nuage blanc avec le titre à gauche, balle posée sur la première grosse marche
+// turquoise au centre, petit escalier blanc à droite, masse marine au bord droit.
+// Escalator : grosses marches uniformes de 104 × 104 px, prolongées hors cadre
+// pour que la boucle de translation retombe exactement sur la même géométrie.
+const STEP_SIZE = 104
+const STEP_DURATION = 0.9
+const TEAL_STEPS = Array.from({ length: 6 }, (_, i) => ({
+  x: 212 + STEP_SIZE * i,
+  y: 374 - STEP_SIZE * i,
+  width: STEP_SIZE,
+  height: 460,
+}))
 
-function HeroStackVisual() {
+// Cache couleur ciel sur le coin inférieur gauche : la marche qui sort du cadre
+// « s'enfonce » dedans (comme dans le sol d'un escalator) et ne peut jamais
+// atteindre le slogan. Aligné sur le bord gauche de la plus basse marche visible.
+const EXIT_MASK = { x: 0, y: 270, width: 316, height: 90 }
+
+// Montée infinie : la « caméra » suit la balle. La balle rebondit sur place et
+// l'escalier défile sous elle d'une marche par bond — elle grimpe donc sans fin
+// et ne sort jamais du cadre. Position : posée sur la marche (424, 270) à t=0.
+const BALL_RADIUS = 40
+const BALL_X = 368
+const BALL_REST_Y = 270 - BALL_RADIUS
+const BALL_APEX_Y = BALL_REST_Y - STEP_SIZE
+
+const HERO_TITLE_LINES = ['OBNL EN', 'SERVICE', 'MARKETING', 'ET WEB']
+const HERO_TAGLINE = 'C’est en travaillant ensemble que tout le monde gagne'
+
+function MarketingHeroVisual() {
   return (
-    <div
-      className="relative mx-auto flex min-h-[19rem] w-full max-w-[22rem] items-center justify-center md:min-h-[22rem] lg:max-w-[24rem]"
+    <motion.div
+      className="relative w-full overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+      role="img"
+      aria-label="OBNL en service marketing et web — balle bicolore qui monte un grand escalier roulant sans fin"
     >
-      <div
-        className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-black/25"
+      <svg
+        viewBox="0 0 640 360"
+        className="block h-auto w-full"
+        fill="none"
+        preserveAspectRatio="xMidYMid slice"
         aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute inset-y-6 left-1/2 w-px bg-black/15"
-        aria-hidden="true"
-      />
-      <span
-        className="pointer-events-none absolute left-3 top-8 h-2.5 w-2.5 bg-[var(--green)] shadow-[0_0_0_1px_rgba(0,76,255,0.22)]"
-        aria-hidden="true"
-      />
-      <span
-        className="pointer-events-none absolute bottom-10 right-4 h-2 w-2 bg-[var(--blue)]"
-        aria-hidden="true"
-      />
-      {heroLogoOrbitItems.map((item) => (
-        <span
-          key={`${item.x}-${item.y}`}
-          className="tmg-logo-orbit pointer-events-none absolute left-1/2 top-1/2 z-30 flex items-center justify-center overflow-hidden border border-black/15 bg-[var(--bg)]/86 p-1.5 shadow-[0_14px_34px_rgba(0,0,0,0.12)] backdrop-blur-sm"
-          style={{
-            '--orbit-x': item.x,
-            '--orbit-y': item.y,
-            '--orbit-drift-x': item.driftX,
-            '--orbit-drift-y': item.driftY,
-            '--orbit-rotate-start': item.rotateStart,
-            '--orbit-rotate-end': item.rotateEnd,
-            '--puzzle-x': item.puzzleX,
-            '--puzzle-y': item.puzzleY,
-            '--puzzle-bg-position': item.bgPosition,
-            '--puzzle-image': `url(${tmgLogo})`,
-            '--orbit-delay': item.delay,
-          }}
-          aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="hero-sky" x1="320" y1="0" x2="320" y2="360" gradientUnits="userSpaceOnUse">
+            {/* Part du gris de la page (--bg) pour se fondre sans découpe */}
+            <stop offset="0%" stopColor="#d7d7d4" />
+            <stop offset="38%" stopColor="#cbdeeb" />
+            <stop offset="100%" stopColor="#aecbe0" />
+          </linearGradient>
+          <linearGradient id="hero-sun" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#ef8c4a" />
+            <stop offset="42%" stopColor="#d95f2b" />
+            <stop offset="62%" stopColor="#41415f" />
+            <stop offset="100%" stopColor="#1d2c50" />
+          </linearGradient>
+          {/* Dégradé identique pour chaque marche (coordonnées relatives à la
+              marche) : la boucle de l'escalator reste ainsi sans aucun saut de
+              couleur au moment du rebouclage. */}
+          <linearGradient id="hero-teal" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#3fae97" />
+            <stop offset="100%" stopColor="#175f57" />
+          </linearGradient>
+          {/* Grain pré-calculé : speckles noirs semi-transparents rasterisés une
+              seule fois dans un motif, puis simplement déplacés par le GPU —
+              aucun filtre live, aucun mode de fusion pendant l'animation. */}
+          <filter id="hero-noise-gen" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise" />
+            <feColorMatrix
+              in="noise"
+              type="matrix"
+              values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.55 0 0 0 0"
+            />
+          </filter>
+          <pattern id="hero-noise" width="140" height="140" patternUnits="userSpaceOnUse">
+            <rect width="140" height="140" filter="url(#hero-noise-gen)" />
+          </pattern>
+        </defs>
+
+        <rect width="640" height="360" fill="url(#hero-sky)" />
+
+        {/* Grand escalier turquoise : défile d'une marche par cycle sous la balle
+            (caméra qui suit la montée). La géométrie étant périodique, le retour
+            à 0 est invisible. */}
+        <motion.g
+          animate={{ x: [0, -STEP_SIZE], y: [0, STEP_SIZE] }}
+          transition={{ duration: STEP_DURATION, repeat: Infinity, ease: 'linear' }}
         >
-          <span className="tmg-logo-puzzle-slice" />
-          <img
-            src={tmgLogo}
-            alt=""
-            width="720"
-            height="356"
-            className="tmg-logo-card-mark h-auto w-full object-contain"
-            loading="lazy"
-            decoding="async"
-            draggable="false"
+          {TEAL_STEPS.map((step) => (
+            <rect key={`teal-${step.x}`} {...step} fill="url(#hero-teal)" />
+          ))}
+          {TEAL_STEPS.map((step) => (
+            <rect key={`teal-noise-${step.x}`} {...step} fill="url(#hero-noise)" />
+          ))}
+        </motion.g>
+
+        {/* Cache ciel : avale la marche sortante en bas à gauche */}
+        <rect {...EXIT_MASK} fill="url(#hero-sky)" />
+
+        {/* Petit escalier blanc, immobile, à droite : marches de 64 × 68 px,
+            descendant du bord droit jusqu'au bas du cadre */}
+        <path
+          d="M668 164 H604 V232 H540 V300 H476 V368 H412 V392"
+          stroke="#ffffff"
+          strokeWidth="5"
+          strokeLinecap="square"
+          fill="none"
+        />
+
+        {/* Balle bicolore : rebondit sur place, un bond par marche qui arrive —
+            montée infinie, toujours visible */}
+        <motion.g
+          animate={{
+            y: [BALL_REST_Y, BALL_APEX_Y, BALL_REST_Y],
+            rotate: [0, 360],
+          }}
+          transition={{
+            y: {
+              duration: STEP_DURATION,
+              repeat: Infinity,
+              times: [0, 0.5, 1],
+              ease: ['easeOut', 'easeIn'],
+            },
+            rotate: { duration: STEP_DURATION * 2, repeat: Infinity, ease: 'linear' },
+          }}
+          style={{ x: BALL_X, transformBox: 'fill-box', transformOrigin: 'center' }}
+        >
+          <circle r={BALL_RADIUS} fill="url(#hero-sun)" />
+          <circle r={BALL_RADIUS} fill="url(#hero-noise)" />
+        </motion.g>
+
+        {/* Nuage blanc organique avec le titre */}
+        <motion.g
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: [1, 1.02, 1], rotate: [0, -1, 0] }}
+          transition={{
+            opacity: { duration: 0.8, delay: 0.35 },
+            scale: { duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1.2 },
+            rotate: { duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1.2 },
+          }}
+          style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+        >
+          {/* Ombre : copie décalée de la forme (pas de filtre, donc pas de
+              recalcul pendant la respiration du nuage) */}
+          <path
+            d="M160 46 C230 30 292 80 288 160 C284 232 256 284 178 296 C104 308 44 270 40 196 C36 122 92 62 160 46 Z"
+            fill="#1d2c50"
+            opacity="0.22"
+            transform="translate(6 8)"
           />
-        </span>
-      ))}
-      <img
-        src={heroStackImage}
-        alt="Couches visuelles TMG superposées"
-        width="343"
-        height="361"
-        className="tmg-stack-float relative z-10 w-[min(72vw,17rem)] drop-shadow-[0_34px_42px_rgba(0,0,0,0.24)] md:w-[18rem] lg:w-[20rem]"
-        decoding="async"
-        fetchPriority="high"
-      />
-      <span
-        className="tmg-stack-scan pointer-events-none absolute left-1/2 top-1/2 z-20 h-28 w-[72%] -translate-x-1/2 -translate-y-1/2 border-y border-[var(--blue)]/60 bg-[linear-gradient(90deg,transparent,rgba(0,76,255,0.1),transparent)]"
-        aria-hidden="true"
-      />
-      <span
-        className="pointer-events-none absolute bottom-7 left-1/2 h-px w-[82%] -translate-x-1/2 bg-black/25"
-        aria-hidden="true"
-      />
-    </div>
+          <path
+            d="M160 46 C230 30 292 80 288 160 C284 232 256 284 178 296 C104 308 44 270 40 196 C36 122 92 62 160 46 Z"
+            fill="#ffffff"
+          />
+          {HERO_TITLE_LINES.map((line, index) => (
+            <text
+              key={line}
+              x="164"
+              y={112 + index * 52}
+              textAnchor="middle"
+              fill="#111111"
+              fontSize="34"
+              fontWeight="700"
+              letterSpacing="1"
+            >
+              {line}
+            </text>
+          ))}
+        </motion.g>
+
+        {/* Slogan en bas à gauche — taille alignée sur la maquette, assez court
+            pour ne jamais croiser les marches qui sortent en bas */}
+        <text x="16" y="354" fill="#111111" fontSize="11" fontWeight="700">
+          {HERO_TAGLINE}
+        </text>
+      </svg>
+    </motion.div>
   )
 }
 
@@ -169,42 +209,33 @@ export default function Home() {
 
   return (
     <main>
-      <PageContainer>
-        <section className="relative flex min-h-[calc(100svh-6rem)] flex-col justify-center border-b border-black/20 py-16 text-left">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.42fr)] lg:items-center xl:grid-cols-[minmax(0,1fr)_26rem]">
-            <AnimatedText
-              as="h1"
-              split="words"
-              wordClassName="!pb-[0.04em] !pt-0"
-              className="max-w-full text-[clamp(2rem,9vw,3rem)] font-semibold uppercase leading-[0.8] tracking-normal text-black md:text-[clamp(4rem,9.2vw,9rem)] md:leading-[0.76] xl:text-[clamp(7rem,8.8vw,10rem)] xl:leading-[0.74]"
-            >
-              {home.hero.title}
-            </AnimatedText>
+      <section className="relative border-b border-black/20">
+        <h1 className="sr-only">OBNL en service marketing et web</h1>
+        <MarketingHeroVisual />
+      </section>
 
-            <div className="space-y-8 lg:translate-y-16 xl:translate-y-20">
-              <HeroStackVisual />
-              <div className="space-y-7">
-                <AnimatedText
-                  as="p"
-                  delay={0.18}
-                  className="max-w-md text-xl leading-7 text-black/75"
-                >
-                  {home.hero.subtitle}
-                </AnimatedText>
-                <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-                  <Button href="/contact" className="w-full sm:w-auto">
-                    {home.hero.primaryCta}
-                  </Button>
-                  <Button href="/services" variant="outline" className="w-full sm:w-auto">
-                    {home.hero.secondaryCta}
-                  </Button>
-                </div>
-              </div>
+      <PageContainer>
+        <section className="relative border-b border-black/20 py-10 text-left">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <AnimatedText
+              as="p"
+              delay={0.18}
+              className="max-w-md text-xl leading-7 text-black/75"
+            >
+              {home.hero.subtitle}
+            </AnimatedText>
+            <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+              <Button href="/contact" className="w-full sm:w-auto">
+                {home.hero.primaryCta}
+              </Button>
+              <Button href="/services" variant="outline" className="w-full sm:w-auto">
+                {home.hero.secondaryCta}
+              </Button>
             </div>
           </div>
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-5 hidden items-center justify-between text-xs font-medium uppercase tracking-normal text-black md:flex">
-            <div className="pointer-events-auto flex items-center gap-3">
+          <div className="mt-8 hidden items-center justify-between text-xs font-medium tracking-normal text-black md:flex">
+            <div className="flex items-center gap-3">
               {socialLinks.map((link, index) => (
                 <a
                   key={link.label}
@@ -243,7 +274,7 @@ export default function Home() {
               {home.about.body}
             </AnimatedText>
             <AnimatedSection delay={0.18}>
-              <Button href="/a-propos" variant="outline">
+              <Button href="/contact" variant="outline">
                 {home.about.cta}
               </Button>
             </AnimatedSection>
@@ -254,7 +285,7 @@ export default function Home() {
           {home.highlights.map((item, index) => (
             <AnimatedSection key={item.title} delay={index * 0.08}>
               <Card className="text-left text-black">
-                <h2 className="mb-8 text-5xl font-semibold uppercase leading-none tracking-normal text-[var(--blue)]">
+                <h2 className="mb-8 text-5xl font-semibold leading-none tracking-normal text-[var(--blue)]">
                   {item.title}
                 </h2>
                 <p className="leading-7 text-black/70">{item.text}</p>
@@ -265,9 +296,9 @@ export default function Home() {
 
         <ProjectsShowcase />
 
-        <RelatedLinks />
+        {SHOW_NEWSLETTER_SECTION ? <NewsletterSection /> : null}
 
-        <section className="py-20">
+        <section className="border-b border-black/20 py-20">
           <AnimatedSection>
             <TicketCard
               title={home.ticket.title}
@@ -276,6 +307,8 @@ export default function Home() {
             />
           </AnimatedSection>
         </section>
+
+        <RelatedLinks />
       </PageContainer>
     </main>
   )

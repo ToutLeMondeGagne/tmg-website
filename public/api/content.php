@@ -21,7 +21,21 @@ if ($method === 'GET') {
         tmg_json_response(404, ['message' => 'Fichier de contenu introuvable.']);
     }
 
-    readfile($contentFile);
+    $handle = fopen($contentFile, 'rb');
+
+    if ($handle === false) {
+        tmg_json_response(500, ['message' => 'Impossible de lire le fichier de contenu.']);
+    }
+
+    if (flock($handle, LOCK_SH)) {
+        fpassthru($handle);
+        flock($handle, LOCK_UN);
+    } else {
+        fclose($handle);
+        tmg_json_response(500, ['message' => 'Impossible de verrouiller le fichier de contenu.']);
+    }
+
+    fclose($handle);
     exit;
 }
 
@@ -54,10 +68,29 @@ if (!is_dir($contentDirectory) && !mkdir($contentDirectory, 0755, true)) {
     tmg_json_response(500, ['message' => 'Impossible de créer le dossier de contenu.']);
 }
 
-$saved = file_put_contents($contentFile, $encodedContent . PHP_EOL, LOCK_EX);
+$temporaryFile = tempnam($contentDirectory, 'site-content-');
+
+if ($temporaryFile === false) {
+    tmg_json_response(500, ['message' => 'Impossible de préparer la sauvegarde du contenu.']);
+}
+
+$saved = file_put_contents($temporaryFile, $encodedContent . PHP_EOL, LOCK_EX);
 
 if ($saved === false) {
+    @unlink($temporaryFile);
     tmg_json_response(500, ['message' => 'Impossible d’écrire le fichier de contenu.']);
 }
 
-tmg_json_response(200, ['message' => 'Contenu sauvegardé.']);
+@chmod($temporaryFile, 0644);
+
+if (!rename($temporaryFile, $contentFile)) {
+    @unlink($temporaryFile);
+    tmg_json_response(500, ['message' => 'Impossible de publier le contenu sauvegardé.']);
+}
+
+clearstatcache(true, $contentFile);
+
+tmg_json_response(200, [
+    'message' => 'Contenu sauvegardé.',
+    'content' => $payload['content'],
+]);

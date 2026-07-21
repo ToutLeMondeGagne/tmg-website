@@ -147,6 +147,164 @@ export const defaultSiteContent = {
       ],
     },
   },
+  pme: {
+    hero: {
+      label: 'Pour les entreprises',
+      title: 'Croissez sans vous ruiner en',
+      accent: 'marketing.',
+      subtitle:
+        'Des stratégies marketing et des sites web de qualité professionnelle, à un coût adapté à la réalité d\'une PME ou d\'une startup en croissance.',
+      cta: 'Démarrer un projet',
+    },
+    promises: [
+      {
+        title: 'Coûts réduits',
+        text: 'Sans compromettre la qualité des livrables.',
+      },
+      {
+        title: '100 % vôtre',
+        text: 'Tous les accès et fichiers remis à la fin.',
+      },
+      {
+        title: 'Livraison rapide',
+        text: 'Des délais respectés, sans étirer le budget.',
+      },
+      {
+        title: 'Supervisé & révisé',
+        text: 'Chaque livrable validé avant remise.',
+      },
+    ],
+    challenges: {
+      label: 'On vous comprend',
+      title: 'Les défis que vous connaissez.',
+      subtitle: 'Et les solutions qu\'on apporte.',
+      items: [
+        {
+          problemTitle: 'Les agences traditionnelles coûtent trop cher',
+          problem:
+            'Les devis des grandes agences dépassent souvent le budget d\'une PME, surtout en phase de démarrage ou de croissance.',
+          answerTitle: 'Un modèle qui réduit les coûts sans réduire la qualité',
+          answer:
+            'Le modèle stage permet d\'offrir des services à des tarifs accessibles. Chaque livrable est supervisé et révisé avant remise.',
+        },
+        {
+          problemTitle: 'Vous n\'avez pas le temps de gérer le marketing',
+          problem:
+            'Gérer son site, ses réseaux et sa stratégie en plus de son cœur de métier, c\'est souvent trop pour une petite équipe.',
+          answerTitle: 'On prend en charge, vous validez',
+          answer:
+            'TMG gère l\'exécution complète. Vous n\'avez qu\'à approuver les jalons clés. Aucune micro-gestion requise de votre côté.',
+        },
+      ],
+    },
+    services: {
+      label: 'Ce qu\'on vous offre',
+      title: 'Nos services pour les PME',
+      subtitle:
+        'Des livrables concrets, des délais réalistes, une supervision professionnelle.',
+      items: [
+        {
+          title: 'Création & Refonte Web',
+          text:
+            'Site vitrine ou e-commerce, mobile-first, optimisé SEO, avec formation à la prise en main incluse.',
+          timeline: '4-8 semaines',
+          href: '/services/web',
+        },
+        {
+          title: 'Stratégie & Audit Marketing',
+          text:
+            'Analyse de votre positionnement, de vos concurrents et plan d\'action détaillé avec indicateurs de succès.',
+          timeline: '2-4 semaines',
+          href: '/services/marketing',
+        },
+      ],
+    },
+    cta: {
+      title: 'Un budget adapté à votre réalité.',
+      body:
+        'On ne pratique pas les tarifs d\'une grande agence. On discute de votre projet, de vos contraintes, et on trouve ensemble une approche qui vous convient.',
+      button: 'Démarrer un projet',
+    },
+  },
+  obnl: {
+    hero: {
+      label: 'Pour les OBNL & organismes',
+      title: 'Votre mission mérite une présence',
+      accent: 'à sa hauteur.',
+      subtitle:
+        'Des solutions numériques accessibles pour les organismes à but non lucratif qui veulent rejoindre leur communauté sans se ruiner en frais d\'agence.',
+      cta: 'Démarrer un projet',
+    },
+    promises: [
+      {
+        title: 'Budget respecté',
+        text: 'Pas de surprise en cours de mandat.',
+      },
+      {
+        title: 'Équipe dédiée',
+        text: 'Profils complémentaires sur votre projet.',
+      },
+      {
+        title: '100 % vôtre',
+        text: 'Tous les accès et fichiers remis à la fin.',
+      },
+      {
+        title: 'Transparence & autonomie',
+        text: 'Vous restez décideur à chaque étape.',
+      },
+    ],
+    challenges: {
+      label: 'On comprend votre contexte',
+      title: 'Les contraintes des OBNL.',
+      subtitle: 'Et comment TMG les adresse concrètement.',
+      items: [
+        {
+          problemTitle: 'Budget limité, besoins réels',
+          problem:
+            'Les OBNL ont souvent peu de ressources pour investir en marketing ou en refonte web, mais en ont pourtant besoin pour rejoindre leurs donateurs et bénéficiaires.',
+          answerTitle: 'Le modèle stage rend ça possible',
+          answer:
+            'En faisant travailler des étudiants supervisés, TMG peut offrir des livrables professionnels à des coûts adaptés aux réalités des organismes à mission sociale.',
+        },
+        {
+          problemTitle: 'Pas de ressources internes en numérique',
+          problem:
+            'Beaucoup d\'OBNL n\'ont pas de gestionnaire de site web ou de stratège marketing à l\'interne. Le numérique reste une boîte noire.',
+          answerTitle: 'Formation et passation incluses',
+          answer:
+            'Chaque livrable est accompagné d\'une formation adaptée à vos équipes. Vous repartez autonomes, sans dépendance envers TMG.',
+        },
+      ],
+    },
+    services: {
+      label: 'Ce qu\'on vous offre',
+      title: 'Nos services pour les OBNL',
+      subtitle:
+        'Chaque service est adapté aux réalités et aux objectifs des organismes à but non lucratif.',
+      items: [
+        {
+          title: 'Site web pour OBNL',
+          text:
+            'Site accessible, clair, optimisé pour les dons et l\'engagement communautaire. Mobile-first, facile à gérer.',
+          timeline: '4-8 semaines',
+          href: '/services/web',
+        },
+        {
+          title: 'Stratégie de communication',
+          text:
+            'Plan de contenu adapté à votre mission pour rejoindre donateurs, bénévoles et bénéficiaires sur les bons canaux.',
+          timeline: '2-4 semaines',
+          href: '/services/marketing',
+        },
+      ],
+    },
+    cta: {
+      title: 'Un budget adapté à votre mission.',
+      body:
+        'Votre organisme mérite une présence claire sans modèle compliqué ni frais inutiles.',
+      button: 'Lancer un projet OBNL',
+    },
+  },
   stage: {
     hero: {
       label: 'Stagiaires',
@@ -226,6 +384,55 @@ export const defaultSiteContent = {
       note: 'On lit chaque demande nous-mêmes. Ensuite, on vous revient avec les prochaines étapes les plus simples.',
       coordLabel: 'Coordonnées TMG',
       locationDesc: 'Services web et marketing pour PME, OBNL et équipes au Québec, avec accompagnement à distance.',
+    },
+  },
+  partner: {
+    hero: {
+      label: 'Espace partenaires',
+      title: 'Votre mandat, au même endroit.',
+      subtitle:
+        'Une zone privée pour les clients accompagnés par TMG : accès projet, contexte, statut et messages importants.',
+    },
+    login: {
+      title: 'Accès réservé aux clients TMG.',
+      body:
+        'Utilisez le nom d’entreprise et le mot de passe fournis par l’équipe TMG. Cet espace sert à centraliser les informations importantes de votre mandat.',
+      companyLabel: 'Nom de l\'entreprise',
+      companyPlaceholder: 'Ex: Entreprise ABC',
+      passwordLabel: 'Mot de passe',
+      passwordPlaceholder: 'Mot de passe fourni par TMG',
+      submitLabel: 'Se connecter',
+      submittingLabel: 'Connexion...',
+      missingFieldsMessage: 'Entrez le nom de votre entreprise et votre mot de passe.',
+      defaultStatus: 'Connexion privée partenaire.',
+      loadingMessage: 'Vérification de la session partenaire...',
+    },
+    dashboard: {
+      sessionLabel: 'Session partenaire',
+      welcomePrefix: 'Bienvenue',
+      logoutLabel: 'Déconnexion',
+      fallbackProjectName: 'Mandat TMG',
+      fallbackProjectStatus: 'En accompagnement',
+      fallbackContactName: 'Équipe TMG',
+      fallbackContactText: 'Votre contact principal sera confirmé par l’équipe.',
+      fallbackPortalMessage:
+        'Votre espace partenaire est activé. Les prochaines informations de mandat seront ajoutées ici par TMG.',
+      projectLabel: 'Projet',
+      projectText: 'Espace privé associé à votre organisation.',
+      statusLabel: 'Statut',
+      statusText:
+        'Suivez le contexte du mandat et les prochaines étapes partagées par TMG.',
+      contactLabel: 'Contact',
+      messageLabel: 'Message TMG',
+    },
+    calendly: {
+      label: 'Rencontre',
+      title: 'Réserver une rencontre directe.',
+      body:
+        'Les disponibilités sont gérées dans Calendly par l’équipe TMG. Choisissez le moment qui vous convient, puis la confirmation arrivera par courriel.',
+      missingTitle: 'Calendly n’est pas encore configuré.',
+      missingBody:
+        'Ajoutez le lien de votre événement Calendly dans VITE_CALENDLY_URL avant de faire le build du site.',
     },
   },
   faq: {

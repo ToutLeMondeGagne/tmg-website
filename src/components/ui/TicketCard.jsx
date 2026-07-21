@@ -58,14 +58,14 @@ export default function TicketCard({
         <span className="relative z-10 flex min-h-0 flex-col justify-between p-5 sm:p-6 md:p-10">
           <span className="flex items-start justify-between gap-3 sm:gap-5">
             <span>
-              <span className="block text-xs font-semibold uppercase tracking-normal text-[var(--green)]">
+              <span className="block text-xs font-semibold tracking-normal text-[var(--green)]">
                 Billet d&apos;accès
               </span>
-              <span className="mt-1 block text-[0.7rem] font-medium uppercase tracking-normal text-white/70 sm:text-sm">
+              <span className="mt-1 block text-[0.7rem] font-medium tracking-normal text-white/70 sm:text-sm">
                 TMG / Première rencontre
               </span>
             </span>
-            <span className="whitespace-nowrap border border-white/30 px-2 py-1.5 text-[0.65rem] font-semibold uppercase tracking-normal text-white sm:px-3 sm:py-2 sm:text-xs">
+            <span className="whitespace-nowrap border border-white/30 px-2 py-1.5 text-[0.65rem] font-semibold tracking-normal text-white sm:px-3 sm:py-2 sm:text-xs">
               Gratuit
             </span>
           </span>
@@ -79,7 +79,7 @@ export default function TicketCard({
             </span>
           </span>
 
-          <span className="grid grid-cols-3 gap-3 border-t border-white/30 pt-4 text-[0.65rem] font-semibold uppercase tracking-normal text-white/76 sm:pt-5 sm:text-xs">
+          <span className="grid grid-cols-3 gap-3 border-t border-white/30 pt-4 text-[0.65rem] font-semibold tracking-normal text-white/76 sm:pt-5 sm:text-xs">
             <span>
               <span className="block text-[var(--green)]">Durée</span>
               30 minutes
@@ -103,7 +103,7 @@ export default function TicketCard({
         <span className="relative z-10 flex min-h-0 flex-col justify-between border-l border-dashed border-white/35 p-3 sm:p-5 md:p-8">
           <span className="space-y-4 md:space-y-6">
             <span>
-              <span className="block text-[0.65rem] font-semibold uppercase tracking-normal text-white/65 md:text-xs">
+              <span className="block text-[0.65rem] font-semibold tracking-normal text-white/65 md:text-xs">
                 Ticket no.
               </span>
               <span className="mt-1 block font-mono text-sm font-semibold tracking-normal text-white md:text-lg">
@@ -111,10 +111,10 @@ export default function TicketCard({
               </span>
             </span>
             <span>
-              <span className="block text-[0.65rem] font-semibold uppercase tracking-normal text-white/65 md:text-xs">
+              <span className="block text-[0.65rem] font-semibold tracking-normal text-white/65 md:text-xs">
                 Admission
               </span>
-              <span className="mt-1 block text-sm font-semibold uppercase tracking-normal text-[var(--green)] md:text-lg">
+              <span className="mt-1 block text-sm font-semibold tracking-normal text-[var(--green)] md:text-lg">
                 1 projet
               </span>
             </span>
@@ -126,14 +126,14 @@ export default function TicketCard({
 
           <span className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between md:gap-4">
             <span>
-              <span className="block text-[0.65rem] font-semibold uppercase tracking-normal text-white/65 md:text-xs">
+              <span className="block text-[0.65rem] font-semibold tracking-normal text-white/65 md:text-xs">
                 Valable
               </span>
-              <span className="mt-1 block text-xs font-semibold uppercase tracking-normal text-white md:text-sm">
+              <span className="mt-1 block text-xs font-semibold tracking-normal text-white md:text-sm">
                 Cette semaine
               </span>
             </span>
-            <span className="text-xs font-semibold uppercase tracking-normal text-white transition group-hover:text-[var(--green)] md:text-right md:text-sm">
+            <span className="text-xs font-semibold tracking-normal text-white transition group-hover:text-[var(--green)] md:text-right md:text-sm">
               Réserver
             </span>
           </span>

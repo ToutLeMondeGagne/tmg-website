@@ -9,7 +9,10 @@
     "postbuild": "node scripts/prerender-seo.mjs",
     "lint": "eslint .",
     "perf:budget": "node scripts/check-performance-budget.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:setup": "cp .deployrc.example .deployrc && echo 'Édite .deployrc avec tes identifiants SiteGround'",
+    "deploy": "npm run build && ./scripts/deploy.sh",
+    "deploy:prod": "VITE_PREVIEW_FEATURES=false npm run build && ./scripts/deploy.sh .deployrc.prod"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",

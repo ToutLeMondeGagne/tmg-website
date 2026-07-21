@@ -12,6 +12,14 @@ npm run build
 
 Le dossier à envoyer sur SiteGround est `dist/`.
 
+Si l’espace partenaire doit afficher Calendly, ajouter d’abord le lien de l’événement dans `.env` :
+
+```bash
+VITE_CALENDLY_URL=https://calendly.com/votre-compte/votre-evenement
+```
+
+Puis relancer `npm run build`.
+
 ## 2. Envoyer les fichiers sur SiteGround
 
 Dans SiteGround, ouvrir le gestionnaire de fichiers ou utiliser FTP/SFTP.
@@ -67,6 +75,14 @@ public_html/content/site-content.json
 
 Si la sauvegarde admin échoue, donner les permissions d’écriture au fichier ou au dossier `content`.
 
+Pour les comptes partenaires, PHP doit aussi pouvoir créer et modifier :
+
+```text
+public_html/api/private/partners.json
+```
+
+Le dossier `public_html/api/private/` contient un `.htaccess` qui bloque l’accès direct depuis le navigateur. Ne le supprimez pas.
+
 ## 5. Utiliser l’admin
 
 Ouvrir :
@@ -81,6 +97,43 @@ prévisualiser, puis sauvegarder.
 ## Notes importantes
 
 - L’admin couvre les textes centralisés dans `defaultSiteContent.js`.
+- L’admin permet aussi de créer des comptes clients pour `/partenaires`.
+- Les disponibilités de rencontre sont gérées dans Calendly, puis affichées dans l’espace partenaire.
 - La sauvegarde est protégée par une session PHP créée après connexion.
 - L’URL `/admin` reste accessible, mais les actions de modification exigent le compte admin.
+- Les comptes partenaires sont stockés côté serveur avec des mots de passe hashés.
 - Le contenu public reste lisible dans `/content/site-content.json`, ce qui est normal pour un site vitrine.
+
+## Espace partenaires
+
+Les clients se connectent à :
+
+```text
+https://votre-domaine.com/partenaires
+```
+
+Depuis `/admin`, créer un compte avec :
+
+- le nom exact de l’entreprise ;
+- un mot de passe temporaire de 10 caractères minimum ;
+- le nom du projet ;
+- le statut du projet ;
+- un message visible par le client.
+
+Transmettre ensuite au client le nom d’entreprise et le mot de passe. Le mot de passe n’est jamais affiché dans l’admin après création.
+
+## Calendly
+
+Créer un événement dans Calendly, par exemple :
+
+```text
+Rencontre TMG / 30 minutes
+```
+
+Copier le lien public de l’événement, puis le mettre dans `.env` :
+
+```bash
+VITE_CALENDLY_URL=https://calendly.com/votre-compte/rencontre-tmg
+```
+
+Après le build, les partenaires connectés verront Calendly directement dans leur espace privé. Les disponibilités, confirmations et rappels restent gérés dans Calendly.

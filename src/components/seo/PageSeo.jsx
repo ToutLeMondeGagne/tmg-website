@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import {
   SITE_LANGUAGE,
@@ -17,7 +17,8 @@ function ensureMeta(attribute, key, content) {
 
   let element = document.head.querySelector(`meta[${attribute}="${key}"]`)
 
-  if (!element) {
+  if (!element)
+     {
     element = document.createElement('meta')
     element.setAttribute(attribute, key)
     document.head.appendChild(element)
@@ -38,7 +39,8 @@ function ensureCanonical(href) {
   element.setAttribute('href', href)
 }
 
-function ensureJsonLd(id, data) {
+function ensureJsonLd(id, data) 
+{
   let element = document.head.querySelector(`script#${id}`)
 
   if (!element) {
@@ -50,6 +52,7 @@ function ensureJsonLd(id, data) {
 
   element.textContent = JSON.stringify(data)
 }
+
 
 export default function PageSeo() {
   const location = useLocation()

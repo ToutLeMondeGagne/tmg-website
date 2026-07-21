@@ -15,7 +15,7 @@ export default function QA() {
           <AnimatedText
             as="h1"
             split="words"
-            className="max-w-6xl text-[clamp(2.6rem,12vw,5rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black sm:text-[clamp(3rem,8vw,9rem)]"
+            className="max-w-6xl text-[clamp(2.6rem,12vw,5rem)] font-semibold leading-[0.86] tracking-normal text-black sm:text-[clamp(3rem,8vw,9rem)]"
           >
             {faq.hero.title}
           </AnimatedText>

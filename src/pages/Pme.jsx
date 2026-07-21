@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { PageContainer } from '../components/layout'
 import RelatedLinks from '../components/seo/RelatedLinks'
+import { useSiteContent } from '../context/useSiteContent'
 import {
   AnimatedSection,
   AnimatedText,
@@ -10,70 +11,20 @@ import {
   SectionLabel,
 } from '../components/ui'
 
-const promises = [
-  {
-    title: 'Coûts réduits',
-    text: 'Sans compromettre la qualité des livrables.',
-  },
-  {
-    title: '100 % vôtre',
-    text: 'Tous les accès et fichiers remis à la fin.',
-  },
-  {
-    title: 'Livraison rapide',
-    text: 'Des délais respectés, sans étirer le budget.',
-  },
-  {
-    title: 'Supervisé & révisé',
-    text: 'Chaque livrable validé avant remise.',
-  },
-]
-
-const challenges = [
-  {
-    problemTitle: 'Les agences traditionnelles coûtent trop cher',
-    problem:
-      "Les devis des grandes agences dépassent souvent le budget d'une PME, surtout en phase de démarrage ou de croissance.",
-    answerTitle: 'Un modèle qui réduit les coûts sans réduire la qualité',
-    answer:
-      "Le modèle stage permet d'offrir des services à des tarifs accessibles. Chaque livrable est supervisé et révisé avant remise.",
-  },
-  {
-    problemTitle: "Vous n'avez pas le temps de gérer le marketing",
-    problem:
-      "Gérer son site, ses réseaux et sa stratégie en plus de son cœur de métier, c'est souvent trop pour une petite équipe.",
-    answerTitle: 'On prend en charge, vous validez',
-    answer:
-      "TMG gère l'exécution complète. Vous n'avez qu'à approuver les jalons clés. Aucune micro-gestion requise de votre côté.",
-  },
-]
-
-const pmeServices = [
-  {
-    title: 'Création & Refonte Web',
-    text: 'Site vitrine ou e-commerce, mobile-first, optimisé SEO, avec formation à la prise en main incluse.',
-    timeline: '4-8 semaines',
-    href: '/services/web',
-  },
-  {
-    title: 'Stratégie & Audit Marketing',
-    text: "Analyse de votre positionnement, de vos concurrents et plan d'action détaillé avec indicateurs de succès.",
-    timeline: '2-4 semaines',
-    href: '/services/marketing',
-  },
-]
-
 export default function Pme() {
+  const { content } = useSiteContent()
+  const { pme } = content
+
   return (
     <main>
       <PageContainer>
         <section className="grid min-h-[calc(100svh-6rem)] gap-12 border-b border-black/20 py-20 text-left lg:grid-cols-[0.52fr_0.48fr] lg:items-center">
           <div className="space-y-8">
-            <SectionLabel>Pour les entreprises</SectionLabel>
+            <SectionLabel>{pme.hero.label}</SectionLabel>
             <h1 className="max-w-4xl text-[clamp(2.6rem,12vw,4.8rem)] font-medium leading-[0.92] tracking-normal text-black sm:text-[clamp(3.2rem,7vw,8rem)]">
-              <AnimatedText split="words">Croissez sans vous ruiner en</AnimatedText>{' '}
+              <AnimatedText split="words">{pme.hero.title}</AnimatedText>{' '}
               <AnimatedText split="words" delay={0.24} className="text-[var(--blue)]">
-                marketing.
+                {pme.hero.accent}
               </AnimatedText>
             </h1>
             <AnimatedText
@@ -81,17 +32,15 @@ export default function Pme() {
               delay={0.18}
               className="max-w-xl text-xl leading-8 text-black/70"
             >
-              Des stratégies marketing et des sites web de qualité
-              professionnelle, à un coût adapté à la réalité d&apos;une PME ou
-              d&apos;une startup en croissance.
+              {pme.hero.subtitle}
             </AnimatedText>
             <Button href="/contact" variant="secondary">
-              Démarrer un projet
+              {pme.hero.cta}
             </Button>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2">
-            {promises.map((promise, index) => (
+            {pme.promises.map((promise, index) => (
               <AnimatedSection key={promise.title} delay={index * 0.06}>
                 <Card
                   className="min-h-44 text-left text-black"
@@ -112,23 +61,23 @@ export default function Pme() {
 
         <section className="border-b border-black/20 py-20 text-left">
           <div className="mb-12 max-w-3xl space-y-5">
-            <span className="text-sm font-medium uppercase text-[var(--blue)]">
-              On vous comprend
+            <span className="text-sm font-medium text-[var(--blue)]">
+              {pme.challenges.label}
             </span>
             <AnimatedText
               as="h2"
               split="words"
               className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
             >
-              Les défis que vous connaissez.
+              {pme.challenges.title}
             </AnimatedText>
             <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
-              Et les solutions qu&apos;on apporte.
+              {pme.challenges.subtitle}
             </AnimatedText>
           </div>
 
           <div className="space-y-5">
-            {challenges.map((item) => (
+            {pme.challenges.items.map((item) => (
               <AnimatedSection
                 key={item.problemTitle}
                 className="min-w-0"
@@ -148,24 +97,23 @@ export default function Pme() {
 
         <section className="border-b border-black/20 py-20 text-left">
           <div className="mb-12 max-w-3xl space-y-5">
-            <span className="text-sm font-medium uppercase text-[var(--blue)]">
-              Ce qu&apos;on vous offre
+            <span className="text-sm font-medium text-[var(--blue)]">
+              {pme.services.label}
             </span>
             <AnimatedText
               as="h2"
               split="words"
               className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
             >
-              Nos services pour les PME
+              {pme.services.title}
             </AnimatedText>
             <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
-              Des livrables concrets, des délais réalistes, une supervision
-              professionnelle.
+              {pme.services.subtitle}
             </AnimatedText>
           </div>
 
           <div className="space-y-5">
-            {pmeServices.map((service, index) => (
+            {pme.services.items.map((service, index) => (
               <AnimatedSection key={service.title} delay={index * 0.06}>
                 <Link
                   to={service.href}
@@ -180,7 +128,7 @@ export default function Pme() {
                       {service.text}
                     </p>
                   </div>
-                  <span className="text-sm font-medium uppercase text-[var(--blue)]">
+                  <span className="text-sm font-medium text-[var(--blue)]">
                     {service.timeline}
                   </span>
                 </Link>
@@ -196,20 +144,18 @@ export default function Pme() {
               split="words"
               className="max-w-4xl text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
             >
-              Un budget adapté à votre réalité.
+              {pme.cta.title}
             </AnimatedText>
             <AnimatedText
               as="p"
               delay={0.12}
               className="mt-6 max-w-xl text-xl leading-8 text-black/70"
             >
-              On ne pratique pas les tarifs d&apos;une grande agence. On discute
-              de votre projet, de vos contraintes, et on trouve ensemble une
-              approche qui vous convient.
+              {pme.cta.body}
             </AnimatedText>
           </div>
           <Button href="/contact" className="justify-self-start lg:justify-self-end">
-            Démarrer un projet
+            {pme.cta.button}
           </Button>
         </section>
 

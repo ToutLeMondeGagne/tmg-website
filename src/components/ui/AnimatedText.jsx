@@ -51,10 +51,11 @@ export default function AnimatedText({
   const shouldReduceMotion = useReducedMotion()
   const MotionTag = motion[as] ?? motion.span
   const viewport = { once, amount, margin: '0px 0px -10% 0px' }
+  const textKey = typeof children === 'string' ? children : undefined
 
   if (shouldReduceMotion) {
     return (
-      <MotionTag className={className} {...props}>
+      <MotionTag key={textKey} className={className} {...props}>
         {children}
       </MotionTag>
     )
@@ -65,7 +66,8 @@ export default function AnimatedText({
 
     return (
       <MotionTag
-        className={joinClasses('inline-block', className)}
+        key={textKey}
+        className={joinClasses('inline-block max-w-full', className)}
         initial="hidden"
         whileInView="visible"
         viewport={viewport}
@@ -78,13 +80,13 @@ export default function AnimatedText({
           <Fragment key={`${word}-${index}`}>
             <span
               className={joinClasses(
-                'inline-block overflow-hidden whitespace-nowrap pb-[0.14em] pt-[0.03em] align-baseline',
+                'inline-block max-w-full overflow-hidden pb-[0.14em] pt-[0.03em] align-baseline [overflow-wrap:anywhere]',
                 wordClassName,
               )}
               aria-hidden="true"
             >
               <motion.span
-                className="inline-block"
+                className="inline-block max-w-full [overflow-wrap:anywhere]"
                 variants={wordVariants}
                 custom={{ duration }}
               >
@@ -100,6 +102,7 @@ export default function AnimatedText({
 
   return (
     <MotionTag
+      key={textKey}
       className={joinClasses('inline-block', className)}
       initial="hidden"
       whileInView="visible"

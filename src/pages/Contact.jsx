@@ -15,7 +15,7 @@ export default function Contact() {
       <PageContainer>
         <section className="grid min-h-[34rem] gap-10 border-b border-black/25 py-16 text-left lg:grid-cols-[0.68fr_0.32fr] lg:items-center">
           <div className="space-y-6">
-            <span className="text-base font-medium uppercase italic text-[var(--blue)]">
+            <span className="text-base font-medium italic text-[var(--blue)]">
               {contact.hero.label}
             </span>
             <AnimatedText
@@ -26,7 +26,7 @@ export default function Contact() {
               {contact.hero.title}
             </AnimatedText>
           </div>
-          <div className="flex items-end justify-start gap-5 text-sm font-medium uppercase text-black lg:justify-end">
+          <div className="flex items-end justify-start gap-5 text-sm font-medium text-black lg:justify-end">
             {socialLinks.map((link) => (
               <a
                 key={link.label}
@@ -56,10 +56,10 @@ export default function Contact() {
               </AnimatedText>
             </div>
             <div className="space-y-3 text-sm text-black/70">
-              <p className="font-medium uppercase text-black">{contact.sidebar.coordLabel}</p>
+              <p className="font-medium text-black">{contact.sidebar.coordLabel}</p>
               <a
                 href={`mailto:${global.contactEmail}`}
-                className="font-medium uppercase text-[var(--blue)] transition hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
+                className="font-medium text-[var(--blue)] transition hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
               >
                 {global.contactEmail}
               </a>

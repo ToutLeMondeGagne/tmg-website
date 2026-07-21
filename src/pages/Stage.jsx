@@ -13,12 +13,12 @@ export default function Stage() {
     <main>
       <PageContainer>
         <section className="grid gap-8 border-b border-black/20 py-20 text-left lg:grid-cols-[0.42fr_0.58fr] lg:items-center">
-          <div className="space-y-7">
+          <div className="min-w-0 space-y-7">
             <SectionLabel>{stage.hero.label}</SectionLabel>
             <AnimatedText
               as="h1"
               split="words"
-              className="text-[clamp(2.4rem,11vw,4.5rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black sm:text-[clamp(3rem,6vw,6.6rem)]"
+              className="text-[clamp(2.4rem,11vw,4.5rem)] font-semibold leading-[0.86] tracking-normal text-black sm:text-[clamp(3rem,6vw,6.6rem)]"
             >
               {stage.hero.title}
             </AnimatedText>
@@ -31,7 +31,7 @@ export default function Stage() {
           </div>
 
           <div className="space-y-5">
-            <span className="text-sm font-medium uppercase text-[var(--blue)]">
+            <span className="text-sm font-medium text-[var(--blue)]">
               {stage.process.label}
             </span>
             <div className="grid gap-5 sm:grid-cols-2">
@@ -56,7 +56,7 @@ export default function Stage() {
 
         <section className="border-b border-black/20 py-20 text-left">
           <div className="mb-12 max-w-3xl space-y-5">
-            <span className="text-sm font-medium uppercase text-[var(--blue)]">
+            <span className="text-sm font-medium text-[var(--blue)]">
               {stage.benefits.label}
             </span>
             <AnimatedText
@@ -95,19 +95,19 @@ export default function Stage() {
           id="candidature"
           className="grid scroll-mt-32 gap-12 py-16 text-left lg:grid-cols-[0.42fr_0.58fr]"
         >
-          <aside className="flex flex-col justify-between gap-12 lg:min-h-[42rem]">
-            <div className="max-w-md space-y-6">
-              <span className="text-base font-medium uppercase italic text-[var(--blue)]">
+          <aside className="flex min-w-0 flex-col justify-between gap-12 lg:min-h-[42rem]">
+            <div className="min-w-0 space-y-6">
+              <span className="text-base font-medium italic text-[var(--blue)]">
                 {stage.application.label}
               </span>
               <AnimatedText
                 as="h2"
                 split="words"
-                className="text-[clamp(2.5rem,11vw,4.2rem)] font-medium leading-[0.92] tracking-normal text-black sm:text-[clamp(3rem,6vw,6rem)]"
+                className="text-[clamp(2.5rem,10vw,4.2rem)] font-medium leading-[0.92] tracking-normal text-black sm:text-[clamp(3rem,5vw,5.4rem)]"
               >
                 {stage.application.title}
               </AnimatedText>
-              <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
+              <AnimatedText as="p" delay={0.12} className="max-w-md text-xl leading-8 text-black/70">
                 {stage.application.body}
               </AnimatedText>
             </div>
@@ -115,7 +115,7 @@ export default function Stage() {
               <p>{stage.application.contactLabel}</p>
               <a
                 href={`mailto:${stageContactEmail}`}
-                className="font-medium uppercase text-[var(--blue)] transition hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
+                className="font-medium text-[var(--blue)] transition hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
               >
                 {stageContactEmail}
               </a>

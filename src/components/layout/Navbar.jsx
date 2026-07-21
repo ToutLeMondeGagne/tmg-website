@@ -16,6 +16,8 @@ function joinClasses(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+const navItemBaseClasses = 'px-2 py-2 text-sm font-medium tracking-normal transition duration-200'
+
 function isActiveLink(to, location) {
   const [pathname, hash] = to.split('#')
 
@@ -35,7 +37,7 @@ function NavItem({ link, onClick }) {
       to={link.to}
       onClick={onClick}
       className={joinClasses(
-        'px-2 py-2 text-xs font-medium uppercase tracking-normal transition duration-200',
+        navItemBaseClasses,
         'hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2',
         'focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]',
         isActive ? 'text-[var(--blue)]' : 'text-black',
@@ -113,7 +115,7 @@ function ServicesDropdown() {
       <button
         type="button"
         className={joinClasses(
-          'px-2 py-2 text-xs font-medium uppercase tracking-normal transition duration-200',
+          navItemBaseClasses,
           'hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2',
           'focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]',
           isActive ? 'text-[var(--blue)]' : 'text-black',
@@ -208,13 +210,13 @@ export default function Navbar() {
         </div>
 
         <div className="hidden items-center gap-4 md:flex">
-          <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-normal text-[var(--blue)]">
+          <span className="inline-flex items-center gap-2 text-xs font-medium tracking-normal text-[var(--blue)]">
             <span className="h-1.5 w-1.5 bg-[var(--green)]" aria-hidden="true" />
-            Places ouvertes - ete 26
+            Places ouvertes - automne 2026
           </span>
           <Link
             to="/contact"
-            className="border border-[var(--blue)] bg-[var(--blue)] px-5 py-3 text-xs font-medium uppercase tracking-normal !text-white transition duration-200 hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
+            className="border border-[var(--blue)] bg-[var(--blue)] px-5 py-3 text-xs font-medium tracking-normal !text-white transition duration-200 hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
           >
             Lancer un projet
           </Link>

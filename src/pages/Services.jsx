@@ -17,7 +17,7 @@ export default function Services() {
           <AnimatedText
             as="h1"
             split="words"
-            className="max-w-5xl text-[clamp(2.6rem,12vw,5rem)] font-semibold uppercase leading-[0.86] tracking-normal text-black sm:text-[clamp(3rem,8vw,9rem)]"
+            className="max-w-5xl text-[clamp(2.6rem,12vw,5rem)] font-semibold leading-[0.86] tracking-normal text-black sm:text-[clamp(3rem,8vw,9rem)]"
           >
             {services.hero.title}
           </AnimatedText>
@@ -61,7 +61,7 @@ export default function Services() {
                 <AnimatedText
                   as="h2"
                   split="words"
-                  className="mt-6 text-[clamp(2.6rem,4vw,4.2rem)] font-semibold uppercase leading-none tracking-normal text-black"
+                  className="mt-6 text-[clamp(2.6rem,4vw,4.2rem)] font-semibold leading-none tracking-normal text-black"
                 >
                   {services.focus.title}
                 </AnimatedText>
@@ -85,13 +85,13 @@ export default function Services() {
                   <span className="mb-12 block text-sm font-medium text-black/55">
                     0{index + 1}
                   </span>
-                  <h3 className="text-[clamp(2.7rem,4vw,4.2rem)] font-semibold uppercase leading-[0.86] tracking-normal text-[var(--blue)]">
+                  <h3 className="text-[clamp(2.7rem,4vw,4.2rem)] font-semibold leading-[0.86] tracking-normal text-[var(--blue)]">
                     {item.title}
                   </h3>
                   <p className="mt-4 max-w-md text-lg leading-7 text-black/74">
                     {item.text}
                   </p>
-                  <p className="mt-10 border-t border-black/20 pt-5 text-sm font-semibold uppercase leading-6 tracking-normal text-black/58">
+                  <p className="mt-10 border-t border-black/20 pt-5 text-sm font-semibold leading-6 tracking-normal text-black/58">
                     {item.detail}
                   </p>
                   <span

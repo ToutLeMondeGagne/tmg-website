@@ -158,7 +158,7 @@ export default function MobileMenu() {
                         <motion.div key={link.to} variants={linkVariants}>
                           <Link
                             to={link.to}
-                            className="block border-b border-white/15 px-1 py-5 text-3xl font-semibold uppercase leading-none tracking-normal text-white transition hover:text-[var(--green)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green)] sm:text-4xl"
+                            className="block border-b border-white/15 px-1 py-5 text-3xl font-semibold leading-none tracking-normal text-white transition hover:text-[var(--green)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green)] sm:text-4xl"
                             onClick={() => setIsOpen(false)}
                           >
                             {link.label}
@@ -172,7 +172,7 @@ export default function MobileMenu() {
                                   className="block border-b border-white/10 px-4 py-4 text-left transition last:border-b-0 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green)]"
                                   onClick={() => setIsOpen(false)}
                                 >
-                                  <span className="block text-sm font-semibold uppercase leading-tight tracking-normal text-white">
+                                  <span className="block text-sm font-semibold leading-tight tracking-normal text-white">
                                     {child.label}
                                   </span>
                                   <span className="mt-1 block text-xs leading-5 text-white/62">

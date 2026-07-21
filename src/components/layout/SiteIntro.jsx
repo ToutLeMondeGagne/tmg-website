@@ -96,7 +96,7 @@ export default function SiteIntro({ onDone }) {
       </span>
 
       <div className="relative z-10 flex min-h-[35rem] w-full flex-col items-center justify-center px-5 py-8">
-        <div className="relative z-30 mb-6 flex w-full max-w-5xl items-center justify-between gap-4 text-[0.68rem] font-semibold uppercase tracking-normal text-[var(--blue)] sm:text-xs">
+        <div className="relative z-30 mb-6 flex w-full max-w-5xl items-center justify-between gap-4 text-[0.68rem] font-semibold tracking-normal text-[var(--blue)] sm:text-xs">
           <span className="flex items-center gap-3">
             <span className="h-2 w-2 bg-[var(--green)]" aria-hidden="true" />
             TMG / Ouverture
@@ -104,16 +104,8 @@ export default function SiteIntro({ onDone }) {
           <span className="hidden text-black/45 sm:block">Signal → Structure → Impact</span>
         </div>
 
-        <div className="tmg-intro-stage relative w-full max-w-5xl overflow-hidden border border-black/15 bg-[rgba(215,215,212,0.7)] px-4 py-8 shadow-[0_28px_82px_rgba(0,0,0,0.13)] sm:px-8">
-          <span className="tmg-intro-scan pointer-events-none absolute inset-x-0 top-0 h-full" aria-hidden="true" />
-          <span className="tmg-intro-measure tmg-intro-measure-top" aria-hidden="true" />
-          <span className="tmg-intro-measure tmg-intro-measure-bottom" aria-hidden="true" />
-
+        <div className="relative w-full max-w-5xl px-4 py-8 sm:px-8">
           <div className="tmg-intro-board relative mx-auto h-[min(74vw,27rem)] w-full max-w-4xl">
-            <span
-              className="tmg-intro-frame pointer-events-none absolute left-1/2 top-1/2"
-              aria-hidden="true"
-            />
             <span className="tmg-intro-pulse-line" aria-hidden="true" />
             {introPieces.map((piece, index) => (
               <span
@@ -158,7 +150,7 @@ export default function SiteIntro({ onDone }) {
             </span>
           </div>
 
-          <div className="mt-5 grid gap-4 text-[0.65rem] font-semibold uppercase tracking-normal text-black/55 sm:grid-cols-[1fr_auto_1fr] sm:items-end sm:text-xs">
+          <div className="mt-5 grid gap-4 text-[0.65rem] font-semibold tracking-normal text-black/55 sm:grid-cols-[1fr_auto_1fr] sm:items-end sm:text-xs">
             <span>01 Captation</span>
             <span className="tmg-intro-progress relative h-1 w-full overflow-hidden bg-black/15 sm:w-64" aria-hidden="true">
               <span className="absolute inset-y-0 left-0 bg-[var(--blue)]" />

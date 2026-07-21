@@ -1,6 +1,6 @@
 import { socialProfileUrls } from './socialLinks.js'
 
-export const SITE_URL = 'https://toutlemondegagne.ca'
+export const SITE_URL = 'https://tmgconsultation.org'
 export const SITE_NAME = 'TMG - Tout le Monde Gagne'
 export const SITE_LOCALE = 'fr_CA'
 export const SITE_LANGUAGE = 'fr-CA'
@@ -191,6 +191,26 @@ export const seoPages = {
   '/admin': {
     title: 'Admin contenu | TMG',
     description: 'Interface privée pour modifier les textes du site TMG.',
+    robots: 'noindex, nofollow',
+    keywords: [],
+  },
+  '/partenaires': {
+    title: 'Espace partenaires | TMG',
+    description: 'Espace privé réservé aux clients accompagnés par TMG.',
+    robots: 'noindex, nofollow',
+    keywords: [],
+  },
+  '/partenaire': {
+    title: 'Espace partenaires | TMG',
+    description: 'Espace privé réservé aux clients accompagnés par TMG.',
+    canonicalPath: '/partenaires',
+    robots: 'noindex, nofollow',
+    keywords: [],
+  },
+  '/espace-partenaire': {
+    title: 'Espace partenaires | TMG',
+    description: 'Espace privé réservé aux clients accompagnés par TMG.',
+    canonicalPath: '/partenaires',
     robots: 'noindex, nofollow',
     keywords: [],
   },
@@ -433,6 +453,9 @@ function buildBreadcrumbItems(path) {
     'a-propos': 'À propos',
     faq: 'FAQ',
     contact: 'Contact',
+    partenaire: 'Espace partenaires',
+    partenaires: 'Espace partenaires',
+    'espace-partenaire': 'Espace partenaires',
   }
 
   const segments = normalizePath(path).split('/').filter(Boolean)
