@@ -34,3 +34,7 @@ private-data/
 # Sauvegardes et fichiers temporaires
 *.zip
 .~lock.*#
+
+# Documents personnels (rapport et présentation de stage) — jamais sur GitHub
+/rapport-stage-tmg.docx
+/docs/Presentation-Stage-TMG-Alhousseini-Maiga.pptx
