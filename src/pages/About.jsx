@@ -50,7 +50,7 @@ export default function About() {
                 decoding="async"
                 fetchPriority="high"
               />
-              <figcaption className="absolute bottom-0 left-0 right-0 bg-[var(--bg)]/85 px-5 py-4 text-xs font-medium uppercase text-black backdrop-blur">
+              <figcaption className="absolute bottom-0 left-0 right-0 bg-[var(--bg)]/85 px-5 py-4 text-xs font-medium text-black backdrop-blur">
                 {about.hero.imageCaption}
               </figcaption>
             </figure>
@@ -83,10 +83,10 @@ export default function About() {
           {about.proofPoints.map((item, index) => (
             <AnimatedSection key={item.value} delay={index * 0.08}>
               <Card className="min-h-48 text-left text-black" padding="p-8">
-                <span className="mb-8 block text-sm font-medium uppercase text-black/55">
+                <span className="mb-8 block text-sm font-medium text-black/55">
                   0{index + 1}
                 </span>
-                <h2 className="text-[clamp(3.4rem,8vw,6.5rem)] font-semibold uppercase leading-none tracking-normal text-[var(--blue)]">
+                <h2 className="text-[clamp(3.4rem,8vw,6.5rem)] font-semibold leading-none tracking-normal text-[var(--blue)]">
                   {item.value}
                 </h2>
                 <p className="mt-5 text-base leading-7 text-black/70">
@@ -126,7 +126,7 @@ export default function About() {
                     decoding="async"
                   />
                   <div className="p-6">
-                    <span className="mb-4 block text-sm font-medium uppercase text-[var(--blue)]">
+                    <span className="mb-4 block text-sm font-medium text-[var(--blue)]">
                       Rôle 0{index + 1}
                     </span>
                     <h3 className="text-3xl font-semibold leading-none text-black">
@@ -146,7 +146,7 @@ export default function About() {
           {about.values.map((value, index) => (
             <AnimatedSection key={value.title} delay={index * 0.08}>
               <Card className="min-h-72 text-left text-black" padding="p-8">
-                <h2 className="text-5xl font-semibold uppercase leading-none tracking-normal text-[var(--blue)]">
+                <h2 className="text-5xl font-semibold leading-none tracking-normal text-[var(--blue)]">
                   {value.title}
                 </h2>
                 <p className="mt-8 text-base leading-7 text-black/70">

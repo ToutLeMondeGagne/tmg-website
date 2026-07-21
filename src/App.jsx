@@ -24,6 +24,7 @@ const Obnl = lazy(() => import('./pages/Obnl'))
 const About = lazy(() => import('./pages/About'))
 const QA = lazy(() => import('./pages/QA'))
 const Admin = lazy(() => import('./pages/Admin'))
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
 const Partners = lazy(() => import('./pages/Partners'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
@@ -103,6 +104,9 @@ function RoutedPages() {
         <Route path="/obnl" element={<Obnl />} />
         <Route path="/stage" element={<Stage />} />
         <Route path="/a-propos" element={<About />} />
+        {import.meta.env.VITE_PREVIEW_FEATURES !== 'false' ? (
+          <Route path="/projets/:slug" element={<ProjectDetail />} />
+        ) : null}
         <Route path="/faq" element={<QA />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/partenaire" element={<Partners />} />

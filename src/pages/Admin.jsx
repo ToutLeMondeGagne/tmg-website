@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react'
 import { PageContainer } from '../components/layout'
+import AuditManager from '../components/admin/AuditManager'
+import InternshipManager from '../components/admin/InternshipManager'
+import LeadsManager from '../components/admin/LeadsManager'
+import PartnerProjectManager from '../components/admin/PartnerProjectManager'
+
+const PREVIEW_FEATURES = import.meta.env.VITE_PREVIEW_FEATURES !== 'false'
 import { Button, SectionLabel } from '../components/ui'
 import { defaultSiteContent } from '../content/defaultSiteContent'
 import { siteContentFields } from '../content/siteContentFields'
@@ -21,7 +27,7 @@ function AdminField({ field, value, onChange }) {
 
   return (
     <label className="block min-w-0">
-      <span className="mb-2 block text-sm font-medium uppercase text-[var(--blue)]">
+      <span className="mb-2 block text-sm font-medium text-[var(--blue)]">
         {field.label}
       </span>
       {field.type === 'textarea' ? (
@@ -63,6 +69,7 @@ export default function Admin() {
   const [authStatus, setAuthStatus] = useState('checking')
   const [adminUser, setAdminUser] = useState('')
   const [authMessage, setAuthMessage] = useState('')
+  const [editorStatus, setEditorStatus] = useState('')
   const contentKey = JSON.stringify(content)
 
   useEffect(() => {
@@ -140,7 +147,7 @@ export default function Admin() {
         <section className="border-b border-black/20 py-14 text-left">
           <div className="max-w-4xl space-y-6">
             <SectionLabel>Admin</SectionLabel>
-            <h1 className="text-[clamp(2.8rem,8vw,7rem)] font-semibold uppercase leading-[0.86] text-black">
+            <h1 className="text-[clamp(2.8rem,8vw,7rem)] font-semibold leading-[0.86] text-black">
               Modifier les textes du site.
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-black/70">
@@ -157,7 +164,7 @@ export default function Admin() {
 
         {authStatus === 'checking' ? (
           <section className="py-12 text-left">
-            <p className="border border-black/20 bg-[var(--card)] p-6 text-sm uppercase text-black/65">
+            <p className="border border-black/20 bg-[var(--card)] p-6 text-sm text-black/65">
               Vérification de la session admin...
             </p>
           </section>
@@ -169,6 +176,8 @@ export default function Admin() {
             isLoading={isLoading}
             onLogout={handleLogout}
             replaceContent={replaceContent}
+            status={editorStatus}
+            setStatus={setEditorStatus}
           />
         ) : (
           <AdminLogin
@@ -233,7 +242,7 @@ function AdminLogin({ message, onAuthenticated }) {
         onSubmit={handleLogin}
       >
         <label className="block">
-          <span className="mb-2 block text-sm font-medium uppercase text-[var(--blue)]">
+          <span className="mb-2 block text-sm font-medium text-[var(--blue)]">
             Identifiant admin
           </span>
           <input
@@ -246,7 +255,7 @@ function AdminLogin({ message, onAuthenticated }) {
           />
         </label>
         <label className="block">
-          <span className="mb-2 block text-sm font-medium uppercase text-[var(--blue)]">
+          <span className="mb-2 block text-sm font-medium text-[var(--blue)]">
             Mot de passe
           </span>
           <input
@@ -269,10 +278,19 @@ function AdminLogin({ message, onAuthenticated }) {
   )
 }
 
-function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent }) {
+const ADMIN_TABS = [
+  { id: 'contenu', label: 'Contenu du site', preview: false },
+  { id: 'prospects', label: 'Prospects', preview: true },
+  { id: 'candidatures', label: 'Candidatures', preview: true },
+  { id: 'audits', label: 'Audits', preview: true },
+  { id: 'partenaires', label: 'Partenaires', preview: false },
+]
+
+function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent, status, setStatus }) {
   const [draft, setDraft] = useState(() => cloneContent(content))
-  const [status, setStatus] = useState('')
   const [isSaving, setIsSaving] = useState(false)
+  const [activeTab, setActiveTab] = useState('contenu')
+  const tabs = ADMIN_TABS.filter((tab) => !tab.preview || PREVIEW_FEATURES)
 
   const updateField = (path, value) => {
     setDraft((currentDraft) => setContentValue(currentDraft, path, value))
@@ -326,69 +344,96 @@ function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent }
   }
 
   return (
-    <div className="space-y-10 py-12 text-left">
-      <section className="grid gap-5 border border-black/20 bg-[var(--card)] p-6 md:grid-cols-[1fr_0.9fr] md:items-center">
+    <div className="space-y-8 py-12 text-left">
+      {/* Barre de session */}
+      <section className="flex flex-col gap-4 border border-black/20 bg-[var(--card)] p-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <span className="mb-2 block text-sm font-medium uppercase text-[var(--blue)]">
+          <span className="mb-1 block text-sm font-medium text-[var(--blue)]">
             Session admin
           </span>
           <p className="text-base leading-7 text-black/70">
             Connecté en tant que <span className="font-semibold text-black">{adminUser}</span>.
           </p>
         </div>
-
-        <div className="flex flex-col gap-3 sm:flex-row md:justify-end">
-          <Button type="button" variant="outline" onClick={previewDraft}>
-            Prévisualiser
-          </Button>
-          <Button type="button" variant="ghost" onClick={() => downloadJson(draft)}>
-            Télécharger JSON
-          </Button>
-          <Button type="button" variant="ghost" onClick={onLogout}>
-            Déconnexion
-          </Button>
-          <Button type="button" onClick={saveDraft} disabled={isSaving || isLoading}>
-            {isSaving ? 'Sauvegarde...' : 'Sauvegarder'}
-          </Button>
-        </div>
-      </section>
-
-      <PartnerAccountsManager />
-
-      {siteContentFields.map((group) => (
-        <section
-          key={group.title}
-          className="border-t border-black/25 pt-8"
-        >
-          <div className="mb-8 max-w-3xl">
-            <h2 className="text-3xl font-semibold leading-tight text-black">
-              {group.title}
-            </h2>
-            <p className="mt-2 text-base leading-7 text-black/60">
-              {group.description}
-            </p>
-          </div>
-          <div className="grid gap-5 md:grid-cols-2">
-            {group.fields.map((field) => (
-              <AdminField
-                key={field.path}
-                field={field}
-                value={getContentValue(draft, field.path)}
-                onChange={(value) => updateField(field.path, value)}
-              />
-            ))}
-          </div>
-        </section>
-      ))}
-
-      <section className="flex flex-col gap-4 border-t border-black/25 pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-2xl text-sm leading-6 text-black/65" aria-live="polite">
-          {status || 'Modifiez les champs, prévisualisez, puis sauvegardez.'}
-        </p>
-        <Button type="button" variant="outline" onClick={resetDraft}>
-          Réinitialiser les textes
+        <Button type="button" variant="ghost" onClick={onLogout}>
+          Déconnexion
         </Button>
       </section>
+
+      {/* Onglets */}
+      <nav className="flex flex-wrap gap-2 border-b border-black/20 pb-px" aria-label="Sections de l’admin">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setActiveTab(tab.id)}
+            className={`border border-b-0 px-5 py-3 text-sm font-semibold uppercase tracking-wide transition ${
+              activeTab === tab.id
+                ? 'border-black/20 bg-[var(--card)] text-[var(--blue)]'
+                : 'border-transparent text-black/50 hover:text-[var(--blue)]'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </nav>
+
+      {/* Onglet : Contenu du site */}
+      {activeTab === 'contenu' ? (
+        <div className="space-y-8">
+          <section className="flex flex-col gap-4 border border-black/20 bg-[var(--card)] p-5 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-xl text-sm leading-6 text-black/65" aria-live="polite">
+              {status || 'Modifiez les champs, prévisualisez, puis sauvegardez pour publier.'}
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Button type="button" variant="outline" onClick={previewDraft}>
+                Prévisualiser
+              </Button>
+              <Button type="button" variant="ghost" onClick={() => downloadJson(draft)}>
+                Télécharger JSON
+              </Button>
+              <Button type="button" onClick={saveDraft} disabled={isSaving || isLoading}>
+                {isSaving ? 'Sauvegarde...' : 'Sauvegarder'}
+              </Button>
+            </div>
+          </section>
+
+          {siteContentFields.map((group) => (
+            <section key={group.title} className="border-t border-black/25 pt-8">
+              <div className="mb-8 max-w-3xl">
+                <h2 className="text-3xl font-semibold leading-tight text-black">
+                  {group.title}
+                </h2>
+                <p className="mt-2 text-base leading-7 text-black/60">
+                  {group.description}
+                </p>
+              </div>
+              <div className="grid gap-5 md:grid-cols-2">
+                {group.fields.map((field) => (
+                  <AdminField
+                    key={field.path}
+                    field={field}
+                    value={getContentValue(draft, field.path)}
+                    onChange={(value) => updateField(field.path, value)}
+                  />
+                ))}
+              </div>
+            </section>
+          ))}
+
+          <section className="flex justify-end border-t border-black/25 pt-8">
+            <Button type="button" variant="outline" onClick={resetDraft}>
+              Réinitialiser les textes
+            </Button>
+          </section>
+        </div>
+      ) : null}
+
+      {/* Onglets : outils (données serveur) */}
+      {activeTab === 'prospects' && PREVIEW_FEATURES ? <LeadsManager /> : null}
+      {activeTab === 'candidatures' && PREVIEW_FEATURES ? <InternshipManager /> : null}
+      {activeTab === 'audits' && PREVIEW_FEATURES ? <AuditManager /> : null}
+      {activeTab === 'partenaires' ? <PartnerAccountsManager /> : null}
     </div>
   )
 }
@@ -408,7 +453,7 @@ function AdminPartnerField({
 
   return (
     <label className="block min-w-0">
-      <span className="mb-2 block text-sm font-medium uppercase text-[var(--blue)]">
+      <span className="mb-2 block text-sm font-medium text-[var(--blue)]">
         {label}
         {required ? <span aria-hidden="true">*</span> : null}
       </span>
@@ -439,6 +484,7 @@ function AdminPartnerField({
 
 function PartnerAccountsManager() {
   const [accounts, setAccounts] = useState([])
+  const [managedAccountId, setManagedAccountId] = useState('')
   const [form, setForm] = useState({
     company: '',
     password: '',
@@ -676,7 +722,7 @@ function PartnerAccountsManager() {
             Accès existants
           </h3>
           {isLoadingAccounts ? (
-            <p className="text-sm uppercase text-black/60">
+            <p className="text-sm text-black/60">
               Chargement...
             </p>
           ) : accounts.length > 0 ? (
@@ -699,19 +745,41 @@ function PartnerAccountsManager() {
                         {account.project_status || 'Statut à préciser'}
                       </p>
                       {account.last_login_at ? (
-                        <p className="mt-1 text-xs uppercase text-black/45">
+                        <p className="mt-1 text-xs text-black/45">
                           Dernière connexion : {account.last_login_at}
                         </p>
                       ) : null}
                     </div>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      onClick={() => deleteAccount(account)}
-                    >
-                      Supprimer
-                    </Button>
+                    <div className="flex shrink-0 gap-2">
+                      {PREVIEW_FEATURES ? (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() =>
+                            setManagedAccountId((current) =>
+                              current === account.id ? '' : account.id,
+                            )
+                          }
+                        >
+                          {managedAccountId === account.id ? 'Fermer' : 'Espace projet'}
+                        </Button>
+                      ) : null}
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        onClick={() => deleteAccount(account)}
+                      >
+                        Supprimer
+                      </Button>
+                    </div>
                   </div>
+                  {PREVIEW_FEATURES && managedAccountId === account.id ? (
+                    <PartnerProjectManager
+                      key={account.updated_at}
+                      account={account}
+                      onAccountsUpdated={setAccounts}
+                    />
+                  ) : null}
                 </article>
               ))}
             </div>

@@ -1,19 +1,22 @@
 import { Link } from 'react-router-dom'
-import { SITE_EMAIL, SITE_LOCATION, SITE_NAME, SITE_URL } from '../../data/seo'
+import { SITE_EMAIL, SITE_NAME, SITE_URL } from '../../data/seo'
 import tmgLogo from '../../assets/logos/tmg-logo.png'
 
 const footerLinks = [
   { label: 'Accueil', to: '/' },
   { label: 'PME', to: '/pme' },
   { label: 'OBNL', to: '/obnl' },
-  { label: 'Services', to: '/services' },
+  { label: 'Stagiaires', to: '/stage' },
   { label: 'Contact', to: '/contact' },
 ]
 
 const contactLinks = [
   { label: SITE_EMAIL, href: `mailto:${SITE_EMAIL}` },
-  { label: SITE_LOCATION, href: 'https://maps.google.com/?q=Montreal%2C%20Quebec' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
+  { label: 'Instagram', href: 'https://www.instagram.com/tout_lemondegagne?igsh=eGVqamFjNm16djFs&utm_source=qr' },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/tout-le-monde-gagne/?lipi=urn%3Ali%3Apage%3Ad_flagship3_messaging_conversation_detail%3BzIWNlbE4QSqRuxagcK8Udw%3D%3D',
+  },
 ]
 
 export default function Footer() {
@@ -50,7 +53,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="mb-4 text-xs font-medium uppercase tracking-normal text-[var(--blue)]">
+          <h2 className="mb-4 text-xs font-medium tracking-normal text-[var(--blue)]">
             Navigation
           </h2>
           <nav className="flex flex-col items-start gap-3" aria-label="Navigation footer">
@@ -67,7 +70,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="mb-4 text-xs font-medium uppercase tracking-normal text-[var(--blue)]">
+          <h2 className="mb-4 text-xs font-medium tracking-normal text-[var(--blue)]">
             Contact
           </h2>
           <address className="flex flex-col items-start gap-3 not-italic">
@@ -77,30 +80,18 @@ export default function Footer() {
                 href={link.href}
                 itemProp={link.label === SITE_EMAIL ? 'email' : undefined}
                 className="text-sm text-black/65 transition hover:text-[var(--blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--blue)]"
-                target={link.label === 'LinkedIn' ? '_blank' : undefined}
-                rel={link.label === 'LinkedIn' ? 'noreferrer' : undefined}
+                target={link.href?.startsWith('http') ? '_blank' : undefined}
+                rel={link.href?.startsWith('http') ? 'noreferrer' : undefined}
               >
                 {link.label}
               </a>
             ))}
-            <span
-              className="sr-only"
-              itemProp="address"
-              itemScope
-              itemType="https://schema.org/PostalAddress"
-            >
-              <span itemProp="addressLocality">Montréal</span>
-              <span itemProp="addressRegion">Québec</span>
-              <span itemProp="addressCountry">CA</span>
-            </span>
-            <p className="max-w-xs text-sm leading-6 text-black/55">
-              Zone desservie : Montréal, Québec et mandats à distance.
-            </p>
+            {/* City/province removed as requested */}
           </address>
         </div>
       </div>
 
-      <div className="border-t border-black/20 px-5 py-5 text-center text-xs font-medium uppercase tracking-normal text-black/50 sm:px-8 lg:px-16">
+      <div className="border-t border-black/20 px-5 py-5 text-center text-xs font-medium tracking-normal text-black/50 sm:px-8 lg:px-16">
         © TMG - Tout le Monde Gagne
       </div>
     </footer>

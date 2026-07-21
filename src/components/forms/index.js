@@ -1,5 +1,6 @@
 export { default as ContactForm } from './ContactForm'
 export { default as DropdownField } from './DropdownField'
+export { default as FileField } from './FileField'
 export { default as InternshipForm } from './InternshipForm'
 export { default as TextArea } from './TextArea'
 export { default as TextInput } from './TextInput'

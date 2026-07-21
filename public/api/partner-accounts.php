@@ -56,6 +56,97 @@ if ($action === 'delete') {
     ]);
 }
 
+// ===== Actions "espace projet" : jalons, messages, fichiers =====
+if (in_array($action, ['update-milestones', 'add-message', 'delete-message', 'delete-file'], true)) {
+    $id = isset($payload['id']) ? (string) $payload['id'] : '';
+    $accountIndex = tmg_find_partner_index_by_id($accounts, $id);
+
+    if ($accountIndex < 0) {
+        tmg_json_response(404, ['message' => 'Compte partenaire introuvable.']);
+    }
+
+    if ($action === 'update-milestones') {
+        $rawMilestones = is_array($payload['milestones'] ?? null) ? $payload['milestones'] : [];
+        $milestones = [];
+
+        foreach ($rawMilestones as $milestone) {
+            $title = trim((string) ($milestone['title'] ?? ''));
+            $state = (string) ($milestone['state'] ?? 'todo');
+
+            if ($title === '') {
+                continue;
+            }
+
+            $milestones[] = [
+                'title' => function_exists('mb_substr') ? mb_substr($title, 0, 120, 'UTF-8') : substr($title, 0, 120),
+                'state' => in_array($state, ['done', 'active', 'todo'], true) ? $state : 'todo',
+            ];
+        }
+
+        $accounts[$accountIndex]['milestones'] = $milestones;
+    }
+
+    if ($action === 'add-message') {
+        $text = trim((string) ($payload['text'] ?? ''));
+
+        if ($text === '') {
+            tmg_json_response(422, ['message' => 'Le message est vide.']);
+        }
+
+        $messages = is_array($accounts[$accountIndex]['messages'] ?? null)
+            ? $accounts[$accountIndex]['messages']
+            : [];
+        $messages[] = [
+            'id' => 'msg-' . bin2hex(random_bytes(5)),
+            'text' => function_exists('mb_substr') ? mb_substr($text, 0, 2000, 'UTF-8') : substr($text, 0, 2000),
+            'created_at' => gmdate('c'),
+        ];
+        $accounts[$accountIndex]['messages'] = $messages;
+    }
+
+    if ($action === 'delete-message') {
+        $messageId = (string) ($payload['message_id'] ?? '');
+        $messages = is_array($accounts[$accountIndex]['messages'] ?? null)
+            ? $accounts[$accountIndex]['messages']
+            : [];
+        $accounts[$accountIndex]['messages'] = array_values(array_filter(
+            $messages,
+            static fn (array $message): bool => ($message['id'] ?? '') !== $messageId,
+        ));
+    }
+
+    if ($action === 'delete-file') {
+        $fileId = (string) ($payload['file_id'] ?? '');
+        $files = is_array($accounts[$accountIndex]['files'] ?? null)
+            ? $accounts[$accountIndex]['files']
+            : [];
+
+        foreach ($files as $file) {
+            if (($file['id'] ?? '') === $fileId) {
+                $storedName = (string) ($file['stored_name'] ?? '');
+
+                if ($storedName !== '' && basename($storedName) === $storedName) {
+                    @unlink(tmg_partner_files_directory($id) . '/' . $storedName);
+                }
+            }
+        }
+
+        $accounts[$accountIndex]['files'] = array_values(array_filter(
+            $files,
+            static fn (array $file): bool => ($file['id'] ?? '') !== $fileId,
+        ));
+    }
+
+    $accounts[$accountIndex]['updated_at'] = gmdate('c');
+    tmg_save_partner_accounts($accounts);
+
+    tmg_json_response(200, [
+        'message' => 'Espace projet mis à jour.',
+        'account' => tmg_public_partner_account($accounts[$accountIndex]),
+        'accounts' => array_map('tmg_public_partner_account', $accounts),
+    ]);
+}
+
 if ($action !== 'create') {
     tmg_json_response(422, ['message' => 'Action partenaire invalide.']);
 }

@@ -1,6 +1,6 @@
 import { socialProfileUrls } from './socialLinks.js'
 
-export const SITE_URL = 'https://toutlemondegagne.ca'
+export const SITE_URL = 'https://tmgconsultation.org'
 export const SITE_NAME = 'TMG - Tout le Monde Gagne'
 export const SITE_LOCALE = 'fr_CA'
 export const SITE_LANGUAGE = 'fr-CA'

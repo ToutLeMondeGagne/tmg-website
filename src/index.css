@@ -649,11 +649,19 @@ body::selection {
   }
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
+@layer base {
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-transform: uppercase;
+  }
 }
 
 a {

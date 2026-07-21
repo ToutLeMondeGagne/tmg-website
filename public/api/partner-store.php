@@ -5,7 +5,10 @@ require_once __DIR__ . '/admin-session.php';
 
 function tmg_partner_private_directory(): string
 {
-    return __DIR__ . '/private';
+    // Hors de la racine web (public_html) : les fichiers ne sont jamais
+    // accessibles par URL. Sur SiteGround, nginx sert les fichiers statiques
+    // sans consulter .htaccess, donc un dossier dans le webroot ne suffit pas.
+    return dirname(__DIR__, 2) . '/private-data';
 }
 
 function tmg_partner_store_file(): string
@@ -102,6 +105,11 @@ function tmg_save_partner_accounts(array $accounts): void
     }
 }
 
+function tmg_partner_files_directory(string $accountId): string
+{
+    return tmg_partner_private_directory() . '/partner-files/' . $accountId;
+}
+
 function tmg_public_partner_account(array $account): array
 {
     return [
@@ -112,6 +120,9 @@ function tmg_public_partner_account(array $account): array
         'project_name' => $account['project_name'] ?? '',
         'project_status' => $account['project_status'] ?? '',
         'portal_message' => $account['portal_message'] ?? '',
+        'milestones' => is_array($account['milestones'] ?? null) ? array_values($account['milestones']) : [],
+        'messages' => is_array($account['messages'] ?? null) ? array_values($account['messages']) : [],
+        'files' => is_array($account['files'] ?? null) ? array_values($account['files']) : [],
         'is_active' => ($account['is_active'] ?? true) === true,
         'created_at' => $account['created_at'] ?? '',
         'updated_at' => $account['updated_at'] ?? '',

@@ -16,9 +16,23 @@ if ($method === 'OPTIONS') {
 }
 
 if ($method === 'GET') {
+    $partner = $_SESSION['tmg_partner_account'] ?? null;
+
+    // Recharge le compte depuis le stockage : le client voit toujours les
+    // jalons, messages et fichiers à jour, pas l'instantané de sa connexion.
+    if (tmg_is_partner_authenticated() && is_array($partner) && ($partner['id'] ?? '') !== '') {
+        $accounts = tmg_load_partner_accounts();
+        $accountIndex = tmg_find_partner_index_by_id($accounts, (string) $partner['id']);
+
+        if ($accountIndex >= 0) {
+            $partner = tmg_public_partner_account($accounts[$accountIndex]);
+            $_SESSION['tmg_partner_account'] = $partner;
+        }
+    }
+
     tmg_json_response(200, [
         'authenticated' => tmg_is_partner_authenticated(),
-        'partner' => $_SESSION['tmg_partner_account'] ?? null,
+        'partner' => $partner,
     ]);
 }
 

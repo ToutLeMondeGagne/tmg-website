@@ -1,0 +1,10 @@
+# Configuration de déploiement — COPIE-COLLE dans .deployrc et remplis tes infos
+# Le fichier .deployrc n'est pas versionné (voir .gitignore)
+
+# Identifiants SiteGround (SFTP ou SSH)
+DEPLOY_HOST=your-siteground-host.com
+DEPLOY_USER=your-username
+DEPLOY_PATH=/home/your-username/public_html
+
+# Optionnel : Si SSH key (plus sécurisé que mot de passe)
+# DEPLOY_KEY_PATH=~/.ssh/id_rsa

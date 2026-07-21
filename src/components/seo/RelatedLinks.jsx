@@ -29,12 +29,12 @@ export default function RelatedLinks({
       aria-labelledby="related-links-title"
     >
       <div className="mb-10 grid gap-5 lg:grid-cols-[0.28fr_1fr] lg:items-end">
-        <span className="text-sm font-medium uppercase text-[var(--blue)]">
+        <span className="text-sm font-medium text-[var(--blue)]">
           {eyebrow}
         </span>
         <h2
           id="related-links-title"
-          className="max-w-4xl text-[clamp(2.4rem,5vw,5.4rem)] font-semibold uppercase leading-[0.9] tracking-normal text-black"
+          className="max-w-4xl text-[clamp(2.4rem,5vw,5.4rem)] font-semibold leading-[0.9] tracking-normal text-black"
         >
           {title}
         </h2>
@@ -59,7 +59,7 @@ export default function RelatedLinks({
             <span className="mt-5 block text-base leading-7 text-black/68">
               {item.description}
             </span>
-            <span className="mt-8 inline-flex text-xs font-semibold uppercase text-[var(--blue)] transition group-hover:translate-x-1">
+            <span className="mt-8 inline-flex text-xs font-semibold text-[var(--blue)] transition group-hover:translate-x-1">
               Explorer ↗
             </span>
           </Link>

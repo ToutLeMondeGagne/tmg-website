@@ -13,6 +13,8 @@ dist-ssr
 *.local
 .env
 public/api/admin-config.php
+public/api/anthropic-config.php
+public/api/gemini-config.php
 public/api/private/partners.json
 
 # Editor directories and files
@@ -25,3 +27,10 @@ public/api/private/partners.json
 *.njsproj
 *.sln
 *.sw?
+.deployrc
+.deployrc.prod
+private-data/
+
+# Sauvegardes et fichiers temporaires
+*.zip
+.~lock.*#

@@ -4,6 +4,8 @@ import DropdownField from './DropdownField'
 import TextArea from './TextArea'
 import TextInput from './TextInput'
 
+const contactEndpoint = '/api/contact.php'
+
 const budgets = [
   { value: 'moins-1000', label: 'Moins de 1 000 $' },
   { value: '1000-3000', label: '1 000 $ - 3 000 $' },
@@ -26,15 +28,48 @@ function FormSection({ number, title, children }) {
 
 export default function ContactForm() {
   const [status, setStatus] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    event.currentTarget.reset()
-    setStatus('Merci. Votre demande est prête; on vous recontacte rapidement.')
+
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    formData.append('form_type', 'contact')
+
+    setIsSubmitting(true)
+    setStatus('Envoi de votre demande...')
+
+    try {
+      const response = await fetch(contactEndpoint, {
+        method: 'POST',
+        body: formData,
+      })
+      const payload = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        throw new Error(payload.message || 'L’envoi de la demande a échoué.')
+      }
+
+      form.reset()
+      setStatus('Merci. Votre demande a bien été envoyée; on vous recontacte rapidement.')
+    } catch (submitError) {
+      setStatus(`${submitError.message} Réessayez ou écrivez-nous directement par courriel.`)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
     <form className="space-y-8" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="company_website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="hidden"
+      />
       <FormSection number="01" title="Parlez-nous de votre projet">
         <div className="grid gap-6 md:grid-cols-2">
           <TextInput
@@ -85,8 +120,8 @@ export default function ContactForm() {
         </div>
 
         <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center">
-          <Button type="submit" className="w-full sm:w-auto">
-            Envoyer la demande
+          <Button type="submit" className="w-full sm:w-auto" disabled={isSubmitting}>
+            {isSubmitting ? 'Envoi...' : 'Envoyer la demande'}
           </Button>
           <p className="text-sm leading-6 text-black/60" aria-live="polite">
             {status || 'Réponse sous 1 à 2 jours ouvrables.'}

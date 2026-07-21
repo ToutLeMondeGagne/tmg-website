@@ -1,69 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from 'framer-motion'
-import projectPlaceholderImage from '../../assets/images/tmg-team-studio.webp'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { projects } from '../../data/projects'
 
-const projects = [
-  {
-    number: '01',
-    eyebrow: 'PME',
-    title: 'Accompagnement PME',
-    description:
-      'Des stratégies numériques pour aider les PME à structurer leur croissance.',
-    image: projectPlaceholderImage,
-    accent: '#004cff',
-    imagePosition: 'center',
-  },
-  {
-    number: '02',
-    eyebrow: 'OBNL',
-    title: 'Solutions OBNL',
-    description:
-      'Des sites clairs et accessibles pour mieux rejoindre les communautés.',
-    image: projectPlaceholderImage,
-    accent: '#8cc63f',
-    imagePosition: 'left center',
-  },
-  {
-    number: '03',
-    eyebrow: 'Stagiaires',
-    title: 'Programme Stagiaire',
-    description:
-      'Une plateforme pour attirer, présenter et intégrer les talents de demain.',
-    image: projectPlaceholderImage,
-    accent: '#004cff',
-    imagePosition: 'center top',
-  },
-  {
-    number: '04',
-    eyebrow: 'Marketing',
-    title: 'Audit Marketing',
-    description:
-      'Un diagnostic complet pour transformer les actions marketing en résultats mesurables.',
-    image: projectPlaceholderImage,
-    accent: '#111827',
-    imagePosition: 'right center',
-  },
-]
+const AUTOPLAY_SECONDS = 5
 
-function clampProjectIndex(progress) {
-  return Math.min(projects.length - 1, Math.max(0, Math.floor(progress * projects.length)))
-}
-
-function getSectionProgress(section) {
-  const scrollableDistance = section.offsetHeight - window.innerHeight
-
-  if (scrollableDistance <= 0) {
-    return 0
-  }
-
-  return (window.scrollY - section.offsetTop) / scrollableDistance
-}
+// Pages de détail projet : uniquement dans les builds de prévisualisation
+// (secours). Le build prod garde les images non cliquables.
+const PROJECT_PAGES_ENABLED = import.meta.env.VITE_PREVIEW_FEATURES !== 'false'
 
 function ProjectThumbnail({ project }) {
   return (
@@ -86,27 +30,28 @@ function ProjectThumbnail({ project }) {
   )
 }
 
-function ProjectText({ project, shouldReduceMotion }) {
+function ProjectText({ project, direction, shouldReduceMotion }) {
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait" custom={direction}>
       <motion.div
         key={project.title}
+        custom={direction}
         className="flex h-full flex-col justify-between gap-8"
-        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 36, filter: 'blur(8px)' }}
-        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-        exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -28, filter: 'blur(8px)' }}
+        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: direction >= 0 ? -48 : 48, filter: 'blur(8px)' }}
+        animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+        exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: direction >= 0 ? 48 : -48, filter: 'blur(8px)' }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="space-y-4">
-          <span className="inline-flex bg-[var(--blue)] px-3 py-1 text-xs font-semibold uppercase tracking-normal text-white">
+          <span className="inline-flex bg-[var(--blue)] px-3 py-1 text-xs font-semibold tracking-normal text-white">
             Our work
           </span>
-          <p className="text-sm font-semibold uppercase text-[var(--active-accent)]">
+          <p className="text-sm font-semibold text-[var(--active-accent)]">
             {project.number} / {project.eyebrow}
           </p>
           <h2
             data-project-title
-            className="max-w-[34rem] text-[clamp(2.4rem,2.75vw,3.65rem)] font-semibold uppercase leading-none tracking-normal text-black"
+            className="max-w-[34rem] text-[clamp(2.4rem,2.75vw,3.65rem)] font-semibold leading-none tracking-normal text-black"
           >
             {project.title}
           </h2>
@@ -123,13 +68,13 @@ function ProjectText({ project, shouldReduceMotion }) {
   )
 }
 
-function ProjectImage({ project, activeIndex, shouldReduceMotion }) {
+function ProjectImage({ project, activeIndex, direction, shouldReduceMotion, onPrev, onNext }) {
   const nextProjects = projects.slice(activeIndex + 1, activeIndex + 3)
 
   return (
     <div
       data-project-image
-      className="relative h-[clamp(30rem,68vh,44rem)] overflow-visible"
+      className="relative aspect-[16/9] w-full overflow-visible"
       style={{ perspective: '1200px' }}
     >
       {nextProjects.map((nextProject, index) => (
@@ -153,14 +98,14 @@ function ProjectImage({ project, activeIndex, shouldReduceMotion }) {
         </div>
       ))}
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="sync">
         <motion.figure
           key={project.title}
           className="absolute inset-0 overflow-hidden border border-black/15 bg-black/10 shadow-[0_34px_92px_rgba(0,0,0,0.18)]"
-          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: 72, scale: 0.965, filter: 'blur(6px)' }}
-          animate={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
-          exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -52, scale: 1.015, filter: 'blur(6px)' }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
+          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: direction >= 0 ? '-100%' : '100%', filter: 'blur(6px)' }}
+          animate={{ opacity: 1, x: '0%', filter: 'blur(0px)' }}
+          exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: direction >= 0 ? '100%' : '-100%', filter: 'blur(6px)' }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <span
             className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.16)_1px,transparent_1px)] bg-[length:25%_100%,100%_72px]"
@@ -170,36 +115,71 @@ function ProjectImage({ project, activeIndex, shouldReduceMotion }) {
             className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,transparent_55%,rgba(0,0,0,0.28))]"
             aria-hidden="true"
           />
-          <img
-            src={project.image}
-            alt={`Aperçu du projet ${project.title}`}
-            width="1600"
-            height="1000"
-            className="h-full w-full object-cover"
-            style={{ objectPosition: project.imagePosition }}
-            loading="lazy"
-            decoding="async"
-          />
-          <figcaption className="absolute bottom-5 left-5 z-20 flex items-center gap-3 bg-[var(--bg)]/90 px-4 py-2 text-xs font-semibold uppercase text-black backdrop-blur-sm">
-            <span className="h-2 w-2 bg-[var(--active-accent)]" aria-hidden="true" />
-            {project.number} / Image temporaire
-          </figcaption>
+          {PROJECT_PAGES_ENABLED ? (
+            <Link
+              to={`/projets/${project.slug}`}
+              className="group/link absolute inset-0 z-20 block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--blue)]"
+              aria-label={`Découvrir le projet ${project.title}`}
+            >
+              <img
+                src={project.image}
+                alt={`Aperçu du projet ${project.title}`}
+                width="1600"
+                height="1000"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover/link:scale-[1.02]"
+                style={{ objectPosition: project.imagePosition }}
+                loading="lazy"
+                decoding="async"
+              />
+              <span className="absolute bottom-5 left-5 flex items-center gap-3 bg-[var(--bg)]/90 px-4 py-2 text-xs font-semibold uppercase text-black backdrop-blur-sm transition-colors duration-300 group-hover/link:bg-[var(--blue)] group-hover/link:text-white">
+                Voir le projet ↗
+              </span>
+            </Link>
+          ) : (
+            <img
+              src={project.image}
+              alt={`Aperçu du projet ${project.title}`}
+              width="1600"
+              height="1000"
+              className="h-full w-full object-cover"
+              style={{ objectPosition: project.imagePosition }}
+              loading="lazy"
+              decoding="async"
+            />
+          )}
         </motion.figure>
       </AnimatePresence>
+
+      <CarouselArrow
+        direction="prev"
+        onClick={onPrev}
+        className="absolute left-3 top-1/2 z-30 -translate-y-1/2"
+      />
+      <CarouselArrow
+        direction="next"
+        onClick={onNext}
+        className="absolute right-3 top-1/2 z-30 -translate-y-1/2"
+      />
     </div>
   )
 }
 
-function ProjectIndicators({ activeIndex, progressWidth }) {
+function ProjectIndicators({ activeIndex, isPaused, shouldReduceMotion }) {
   return (
     <div className="space-y-4">
       <div className="h-px overflow-hidden bg-black/18">
         <motion.div
+          key={activeIndex}
           className="h-full origin-left bg-[var(--blue)]"
-          style={{ width: progressWidth }}
+          initial={{ width: '0%' }}
+          animate={{ width: '100%' }}
+          transition={{
+            duration: shouldReduceMotion || isPaused ? 0 : AUTOPLAY_SECONDS,
+            ease: 'linear',
+          }}
         />
       </div>
-      <div className="flex items-center justify-between text-xs font-semibold uppercase text-black/45">
+      <div className="flex items-center justify-between text-xs font-semibold text-black/45">
         {projects.map((project, index) => (
           <span
             key={project.number}
@@ -213,6 +193,36 @@ function ProjectIndicators({ activeIndex, progressWidth }) {
   )
 }
 
+function CarouselArrow({ direction, onClick, className = '' }) {
+  const isPrev = direction === 'prev'
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={isPrev ? 'Projet précédent' : 'Projet suivant'}
+      className={`flex h-12 w-12 items-center justify-center border border-black/20 bg-[var(--bg)]/85 text-black shadow-[0_10px_30px_rgba(0,0,0,0.2)] backdrop-blur-sm transition-colors hover:border-[var(--blue)] hover:bg-[var(--blue)] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)] ${className}`}
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="square"
+        aria-hidden="true"
+      >
+        {isPrev ? (
+          <polyline points="15 6 9 12 15 18" />
+        ) : (
+          <polyline points="9 6 15 12 9 18" />
+        )}
+      </svg>
+    </button>
+  )
+}
+
 function MobileProjectCard({ project }) {
   return (
     <article
@@ -221,76 +231,83 @@ function MobileProjectCard({ project }) {
     >
       <div className="space-y-6">
         <div className="space-y-4">
-          <span className="inline-flex bg-[var(--blue)] px-3 py-1 text-xs font-semibold uppercase tracking-normal text-white">
+          <span className="inline-flex bg-[var(--blue)] px-3 py-1 text-xs font-semibold tracking-normal text-white">
             {project.eyebrow}
           </span>
-          <p className="text-sm font-semibold uppercase text-[var(--active-accent)]">
+          <p className="text-sm font-semibold text-[var(--active-accent)]">
             {project.number}
           </p>
-          <h3 className="text-[clamp(2.6rem,12vw,4.8rem)] font-semibold uppercase leading-[0.9] tracking-normal text-black">
+          <h3 className="text-[clamp(2.6rem,12vw,4.8rem)] font-semibold leading-[0.9] tracking-normal text-black">
             {project.title}
           </h3>
           <p className="text-lg leading-8 text-black/72">{project.description}</p>
         </div>
-        <img
-          src={project.image}
-          alt={`Aperçu du projet ${project.title}`}
-          width="1200"
-          height="800"
-          className="aspect-[16/10] w-full border border-black/15 object-cover"
-          style={{ objectPosition: project.imagePosition }}
-          loading="lazy"
-          decoding="async"
-        />
+        {PROJECT_PAGES_ENABLED ? (
+          <Link
+            to={`/projets/${project.slug}`}
+            className="relative block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--blue)]"
+            aria-label={`Découvrir le projet ${project.title}`}
+          >
+            <img
+              src={project.image}
+              alt={`Aperçu du projet ${project.title}`}
+              width="1200"
+              height="800"
+              className="aspect-[16/9] w-full border border-black/15 object-cover"
+              style={{ objectPosition: project.imagePosition }}
+              loading="lazy"
+              decoding="async"
+            />
+            <span className="absolute bottom-4 left-4 bg-[var(--bg)]/90 px-4 py-2 text-xs font-semibold uppercase text-black backdrop-blur-sm">
+              Voir le projet ↗
+            </span>
+          </Link>
+        ) : (
+          <img
+            src={project.image}
+            alt={`Aperçu du projet ${project.title}`}
+            width="1200"
+            height="800"
+            className="aspect-[16/9] w-full border border-black/15 object-cover"
+            style={{ objectPosition: project.imagePosition }}
+            loading="lazy"
+            decoding="async"
+          />
+        )}
       </div>
     </article>
   )
 }
 
 export default function ProjectsShowcase() {
-  const sectionRef = useRef(null)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [direction, setDirection] = useState(1)
+  const [isPaused, setIsPaused] = useState(false)
   const shouldReduceMotion = useReducedMotion()
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end start'],
-  })
-  const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
   const activeProject = projects[activeIndex] ?? projects[0]
 
+  const goToProject = (step) => {
+    setDirection(step)
+    setActiveIndex((currentIndex) => (
+      (currentIndex + step + projects.length) % projects.length
+    ))
+  }
+
   useEffect(() => {
-    let animationFrame = 0
-
-    const updateActiveProject = () => {
-      if (!sectionRef.current) {
-        return
-      }
-
-      const nextIndex = clampProjectIndex(getSectionProgress(sectionRef.current))
-      setActiveIndex((currentIndex) => (
-        currentIndex === nextIndex ? currentIndex : nextIndex
-      ))
+    if (shouldReduceMotion || isPaused) {
+      return undefined
     }
 
-    const requestUpdate = () => {
-      window.cancelAnimationFrame(animationFrame)
-      animationFrame = window.requestAnimationFrame(updateActiveProject)
-    }
+    const intervalId = window.setInterval(() => {
+      setDirection(1)
+      setActiveIndex((currentIndex) => (currentIndex + 1) % projects.length)
+    }, AUTOPLAY_SECONDS * 1000)
 
-    updateActiveProject()
-    window.addEventListener('scroll', requestUpdate, { passive: true })
-    window.addEventListener('resize', requestUpdate)
-
-    return () => {
-      window.cancelAnimationFrame(animationFrame)
-      window.removeEventListener('scroll', requestUpdate)
-      window.removeEventListener('resize', requestUpdate)
-    }
-  }, [])
+    return () => window.clearInterval(intervalId)
+  }, [shouldReduceMotion, isPaused])
 
   return (
     <section
-      ref={sectionRef}
       id="nos-projets"
       data-active-project-index={activeIndex}
       data-active-project-title={activeProject.title}
@@ -303,30 +320,37 @@ export default function ProjectsShowcase() {
         ))}
       </div>
 
-      <div className="relative hidden h-[360vh] border-t border-black/20 lg:block">
+      <div className="hidden border-t border-black/20 py-16 lg:block xl:py-20">
         <div
-          data-projects-sticky
-          className="sticky top-24 flex h-[calc(100vh-6rem)] items-center"
+          data-projects-carousel
+          className="flex items-center"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
         >
           <div
             data-projects-grid
-            className="grid w-full gap-12 lg:grid-cols-[minmax(20rem,0.34fr)_minmax(0,0.66fr)] lg:items-center xl:gap-16"
+            className="grid w-full gap-12 lg:grid-cols-[minmax(20rem,0.34fr)_minmax(0,0.66fr)] xl:gap-16"
           >
-            <div className="flex h-[clamp(30rem,68vh,44rem)] flex-col justify-between gap-10 self-center">
+            <div className="flex flex-col justify-between gap-10">
               <ProjectText
                 project={activeProject}
+                direction={direction}
                 shouldReduceMotion={shouldReduceMotion}
               />
               <ProjectIndicators
                 activeIndex={activeIndex}
-                progressWidth={progressWidth}
+                isPaused={isPaused}
+                shouldReduceMotion={shouldReduceMotion}
               />
             </div>
 
             <ProjectImage
               project={activeProject}
               activeIndex={activeIndex}
+              direction={direction}
               shouldReduceMotion={shouldReduceMotion}
+              onPrev={() => goToProject(-1)}
+              onNext={() => goToProject(1)}
             />
           </div>
         </div>

@@ -61,7 +61,7 @@ export default function Obnl() {
 
         <section className="border-b border-black/20 py-20 text-left">
           <div className="mb-12 max-w-3xl space-y-5">
-            <span className="text-sm font-medium uppercase text-[var(--blue)]">
+            <span className="text-sm font-medium text-[var(--blue)]">
               {obnl.challenges.label}
             </span>
             <AnimatedText
@@ -97,7 +97,7 @@ export default function Obnl() {
 
         <section className="border-b border-black/20 py-20 text-left">
           <div className="mb-12 max-w-3xl space-y-5">
-            <span className="text-sm font-medium uppercase text-[var(--blue)]">
+            <span className="text-sm font-medium text-[var(--blue)]">
               {obnl.services.label}
             </span>
             <AnimatedText
@@ -128,7 +128,7 @@ export default function Obnl() {
                       {service.text}
                     </p>
                   </div>
-                  <span className="text-sm font-medium uppercase text-[var(--blue)]">
+                  <span className="text-sm font-medium text-[var(--blue)]">
                     {service.timeline}
                   </span>
                 </Link>

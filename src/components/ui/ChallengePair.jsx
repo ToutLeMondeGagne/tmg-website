@@ -19,7 +19,7 @@ export default function ChallengePair({
       )}
     >
       <article className="relative min-w-0 overflow-hidden border border-black/20 bg-[var(--card)] p-6 text-left text-black transition duration-300 group-hover/challenge:-translate-y-1 group-hover/challenge:border-red-500/50 group-hover/challenge:bg-white/18 group-hover/challenge:shadow-[0_24px_70px_rgba(255,72,92,0.1)] sm:p-8">
-        <span className="mb-3 block text-sm font-medium uppercase text-red-500">
+        <span className="mb-3 block text-sm font-medium text-red-500">
           {problemLabel}
         </span>
         <h3 className="mb-4 text-2xl font-semibold leading-tight text-black">
@@ -40,7 +40,7 @@ export default function ChallengePair({
       </div>
 
       <article className="relative min-w-0 overflow-hidden border border-black/20 bg-[var(--card)] p-6 text-left text-black transition duration-300 group-hover/challenge:-translate-y-1 group-hover/challenge:border-[var(--blue)] group-hover/challenge:bg-white/20 group-hover/challenge:shadow-[0_28px_80px_rgba(0,76,255,0.16)] sm:p-8">
-        <span className="mb-3 block text-sm font-medium uppercase text-[var(--blue)]">
+        <span className="mb-3 block text-sm font-medium text-[var(--blue)]">
           {solutionLabel}
         </span>
         <h3 className="mb-4 text-2xl font-semibold leading-tight text-black">

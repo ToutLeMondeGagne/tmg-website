@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://toutlemondegagne.ca/sitemap.xml
+Sitemap: https://tmgconsultation.org/sitemap.xml

@@ -67,7 +67,7 @@ export default function AnimatedText({
     return (
       <MotionTag
         key={textKey}
-        className={joinClasses('inline-block', className)}
+        className={joinClasses('inline-block max-w-full', className)}
         initial="hidden"
         whileInView="visible"
         viewport={viewport}
@@ -80,13 +80,13 @@ export default function AnimatedText({
           <Fragment key={`${word}-${index}`}>
             <span
               className={joinClasses(
-                'inline-block overflow-hidden whitespace-nowrap pb-[0.14em] pt-[0.03em] align-baseline',
+                'inline-block max-w-full overflow-hidden pb-[0.14em] pt-[0.03em] align-baseline [overflow-wrap:anywhere]',
                 wordClassName,
               )}
               aria-hidden="true"
             >
               <motion.span
-                className="inline-block"
+                className="inline-block max-w-full [overflow-wrap:anywhere]"
                 variants={wordVariants}
                 custom={{ duration }}
               >
