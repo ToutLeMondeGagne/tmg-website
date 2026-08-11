@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { PageContainer } from '../components/layout'
 import { InternshipForm } from '../components/forms'
-import RelatedLinks from '../components/seo/RelatedLinks'
+import PageHero from '../components/sections/PageHero'
 import { useSiteContent } from '../context/useSiteContent'
-import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../components/ui'
+import { AnimatedSection, AnimatedText, Card, SectionLabel } from '../components/ui'
 
 function CarouselArrow({ direction, onClick }) {
   const isPrev = direction === 'prev'
@@ -112,6 +112,29 @@ function GalleryCarousel({ photos }) {
   )
 }
 
+function ProcessAside({ label, items }) {
+  return (
+    <div className="space-y-5">
+      <h2 className="text-sm font-medium text-white/70">{label}</h2>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {items.map((item, index) => (
+          <AnimatedSection key={item.title} delay={index * 0.05}>
+            <div className="min-h-44 border border-white/15 bg-white/[0.06] p-6 backdrop-blur-sm">
+              <span className="mb-6 flex h-9 w-9 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
+                0{index + 1}
+              </span>
+              <h3 className="mb-3 text-lg font-semibold leading-tight text-white">
+                {item.title}
+              </h3>
+              <p className="text-sm leading-6 text-white/70">{item.text}</p>
+            </div>
+          </AnimatedSection>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function Stage() {
   const { content } = useSiteContent()
   const { stage, global } = content
@@ -120,49 +143,17 @@ export default function Stage() {
 
   return (
     <main>
+      <PageHero
+        label={stage.hero.label}
+        title={stage.hero.title}
+        subtitle={stage.hero.subtitle}
+        secondaryCta={{ href: '#candidature', label: stage.hero.cta }}
+        minHeightClass="min-h-[62svh]"
+        titleClassName="max-w-4xl text-[clamp(2.4rem,11vw,4.5rem)] font-semibold leading-[0.86] tracking-normal text-white sm:text-[clamp(3rem,6vw,6.6rem)]"
+        aside={<ProcessAside label={stage.process.label} items={stage.process.items} />}
+      />
+
       <PageContainer>
-        <section className="grid gap-8 border-b border-black/20 py-20 text-left lg:grid-cols-[0.42fr_0.58fr] lg:items-center">
-          <div className="min-w-0 space-y-7">
-            <SectionLabel>{stage.hero.label}</SectionLabel>
-            <AnimatedText
-              as="h1"
-              split="words"
-              className="text-[clamp(2.4rem,11vw,4.5rem)] font-semibold leading-[0.86] tracking-normal text-black sm:text-[clamp(3rem,6vw,6.6rem)]"
-            >
-              {stage.hero.title}
-            </AnimatedText>
-            <AnimatedText as="p" delay={0.16} className="text-xl leading-8 text-black/70">
-              {stage.hero.subtitle}
-            </AnimatedText>
-            <Button href="#candidature" variant="secondary">
-              {stage.hero.cta}
-            </Button>
-          </div>
-
-          <div className="space-y-5">
-            <h2 className="text-sm font-medium text-[var(--blue)]">
-              {stage.process.label}
-            </h2>
-            <div className="grid gap-5 sm:grid-cols-2">
-              {stage.process.items.map((item, index) => (
-                <AnimatedSection key={item.title} delay={index * 0.05}>
-                  <Card className="min-h-52 text-left text-black" padding="p-6">
-                    <span className="mb-7 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105">
-                      0{index + 1}
-                    </span>
-                    <h3 className="mb-4 text-2xl font-semibold leading-tight text-black">
-                      {item.title}
-                    </h3>
-                    <p className="text-base leading-7 text-black/70">
-                      {item.text}
-                    </p>
-                  </Card>
-                </AnimatedSection>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="border-b border-black/20 py-20 text-left">
           <div className="mb-6 max-w-3xl space-y-3">
             <SectionLabel>{stage.gallery.label}</SectionLabel>
@@ -179,28 +170,30 @@ export default function Stage() {
             <GalleryCarousel photos={galleryPhotos} />
           </AnimatedSection>
         </section>
+      </PageContainer>
 
-        <section className="border-b border-black/20 py-20 text-left">
+      <section className="bg-[#191b1f] py-20 text-white sm:py-24">
+        <PageContainer>
           <div className="mb-12 max-w-3xl space-y-5">
-            <span className="text-sm font-medium text-[var(--blue)]">
+            <span className="text-sm font-medium text-[var(--green)]">
               {stage.benefits.label}
             </span>
             <AnimatedText
               as="h2"
               split="words"
-              className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
+              className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-white"
             >
               {stage.benefits.title}
             </AnimatedText>
-            <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
+            <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-white/70">
               {stage.benefits.subtitle}
             </AnimatedText>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
             {stage.benefits.items.map((benefit, index) => (
-              <AnimatedSection key={benefit.title} delay={(index % 3) * 0.06}>
-                <Card className="min-h-56 text-left text-black" padding="p-8">
+              <AnimatedSection key={benefit.title} delay={(index % 3) * 0.06} className="h-full">
+                <Card className="h-full min-h-56 text-left text-black" padding="p-8">
                   <span className="mb-8 flex h-10 w-10 items-center justify-center border border-[var(--blue)] bg-[var(--blue)] text-sm font-medium text-white">
                     0{index + 1}
                   </span>
@@ -212,8 +205,10 @@ export default function Stage() {
               </AnimatedSection>
             ))}
           </div>
-        </section>
+        </PageContainer>
+      </section>
 
+      <PageContainer>
         <section
           id="candidature"
           className="grid scroll-mt-32 gap-12 py-16 text-left lg:grid-cols-[0.42fr_0.58fr]"
@@ -247,8 +242,6 @@ export default function Stage() {
 
           <InternshipForm />
         </section>
-
-        <RelatedLinks />
       </PageContainer>
     </main>
   )

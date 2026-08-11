@@ -1,7 +1,7 @@
 import { PageContainer } from '../components/layout'
-import RelatedLinks from '../components/seo/RelatedLinks'
+import PageHero from '../components/sections/PageHero'
 import { useSiteContent } from '../context/useSiteContent'
-import { AnimatedSection, AnimatedText, Card, SectionLabel } from '../components/ui'
+import { AnimatedSection, Card } from '../components/ui'
 
 export default function QA() {
   const { content } = useSiteContent()
@@ -9,18 +9,14 @@ export default function QA() {
 
   return (
     <main>
-      <PageContainer>
-        <section className="grid gap-8 border-b border-black/20 py-20 text-left lg:grid-cols-[0.28fr_1fr]">
-          <SectionLabel>{faq.hero.label}</SectionLabel>
-          <AnimatedText
-            as="h1"
-            split="words"
-            className="max-w-6xl text-[clamp(2.6rem,12vw,5rem)] font-semibold leading-[0.86] tracking-normal text-black sm:text-[clamp(3rem,8vw,9rem)]"
-          >
-            {faq.hero.title}
-          </AnimatedText>
-        </section>
+      <PageHero
+        label={faq.hero.label}
+        title={faq.hero.title}
+        minHeightClass="min-h-[46svh]"
+        titleClassName="max-w-6xl text-[clamp(2.6rem,11vw,5rem)] font-semibold leading-[0.86] tracking-normal text-white sm:text-[clamp(3rem,7vw,7.5rem)]"
+      />
 
+      <PageContainer>
         <section>
           {faq.questions.map((item, index) => (
             <AnimatedSection key={item.question} delay={index * 0.05}>
@@ -38,8 +34,6 @@ export default function QA() {
             </AnimatedSection>
           ))}
         </section>
-
-        <RelatedLinks />
       </PageContainer>
     </main>
   )

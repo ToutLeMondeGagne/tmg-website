@@ -1,9 +1,7 @@
 import { PageContainer } from '../components/layout'
-import RelatedLinks from '../components/seo/RelatedLinks'
+import PageHero from '../components/sections/PageHero'
 import { useSiteContent } from '../context/useSiteContent'
 import { AnimatedSection, AnimatedText, Button, Card, SectionLabel } from '../components/ui'
-
-const serviceHrefs = ['/contact', '/contact', '/services#marketing']
 
 function ServiceDetailSection({ id, service }) {
   return (
@@ -78,38 +76,22 @@ export default function Services() {
 
   return (
     <main>
+      <PageHero
+        label={services.hero.label}
+        title={services.hero.title}
+        subtitle={services.hero.subtitle}
+        primaryCta={{ href: '/contact', label: services.hero.primaryCta }}
+        secondaryCta={{ href: '#web', label: services.hero.secondaryCta }}
+        minHeightClass="min-h-[52svh]"
+      />
+
       <PageContainer>
-        <section className="border-b border-black/20 py-16 text-left">
-          <SectionLabel>{services.hero.label}</SectionLabel>
-          <AnimatedText
-            as="h1"
-            split="words"
-            className="mt-6 max-w-4xl text-[clamp(2.4rem,5vw,4.6rem)] font-medium leading-[0.98] tracking-normal text-black"
-          >
-            {services.hero.title}
-          </AnimatedText>
-
-          <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <AnimatedText as="p" delay={0.16} className="max-w-md text-xl leading-7 text-black/75">
-              {services.hero.subtitle}
-            </AnimatedText>
-            <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-              <Button href="/contact" className="w-full sm:w-auto">
-                {services.hero.primaryCta}
-              </Button>
-              <Button href="#web" variant="outline" className="w-full sm:w-auto">
-                {services.hero.secondaryCta}
-              </Button>
-            </div>
-          </div>
-        </section>
-
         <section>
           {services.list.map((service, index) => (
             <AnimatedSection
               key={service.title}
               id={['pme', 'obnl', 'strategie'][index]}
-              className="grid scroll-mt-32 gap-8 border-b border-black/20 py-14 text-left lg:grid-cols-[0.08fr_0.42fr_0.32fr_0.18fr]"
+              className="grid scroll-mt-32 gap-8 border-b border-black/20 py-14 text-left lg:grid-cols-[0.08fr_0.42fr_0.5fr]"
               delay={index * 0.05}
             >
               <span className="text-sm font-medium">0{index + 1}</span>
@@ -123,29 +105,24 @@ export default function Services() {
               <AnimatedText as="p" delay={0.1} className="max-w-md text-xl leading-8 text-black/70">
                 {service.text}
               </AnimatedText>
-              <Button
-                href={serviceHrefs[index] ?? '/contact'}
-                variant="ghost"
-                className="self-start justify-self-start lg:justify-self-end"
-              >
-                {service.cta}
-              </Button>
             </AnimatedSection>
           ))}
         </section>
 
         <ServiceDetailSection id="web" service={services.web} />
         <ServiceDetailSection id="marketing" service={services.marketing} />
+      </PageContainer>
 
-        <section className="border-b border-black/20 py-20">
-          <div className="border-t border-black/45 pt-8">
+      <section className="bg-[#191b1f] py-20 text-white sm:py-24">
+        <PageContainer>
+          <div className="border-t border-white/25 pt-8">
             <div className="grid gap-8 lg:grid-cols-[0.36fr_0.64fr]">
               <div className="max-w-sm">
                 <SectionLabel>{services.focus.label}</SectionLabel>
                 <AnimatedText
                   as="h2"
                   split="words"
-                  className="mt-6 text-[clamp(2.6rem,4vw,4.2rem)] font-semibold leading-none tracking-normal text-black"
+                  className="mt-6 text-[clamp(2.6rem,4vw,4.2rem)] font-semibold leading-none tracking-normal text-white"
                 >
                   {services.focus.title}
                 </AnimatedText>
@@ -153,7 +130,7 @@ export default function Services() {
               <AnimatedText
                 as="p"
                 delay={0.1}
-                className="max-w-3xl self-end text-lg leading-7 text-black/68 md:text-xl md:leading-8"
+                className="max-w-3xl self-end text-lg leading-7 text-white/68 md:text-xl md:leading-8"
               >
                 {services.focus.body}
               </AnimatedText>
@@ -164,18 +141,18 @@ export default function Services() {
                 <AnimatedSection
                   key={item.title}
                   delay={index * 0.08}
-                  className="group relative min-h-[22rem] border-t border-black/45 pt-7 text-left"
+                  className="group relative min-h-[22rem] border-t border-white/25 pt-7 text-left"
                 >
-                  <span className="mb-12 block text-sm font-medium text-black/55">
+                  <span className="mb-12 block text-sm font-medium text-white/55">
                     0{index + 1}
                   </span>
-                  <h3 className="text-[clamp(2.7rem,4vw,4.2rem)] font-semibold leading-[0.86] tracking-normal text-[var(--blue)]">
+                  <h3 className="text-[clamp(2.7rem,4vw,4.2rem)] font-semibold leading-[0.86] tracking-normal text-[var(--green)]">
                     {item.title}
                   </h3>
-                  <p className="mt-4 max-w-md text-lg leading-7 text-black/74">
+                  <p className="mt-4 max-w-md text-lg leading-7 text-white/74">
                     {item.text}
                   </p>
-                  <p className="mt-10 border-t border-black/20 pt-5 text-sm font-semibold leading-6 tracking-normal text-black/58">
+                  <p className="mt-10 border-t border-white/20 pt-5 text-sm font-semibold leading-6 tracking-normal text-white/58">
                     {item.detail}
                   </p>
                   <span
@@ -186,10 +163,8 @@ export default function Services() {
               ))}
             </div>
           </div>
-        </section>
-
-        <RelatedLinks />
-      </PageContainer>
+        </PageContainer>
+      </section>
     </main>
   )
 }

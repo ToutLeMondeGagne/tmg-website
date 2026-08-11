@@ -1,5 +1,5 @@
 import { PageContainer } from '../components/layout'
-import RelatedLinks from '../components/seo/RelatedLinks'
+import PageHero from '../components/sections/PageHero'
 import { useSiteContent } from '../context/useSiteContent'
 import {
   AnimatedSection,
@@ -16,47 +16,34 @@ export default function About() {
 
   return (
     <main>
-      <PageContainer>
-        <section className="grid min-h-[calc(100svh-6rem)] gap-10 border-b border-black/20 py-20 text-left lg:grid-cols-[0.46fr_0.54fr] lg:items-center">
-          <div className="space-y-8">
-            <SectionLabel>{about.hero.label}</SectionLabel>
-            <AnimatedText
-              as="h1"
-              split="words"
-              className="max-w-6xl text-[clamp(2.6rem,12vw,4.8rem)] font-medium leading-[0.92] tracking-normal text-black sm:text-[clamp(3.2rem,7vw,8rem)]"
-            >
-              {about.hero.title}
-            </AnimatedText>
-            <AnimatedText
-              as="p"
-              delay={0.14}
-              className="max-w-2xl text-xl leading-8 text-black/70"
-            >
-              {about.hero.subtitle}
-            </AnimatedText>
-            <Button href="/contact" variant="secondary">
-              {about.hero.cta}
-            </Button>
-          </div>
-
+      <PageHero
+        label={about.hero.label}
+        title={about.hero.title}
+        subtitle={about.hero.subtitle}
+        secondaryCta={{ href: '/contact', label: about.hero.cta }}
+        minHeightClass="min-h-[74svh]"
+        titleClassName="max-w-6xl text-[clamp(2.6rem,10vw,4.8rem)] font-medium leading-[0.92] tracking-normal text-white sm:text-[clamp(3.2rem,6vw,6.6rem)]"
+        aside={
           <AnimatedSection delay={0.12}>
-            <figure className="relative overflow-hidden border border-black/20 bg-[var(--card)]">
+            <figure className="relative overflow-hidden border border-white/20 bg-white/5">
               <img
                 src={teamStudioImage}
                 alt="Équipe TMG en atelier de stratégie autour d'un projet web"
                 width="1672"
                 height="941"
-                className="aspect-[4/3] w-full object-cover grayscale-[10%]"
+                className="aspect-[4/3] w-full object-cover"
                 decoding="async"
                 fetchPriority="high"
               />
-              <figcaption className="absolute bottom-0 left-0 right-0 bg-[var(--bg)]/85 px-5 py-4 text-xs font-medium text-black backdrop-blur">
+              <figcaption className="absolute bottom-0 left-0 right-0 bg-black/70 px-5 py-4 text-xs font-medium text-white backdrop-blur">
                 {about.hero.imageCaption}
               </figcaption>
             </figure>
           </AnimatedSection>
-        </section>
+        }
+      />
 
+      <PageContainer>
         <section className="grid gap-10 border-b border-black/20 py-20 text-left lg:grid-cols-[0.28fr_1fr]">
           <div>
             <SectionLabel>{about.model.label}</SectionLabel>
@@ -96,18 +83,20 @@ export default function About() {
             </AnimatedSection>
           ))}
         </section>
+      </PageContainer>
 
-        <section className="border-b border-black/20 py-20 text-left">
+      <section className="bg-[#191b1f] py-20 text-white sm:py-24">
+        <PageContainer>
           <div className="mb-12 max-w-4xl space-y-5">
             <SectionLabel>{about.team.label}</SectionLabel>
             <AnimatedText
               as="h2"
               split="words"
-              className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-black"
+              className="text-[clamp(2.8rem,6vw,6.5rem)] font-medium leading-[0.92] tracking-normal text-white"
             >
               {about.team.title}
             </AnimatedText>
-            <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-black/70">
+            <AnimatedText as="p" delay={0.12} className="text-xl leading-8 text-white/70">
               {about.team.subtitle}
             </AnimatedText>
           </div>
@@ -140,8 +129,10 @@ export default function About() {
               </AnimatedSection>
             ))}
           </div>
-        </section>
+        </PageContainer>
+      </section>
 
+      <PageContainer>
         <section className="grid gap-5 border-b border-black/20 py-20 md:grid-cols-3">
           {about.values.map((value, index) => (
             <AnimatedSection key={value.title} delay={index * 0.08}>
@@ -172,8 +163,6 @@ export default function About() {
             <Button href="/contact">{about.cta.button}</Button>
           </div>
         </section>
-
-        <RelatedLinks />
       </PageContainer>
     </main>
   )

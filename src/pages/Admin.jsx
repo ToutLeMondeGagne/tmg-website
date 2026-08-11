@@ -180,6 +180,97 @@ function GalleryPhotosField({ label, description, path, value, onChange }) {
   )
 }
 
+function TestimonialsField({ label, description, path, value, onChange }) {
+  const items = Array.isArray(value) ? value : []
+
+  const handleAdd = () => {
+    onChange([
+      ...items,
+      { type: 'organisation', quote: '', name: '', role: '' },
+    ])
+  }
+
+  const handleRemove = (index) => {
+    onChange(items.filter((_, itemIndex) => itemIndex !== index))
+  }
+
+  const handleFieldChange = (index, field, fieldValue) => {
+    onChange(
+      items.map((item, itemIndex) =>
+        itemIndex === index ? { ...item, [field]: fieldValue } : item,
+      ),
+    )
+  }
+
+  return (
+    <div>
+      <h3 className="text-xl font-semibold text-black">{label}</h3>
+      <p className="mt-1 text-sm leading-6 text-black/60">{description}</p>
+
+      <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((item, index) => (
+          <div key={index} className="space-y-3 border border-black/20 bg-[var(--card)] p-4">
+            <label className="block">
+              <span className="mb-1 block text-xs font-medium text-[var(--blue)]">Type</span>
+              <select
+                value={item.type === 'stagiaire' ? 'stagiaire' : 'organisation'}
+                onChange={(event) => handleFieldChange(index, 'type', event.target.value)}
+                className="w-full border border-black/20 bg-white px-3 py-2 text-sm text-black outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
+              >
+                <option value="organisation">Organisation (noir)</option>
+                <option value="stagiaire">Stagiaire (bleu)</option>
+              </select>
+            </label>
+            <label className="block">
+              <span className="mb-1 block text-xs font-medium text-[var(--blue)]">Citation</span>
+              <textarea
+                rows={4}
+                value={item.quote || ''}
+                onChange={(event) => handleFieldChange(index, 'quote', event.target.value)}
+                className="w-full resize-y border border-black/20 bg-white px-3 py-2 text-sm leading-6 text-black outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
+              />
+            </label>
+            <label className="block">
+              <span className="mb-1 block text-xs font-medium text-[var(--blue)]">Nom</span>
+              <input
+                type="text"
+                value={item.name || ''}
+                onChange={(event) => handleFieldChange(index, 'name', event.target.value)}
+                className="w-full border border-black/20 bg-white px-3 py-2 text-sm text-black outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
+              />
+            </label>
+            <label className="block">
+              <span className="mb-1 block text-xs font-medium text-[var(--blue)]">Rôle</span>
+              <input
+                type="text"
+                value={item.role || ''}
+                onChange={(event) => handleFieldChange(index, 'role', event.target.value)}
+                className="w-full border border-black/20 bg-white px-3 py-2 text-sm text-black outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
+              />
+            </label>
+            <button
+              type="button"
+              onClick={() => handleRemove(index)}
+              className="border border-black/30 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-black/70 transition hover:border-black hover:text-black"
+            >
+              Retirer
+            </button>
+          </div>
+        ))}
+
+        <button
+          type="button"
+          onClick={handleAdd}
+          className="flex min-h-[12rem] cursor-pointer flex-col items-center justify-center gap-2 border-2 border-dashed border-black/25 text-sm font-medium text-black/60 transition hover:border-[var(--blue)] hover:text-[var(--blue)]"
+        >
+          <span aria-hidden="true" className="text-3xl">+</span>
+          <span>Ajouter un témoignage</span>
+        </button>
+      </div>
+    </div>
+  )
+}
+
 function downloadJson(content) {
   const blob = new Blob([`${JSON.stringify(content, null, 2)}\n`], {
     type: 'application/json;charset=utf-8',
@@ -534,6 +625,16 @@ function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent, 
               path="stage.gallery.photos"
               value={getContentValue(draft, 'stage.gallery.photos')}
               onChange={(value) => updateField('stage.gallery.photos', value)}
+            />
+          </section>
+
+          <section className="border-t border-black/25 pt-8">
+            <TestimonialsField
+              label="Accueil - Témoignages"
+              description="Ajoutez, modifiez ou retirez les témoignages affichés sur la page d'accueil. Choisissez le type pour définir la couleur de la carte (organisation en noir, stagiaire en bleu)."
+              path="home.testimonials.items"
+              value={getContentValue(draft, 'home.testimonials.items')}
+              onChange={(value) => updateField('home.testimonials.items', value)}
             />
           </section>
 

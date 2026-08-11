@@ -38,7 +38,11 @@ export const defaultSiteContent = {
     about: {
       label: 'À propos',
       title: 'Un mandat qui crée de la valeur des deux côtés.',
-      splitLabels: ['Les organisations avancent', 'La relève acquiert de l’expérience'],
+      splitLabels: ['', ''],
+      image: {
+        url: '/uploads/stage-gallery/stagiaires-groupe.jpg',
+        alt: 'Équipe de stagiaires TMG réunie',
+      },
       body:
         'Tout le Monde Gagne relie les startups, les PME et les OBNL à une relève motivée autour de projets web et marketing concrets.',
       bodySecondary:
@@ -104,16 +108,19 @@ export const defaultSiteContent = {
       subtitle: 'Ces témoignages sont entièrement fictifs et servent uniquement à montrer l’apparence de la section, en attendant de vrais retours clients.',
       items: [
         {
+          type: 'organisation',
           quote: 'TMG a clarifié notre message et notre site convertit enfin. On sait exactement quoi dire à nos clients, et où.',
           name: 'Direction',
           role: 'PME en croissance',
         },
         {
+          type: 'organisation',
           quote: 'Une équipe encadrée, des livrables concrets et un vrai suivi. Notre présence en ligne a changé de niveau en quelques semaines.',
           name: 'Coordination',
           role: 'OBNL',
         },
         {
+          type: 'stagiaire',
           quote: 'Le stage m’a donné de vrais mandats et un portfolio solide. J’ai gagné une expérience professionnelle réelle, pas juste théorique.',
           name: 'Stagiaire',
           role: 'Développement web',
@@ -388,7 +395,6 @@ export const defaultSiteContent = {
       label: 'La relève TMG',
       title: 'Ils ont vécu l\'expérience stagiaire chez TMG.',
       photos: [
-        { id: 'stagiaires-groupe', url: '/uploads/stage-gallery/stagiaires-groupe.jpg', alt: 'Équipe de stagiaires TMG réunie' },
         { id: 'stagiaire-1', url: '/uploads/stage-gallery/stagiaire-1.jpg', alt: 'Stagiaire TMG au travail sur un mandat client' },
         { id: 'stagiaire-2', url: '/uploads/stage-gallery/stagiaire-2.jpg', alt: 'Stagiaire TMG au travail sur un mandat client' },
         { id: 'stagiaire-3', url: '/uploads/stage-gallery/stagiaire-3.jpg', alt: 'Stagiaire TMG au travail sur un mandat client' },

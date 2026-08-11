@@ -1,5 +1,4 @@
 import { PageContainer } from '../components/layout'
-import RelatedLinks from '../components/seo/RelatedLinks'
 import NewsletterSection from '../components/sections/NewsletterSection'
 import ProjectsShowcase from '../components/sections/ProjectsShowcase'
 
@@ -218,25 +217,25 @@ export default function Home() {
         </section>
 
         <section className="grid gap-10 border-b border-black/20 py-20 lg:grid-cols-2 lg:items-center lg:gap-14">
-          <div className="relative aspect-square w-full overflow-hidden border-t border-black/20">
-            <div className="grid h-full grid-cols-2">
-              <div className="flex flex-col justify-between bg-[var(--blue)] p-6 text-white">
-                <span className="text-sm font-semibold opacity-80">01</span>
-                <span className="text-2xl font-bold uppercase leading-tight sm:text-3xl">
-                  {home.about.splitLabels[0]}
-                </span>
-              </div>
-              <div className="flex flex-col justify-between bg-[#191b1f] p-6 text-white">
-                <span className="text-right text-sm font-semibold opacity-80">02</span>
-                <span className="text-2xl font-bold uppercase leading-tight sm:text-3xl">
-                  {home.about.splitLabels[1]}
-                </span>
-              </div>
-            </div>
-            <div className="absolute left-1/2 top-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--green)] shadow-[0_12px_34px_rgba(0,0,0,0.28)]">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17 L17 7 M9 7 H17 V15" stroke="#111111" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+          <div className="relative aspect-[3/4] w-full overflow-hidden border-t border-black/20">
+            <img
+              src={home.about.image.url}
+              alt={home.about.image.alt}
+              className="h-full w-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+            <div
+              className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pt-16"
+              aria-hidden="true"
+            />
+            <div className="absolute inset-x-0 bottom-0 grid grid-cols-2 gap-4 p-6 text-white">
+              <span className="text-lg font-bold uppercase leading-tight sm:text-xl">
+                {home.about.splitLabels[0]}
+              </span>
+              <span className="text-right text-lg font-bold uppercase leading-tight sm:text-xl">
+                {home.about.splitLabels[1]}
+              </span>
             </div>
           </div>
 
@@ -364,15 +363,14 @@ export default function Home() {
           </div>
           <div className="mt-14 grid gap-5 md:grid-cols-3">
             {home.testimonials.items.map((item, index) => {
-              const styles = [
-                'border-t border-black/25 bg-[var(--card)] text-black',
-                'bg-[#191b1f] text-white',
-                'bg-[var(--blue)] text-white',
-              ]
+              const style =
+                item.type === 'stagiaire'
+                  ? 'bg-[var(--blue)] text-white'
+                  : 'bg-[#191b1f] text-white'
 
               return (
                 <AnimatedSection key={item.name} delay={index * 0.08}>
-                  <figure className={`flex h-full flex-col gap-6 p-7 ${styles[index % styles.length]}`}>
+                  <figure className={`flex h-full flex-col gap-6 p-7 ${style}`}>
                     <div className="flex items-center justify-between">
                       <span aria-hidden="true" className="font-serif text-6xl leading-none opacity-40">
                         “
@@ -404,8 +402,6 @@ export default function Home() {
             />
           </AnimatedSection>
         </section>
-
-        <RelatedLinks />
       </PageContainer>
     </main>
   )

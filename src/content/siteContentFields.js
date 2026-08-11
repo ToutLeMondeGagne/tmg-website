@@ -34,6 +34,15 @@ export const siteContentFields = [
     ],
   },
   {
+    title: 'Accueil - Témoignages',
+    description: 'Titre et texte d\'intro de la section témoignages (les témoignages eux-mêmes se gèrent juste en dessous).',
+    fields: [
+      { path: 'home.testimonials.label', label: 'Label de section' },
+      { path: 'home.testimonials.title', label: 'Titre', type: 'textarea', rows: 2 },
+      { path: 'home.testimonials.subtitle', label: 'Sous-titre', type: 'textarea', rows: 3 },
+    ],
+  },
+  {
     title: 'Accueil - Ticket',
     description: 'Carte de première rencontre gratuite.',
     fields: [
