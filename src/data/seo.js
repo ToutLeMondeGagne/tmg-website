@@ -40,7 +40,7 @@ const serviceArea = [
 
 const serviceOffers = [
   {
-    path: '/services/web',
+    path: '/services#web',
     name: 'Création et refonte de sites web',
     description:
       'Création, refonte, optimisation SEO, design mobile-first et suivi analytique pour PME, startups et OBNL.',
@@ -48,28 +48,12 @@ const serviceOffers = [
     audience: ['PME', 'Startups', 'OBNL'],
   },
   {
-    path: '/services/marketing',
+    path: '/services#marketing',
     name: 'Audit marketing et stratégie de contenu',
     description:
       'Audit de présence actuelle, personas, stratégie de contenu, plan d’action et indicateurs de succès.',
     serviceType: 'Audit marketing',
     audience: ['PME', 'Startups', 'OBNL'],
-  },
-  {
-    path: '/pme',
-    name: 'Accompagnement web et marketing pour PME',
-    description:
-      'Sites web, audits marketing et stratégies numériques adaptés aux budgets et objectifs de croissance des PME.',
-    serviceType: 'Marketing PME',
-    audience: ['PME', 'Startups'],
-  },
-  {
-    path: '/obnl',
-    name: 'Sites web et stratégie numérique pour OBNL',
-    description:
-      'Solutions numériques accessibles pour clarifier le message, mobiliser la communauté et soutenir la mission des OBNL.',
-    serviceType: 'Marketing OBNL',
-    audience: ['OBNL', 'Organismes communautaires'],
   },
 ]
 
@@ -88,62 +72,6 @@ export const seoPages = {
       'services web OBNL',
       'agence web Montréal',
       'stratégie marketing Montréal',
-    ],
-  },
-  '/services/web': {
-    title: 'Création et refonte de sites web pour PME et OBNL | TMG',
-    description:
-      'TMG crée des sites web rapides, clairs, mobile-first et optimisés SEO pour aider les PME et OBNL à être trouvés, compris et contactés.',
-    keywords: [
-      'création site web PME Montréal',
-      'refonte site web PME',
-      'site web pour OBNL',
-      'site web optimisé SEO',
-    ],
-  },
-  '/services/marketing': {
-    title: 'Audit marketing et stratégie de contenu pour PME | TMG',
-    description:
-      'Audit marketing, analyse de positionnement, personas, plan de contenu et indicateurs de succès pour clarifier vos priorités et mieux attirer vos clients.',
-    keywords: [
-      'audit marketing Montréal',
-      'stratégie marketing PME',
-      'plan de contenu',
-      'positionnement marketing',
-    ],
-  },
-  '/pme': {
-    title: 'Marketing et sites web abordables pour PME | TMG',
-    description:
-      'TMG accompagne les PME et startups avec des sites web, audits marketing et stratégies numériques adaptés à leurs budgets et objectifs de croissance.',
-    keywords: [
-      'marketing PME Montréal',
-      'site web PME',
-      'agence marketing abordable',
-      'startup Montréal marketing',
-    ],
-  },
-  '/entreprises': {
-    title: 'Marketing et sites web abordables pour PME | TMG',
-    description:
-      'TMG accompagne les PME et startups avec des sites web, audits marketing et stratégies numériques adaptés à leurs budgets et objectifs de croissance.',
-    canonicalPath: '/pme',
-    keywords: [
-      'marketing PME Montréal',
-      'site web PME',
-      'agence marketing abordable',
-      'startup Montréal marketing',
-    ],
-  },
-  '/obnl': {
-    title: 'Sites web et stratégie numérique pour OBNL | TMG',
-    description:
-      'TMG aide les OBNL à clarifier leur message, créer des sites accessibles et mobiliser donateurs, bénévoles et bénéficiaires sans frais inutiles.',
-    keywords: [
-      'site web OBNL',
-      'marketing OBNL',
-      'communication organisme sans but lucratif',
-      'stratégie numérique OBNL',
     ],
   },
   '/stage': {
@@ -224,77 +152,9 @@ export const relatedPageLinks = {
       to: '/services',
     },
     {
-      title: 'Solutions pour PME',
-      description: 'Des sites et audits adaptés aux équipes qui veulent croître clairement.',
-      to: '/pme',
-    },
-    {
-      title: 'Solutions pour OBNL',
-      description: 'Une présence numérique accessible pour soutenir votre mission.',
-      to: '/obnl',
-    },
-  ],
-  '/services': [
-    {
-      title: 'Création et refonte web',
-      description: 'Site rapide, clair, mobile-first et pensé pour convertir.',
-      to: '/services/web',
-    },
-    {
-      title: 'Audit marketing',
-      description: 'Clarifier vos priorités, vos contenus et vos indicateurs.',
-      to: '/services/marketing',
-    },
-    {
-      title: 'PME et startups',
-      description: 'Des livrables réalistes pour avancer sans modèle d’agence lourd.',
-      to: '/pme',
-    },
-  ],
-  '/services/web': [
-    {
-      title: 'Audit marketing',
-      description: 'Compléter votre site avec une stratégie claire et mesurable.',
-      to: '/services/marketing',
-    },
-    {
-      title: 'Services pour PME',
-      description: 'Voir l’approche TMG pour les entreprises en croissance.',
-      to: '/pme',
-    },
-    {
-      title: 'Services pour OBNL',
-      description: 'Adapter votre site à une mission, une communauté et des dons.',
-      to: '/obnl',
-    },
-  ],
-  '/services/marketing': [
-    {
-      title: 'Création et refonte web',
-      description: 'Transformer la stratégie en pages claires et performantes.',
-      to: '/services/web',
-    },
-    {
-      title: 'Services pour PME',
-      description: 'Prioriser les actions marketing d’une petite équipe.',
-      to: '/pme',
-    },
-    {
-      title: 'Contact',
-      description: 'Discuter de votre situation et de la meilleure prochaine étape.',
-      to: '/contact',
-    },
-  ],
-  '/pme': [
-    {
-      title: 'Création et refonte web',
-      description: 'Un site vitrine ou e-commerce mobile-first et optimisé SEO.',
-      to: '/services/web',
-    },
-    {
-      title: 'Audit marketing',
-      description: 'Positionnement, contenu, concurrents et plan d’action.',
-      to: '/services/marketing',
+      title: 'Stagiaires',
+      description: 'Découvrir les mandats réels confiés à la relève.',
+      to: '/stage',
     },
     {
       title: 'À propos de TMG',
@@ -302,21 +162,21 @@ export const relatedPageLinks = {
       to: '/a-propos',
     },
   ],
-  '/obnl': [
-    {
-      title: 'Création et refonte web',
-      description: 'Un site accessible pour mobiliser donateurs, bénévoles et bénéficiaires.',
-      to: '/services/web',
-    },
-    {
-      title: 'Audit marketing',
-      description: 'Clarifier votre communication et les bons canaux pour votre mission.',
-      to: '/services/marketing',
-    },
+  '/services': [
     {
       title: 'À propos de TMG',
-      description: 'Voir comment l’équipe encadre les mandats et la transmission.',
+      description: 'Comprendre le modèle propulsé par la relève.',
       to: '/a-propos',
+    },
+    {
+      title: 'Stagiaires',
+      description: 'Voir les vrais mandats clients sur lesquels les stagiaires contribuent.',
+      to: '/stage',
+    },
+    {
+      title: 'Contact',
+      description: 'Discuter de votre situation et de la meilleure prochaine étape.',
+      to: '/contact',
     },
   ],
   '/stage': [
@@ -360,26 +220,26 @@ export const relatedPageLinks = {
       to: '/services',
     },
     {
-      title: 'Solutions pour PME',
-      description: 'Voir l’approche pour les entreprises en croissance.',
-      to: '/pme',
+      title: 'À propos de TMG',
+      description: 'Comprendre le modèle propulsé par la relève.',
+      to: '/a-propos',
     },
     {
-      title: 'Solutions pour OBNL',
-      description: 'Voir l’approche pour les organismes à mission.',
-      to: '/obnl',
+      title: 'Contact',
+      description: 'Présenter votre projet ou poser une question à TMG.',
+      to: '/contact',
     },
   ],
   '/contact': [
     {
       title: 'Création et refonte web',
       description: 'Préparer une demande de site ou de refonte.',
-      to: '/services/web',
+      to: '/services#web',
     },
     {
       title: 'Audit marketing',
       description: 'Préparer une demande de stratégie ou de diagnostic.',
-      to: '/services/marketing',
+      to: '/services#marketing',
     },
     {
       title: 'Questions fréquentes',
@@ -412,6 +272,12 @@ export function absoluteUrl(path = '/') {
   return `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`
 }
 
+// Le build genere dist/<route>/index.html : l'URL servie sans redirection
+// est donc toujours celle avec un slash final (sauf la racine).
+function withTrailingSlash(path) {
+  return path === '/' ? path : `${path}/`
+}
+
 export function getSeoForPath(pathname) {
   const path = normalizePath(pathname)
   const pageSeo = seoPages[path]
@@ -419,7 +285,7 @@ export function getSeoForPath(pathname) {
   if (!pageSeo) {
     return {
       ...notFoundSeo,
-      canonicalUrl: absoluteUrl(path),
+      canonicalUrl: absoluteUrl(withTrailingSlash(path)),
       ogImage: absoluteUrl(DEFAULT_OG_IMAGE),
     }
   }
@@ -429,7 +295,7 @@ export function getSeoForPath(pathname) {
   return {
     robots: 'index, follow',
     ...pageSeo,
-    canonicalUrl: absoluteUrl(canonicalPath),
+    canonicalUrl: absoluteUrl(withTrailingSlash(canonicalPath)),
     ogImage: absoluteUrl(pageSeo.ogImage || DEFAULT_OG_IMAGE),
   }
 }
@@ -444,11 +310,6 @@ export function getRelatedLinksForPath(pathname) {
 function buildBreadcrumbItems(path) {
   const labels = {
     services: 'Services',
-    web: 'Création et refonte web',
-    marketing: 'Audit marketing',
-    pme: 'PME',
-    entreprises: 'PME',
-    obnl: 'OBNL',
     stage: 'Stagiaires',
     'a-propos': 'À propos',
     faq: 'FAQ',

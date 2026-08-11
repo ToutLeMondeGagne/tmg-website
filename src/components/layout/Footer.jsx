@@ -4,8 +4,7 @@ import tmgLogo from '../../assets/logos/tmg-logo.png'
 
 const footerLinks = [
   { label: 'Accueil', to: '/' },
-  { label: 'PME', to: '/pme' },
-  { label: 'OBNL', to: '/obnl' },
+  { label: 'Services', to: '/services' },
   { label: 'Stagiaires', to: '/stage' },
   { label: 'Contact', to: '/contact' },
 ]

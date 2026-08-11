@@ -18,9 +18,9 @@ const interests = [
 function FormSection({ number, title, children }) {
   return (
     <section className="border-b border-black/25 pb-8 last:border-b-0 last:pb-0">
-      <h2 className="mb-7 text-2xl font-semibold leading-none text-black">
+      <h3 className="mb-7 text-2xl font-semibold leading-none text-black">
         <span className="font-medium">{number}</span> | {title}
-      </h2>
+      </h3>
       {children}
     </section>
   )

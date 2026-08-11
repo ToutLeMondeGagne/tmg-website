@@ -6,34 +6,120 @@ export const defaultSiteContent = {
   },
   home: {
     hero: {
-      title: 'Sites web et marketing qui transforment votre trafic en clients.',
+      title: 'Tout le Monde Gagne : des services web et marketing accessibles aux startups et aux OBNL.',
       subtitle:
         'On construit des sites et systèmes marketing pour les équipes qui veulent être vues, comprises et choisies.',
-      primaryCta: 'Construisons le vôtre',
+      primaryCta: 'Réserver l’appel découverte gratuit ↗',
       secondaryCta: 'Voir les services ↗',
     },
+    stats: [
+      { value: '100 %', label: 'Exécution concrète, pas seulement des recommandations.' },
+      { value: 'Gratuit', label: 'Premier appel découverte, sans engagement.' },
+      { value: '2 côtés gagnants', label: 'Des organisations propulsées et une relève formée.' },
+    ],
+    context: {
+      label: 'Le contexte',
+      title: 'On connaît la réalité des startups et des OBNL.',
+      items: [
+        {
+          title: 'Pas d’expertise marketing à l’interne',
+          text: 'Vous savez que votre présence doit s’améliorer, mais personne dans l’équipe n’a le temps ni le bagage pour la piloter.',
+        },
+        {
+          title: 'Pas le temps de vous en occuper',
+          text: 'Entre les opérations et la croissance, le marketing passe toujours en dernier et finit par stagner.',
+        },
+        {
+          title: 'Pas le budget d’une agence traditionnelle',
+          text: 'Les honoraires d’une agence classique sont souvent hors de portée pour une startup ou un OBNL en démarrage.',
+        },
+      ],
+    },
     about: {
-      label: 'À propos de TMG',
-      title:
-        'La plupart des sites restent là. Le vôtre doit devenir la raison pour laquelle on vous contacte.',
+      label: 'À propos',
+      title: 'Un mandat qui crée de la valeur des deux côtés.',
+      splitLabels: ['Les organisations avancent', 'La relève acquiert de l’expérience'],
       body:
-        'TMG cartographie votre offre, clarifie votre message et transforme votre présence web en expérience qui éduque, rassure et convertit.',
+        'Tout le Monde Gagne relie les startups, les PME et les OBNL à une relève motivée autour de projets web et marketing concrets.',
+      bodySecondary:
+        'Les organisations obtiennent des services accessibles pour structurer leur croissance. Les jeunes développent une première expérience professionnelle réelle, dans une équipe supervisée.',
       cta: 'Découvrir TMG ↗',
     },
-    highlights: [
-      {
-        title: 'Sites web',
-        text: 'Des pages rapides, claires et pensées pour convertir les bons visiteurs.',
-      },
-      {
-        title: 'Marketing',
-        text: 'Des campagnes simples à comprendre, solides à mesurer et faciles à ajuster.',
-      },
-      {
-        title: 'Systèmes',
-        text: 'Une expérience structurée pour guider les prospects du premier clic au rendez-vous.',
-      },
-    ],
+    offers: {
+      label: 'Nos offres de service',
+      title: 'Le bon service, selon l’étape où vous êtes.',
+      subtitle: 'TMG ne fait pas que recommander, on exécute concrètement les actions, encadrés par la direction.',
+      cta: 'Parler de votre projet ↗',
+      items: [
+        {
+          icon: 'target',
+          eyebrow: 'Vous ne savez pas par où commencer?',
+          title: 'Structurer votre marketing',
+          text: 'Clarifier les priorités, analyser la situation et transformer les idées en un plan d’action marketing concret.',
+          highlights: ['2 à 4 semaines', 'Audit complet + plan d’action priorisé'],
+          cta: 'Découvrir l’offre ↗',
+          href: '/services#marketing',
+        },
+        {
+          icon: 'chart',
+          eyebrow: 'Vous avez d’autres chats à fouetter?',
+          title: 'Exécuter votre marketing',
+          text: 'Faire avancer les contenus, les campagnes et les actions prioritaires avec une équipe encadrée par TMG.',
+          highlights: ['Équipe encadrée par la direction', 'Contenus, campagnes et suivi continu'],
+          cta: 'Discuter de l’exécution ↗',
+          href: '/contact',
+        },
+        {
+          icon: 'browser',
+          eyebrow: 'Votre site web n’en fait pas assez?',
+          title: 'Création et optimisation de sites web',
+          text: 'Créer ou améliorer un site rapide, clair, mobile-first et optimisé pour être trouvé, compris et convertir.',
+          highlights: ['4 à 8 semaines', 'Mobile-first et SEO inclus'],
+          cta: 'Découvrir le service web ↗',
+          href: '/services#web',
+        },
+      ],
+    },
+    process: {
+      label: 'Le fonctionnement',
+      title: 'Offre de service subventionné : Structurer votre marketing.',
+      items: [
+        {
+          title: 'Rencontre découverte',
+          text: 'On cerne vos objectifs, votre contexte et vos priorités lors d’un premier appel gratuit.',
+        },
+        {
+          title: 'Analyse & plan d’action (GTM)',
+          text: 'On analyse votre situation et on rédige un plan Go-To-Market clair et priorisé.',
+        },
+        {
+          title: 'Exécution & présentation finale',
+          text: 'On exécute concrètement les recommandations, encadrés par la direction, puis on vous présente les résultats.',
+        },
+      ],
+    },
+    testimonials: {
+      label: 'Témoignages',
+      title: 'Des collaborations qui font avancer.',
+      subtitle: 'Ces témoignages sont entièrement fictifs et servent uniquement à montrer l’apparence de la section, en attendant de vrais retours clients.',
+      items: [
+        {
+          quote: 'TMG a clarifié notre message et notre site convertit enfin. On sait exactement quoi dire à nos clients, et où.',
+          name: 'Direction',
+          role: 'PME en croissance',
+        },
+        {
+          quote: 'Une équipe encadrée, des livrables concrets et un vrai suivi. Notre présence en ligne a changé de niveau en quelques semaines.',
+          name: 'Coordination',
+          role: 'OBNL',
+        },
+        {
+          quote: 'Le stage m’a donné de vrais mandats et un portfolio solide. J’ai gagné une expérience professionnelle réelle, pas juste théorique.',
+          name: 'Stagiaire',
+          role: 'Développement web',
+        },
+      ],
+    },
     ticket: {
       title: 'Première rencontre gratuite',
       subtitle:
@@ -104,7 +190,11 @@ export const defaultSiteContent = {
   services: {
     hero: {
       label: 'Nos services',
-      title: 'Services web et marketing pour PME et OBNL.',
+      title: 'services marketing subventionnés pour startups et OBNL.',
+      subtitle:
+        'TMG ne fait pas que recommander, on exécute concrètement les actions, encadrés par la direction.',
+      primaryCta: 'Parler de votre projet ↗',
+      secondaryCta: 'Voir les services ↓',
     },
     list: [
       {
@@ -123,6 +213,85 @@ export const defaultSiteContent = {
         cta: 'Découvrir ↗',
       },
     ],
+    web: {
+      label: 'Service web',
+      title: 'Création & Refonte Web',
+      accent: 'Refonte Web',
+      description:
+        'Un site web qui vous représente, qui se charge vite, qui se trouve sur Google, et qui guide vos visiteurs vers l\'action. Livré en 4 à 8 semaines.',
+      cta: 'Démarrer un projet web',
+      facts: [
+        { title: '4-8 semaines', text: 'Délai de livraison typique' },
+        { title: 'Mobile-first', text: 'Optimisé pour tous les appareils' },
+        { title: 'SEO inclus', text: 'Optimisation pour les moteurs de recherche' },
+      ],
+      deliverables: [
+        {
+          title: 'Design & maquettes',
+          text: 'Maquettes haute-fidélité validées avec vous avant développement. Identité visuelle cohérente et moderne.',
+        },
+        {
+          title: 'Développement complet',
+          text: 'Site entièrement développé, testé sur tous les navigateurs et appareils. Code propre et documenté.',
+        },
+        {
+          title: 'Optimisation SEO',
+          text: 'Structure technique, balises, vitesse de chargement et meilleures pratiques SEO intégrées dès la base.',
+        },
+        {
+          title: 'CMS & gestion de contenu',
+          text: 'Interface d’administration simple pour que vous puissiez mettre à jour votre contenu sans coder.',
+        },
+        {
+          title: 'Remise complète des fichiers',
+          text: 'Tous les fichiers sources, accès CMS, domaine et hébergement remis à la fin. Aucune dépendance.',
+        },
+        {
+          title: 'Analytique & suivi',
+          text: 'Intégration de Google Analytics, configuration des objectifs de conversion et tableau de bord de base.',
+        },
+      ],
+    },
+    marketing: {
+      label: 'Service marketing',
+      title: 'Stratégie & Audit Marketing',
+      accent: 'Audit Marketing',
+      description:
+        'Un diagnostic complet de votre présence marketing et un plan d\'action structuré avec des objectifs clairs, des canaux identifiés et des indicateurs de succès. Livré en 2 à 4 semaines.',
+      cta: 'Démarrer un audit',
+      facts: [
+        { title: '2-4 semaines', text: 'Délai de livraison typique' },
+        { title: 'Audit complet', text: 'Analyse de votre situation actuelle' },
+        { title: 'Plan d’action', text: 'Priorités, canaux et indicateurs définis' },
+        { title: 'Présentation finale', text: 'Résultats expliqués à votre équipe' },
+      ],
+      deliverables: [
+        {
+          title: 'Audit de présence actuelle',
+          text: 'Analyse de votre site, vos réseaux, votre contenu et votre positionnement par rapport aux concurrents.',
+        },
+        {
+          title: 'Définition des personas',
+          text: 'Identification de vos cibles principales avec leurs besoins, comportements et points de contact clés.',
+        },
+        {
+          title: 'Stratégie de contenu',
+          text: 'Plan de contenu adapté à vos cibles et canaux : sujets, formats, fréquence et ton de communication.',
+        },
+        {
+          title: 'Plan d’action priorisé',
+          text: 'Actions classées par priorité et impact estimé, avec responsables suggérés et échéancier réaliste.',
+        },
+        {
+          title: 'Indicateurs de succès (KPIs)',
+          text: 'Définition des métriques à suivre pour mesurer l\'efficacité de chaque action recommandée.',
+        },
+        {
+          title: 'Présentation à votre équipe',
+          text: 'Session de présentation des résultats et du plan - format questions/réponses inclus.',
+        },
+      ],
+    },
     focus: {
       label: 'Notre terrain',
       title: 'Ce qu\'on construit avec vous.',
@@ -145,164 +314,6 @@ export const defaultSiteContent = {
           detail: 'Parcours client, automatisations légères, CRM et suivi des conversions.',
         },
       ],
-    },
-  },
-  pme: {
-    hero: {
-      label: 'Pour les entreprises',
-      title: 'Croissez sans vous ruiner en',
-      accent: 'marketing.',
-      subtitle:
-        'Des stratégies marketing et des sites web de qualité professionnelle, à un coût adapté à la réalité d\'une PME ou d\'une startup en croissance.',
-      cta: 'Démarrer un projet',
-    },
-    promises: [
-      {
-        title: 'Coûts réduits',
-        text: 'Sans compromettre la qualité des livrables.',
-      },
-      {
-        title: '100 % vôtre',
-        text: 'Tous les accès et fichiers remis à la fin.',
-      },
-      {
-        title: 'Livraison rapide',
-        text: 'Des délais respectés, sans étirer le budget.',
-      },
-      {
-        title: 'Supervisé & révisé',
-        text: 'Chaque livrable validé avant remise.',
-      },
-    ],
-    challenges: {
-      label: 'On vous comprend',
-      title: 'Les défis que vous connaissez.',
-      subtitle: 'Et les solutions qu\'on apporte.',
-      items: [
-        {
-          problemTitle: 'Les agences traditionnelles coûtent trop cher',
-          problem:
-            'Les devis des grandes agences dépassent souvent le budget d\'une PME, surtout en phase de démarrage ou de croissance.',
-          answerTitle: 'Un modèle qui réduit les coûts sans réduire la qualité',
-          answer:
-            'Le modèle stage permet d\'offrir des services à des tarifs accessibles. Chaque livrable est supervisé et révisé avant remise.',
-        },
-        {
-          problemTitle: 'Vous n\'avez pas le temps de gérer le marketing',
-          problem:
-            'Gérer son site, ses réseaux et sa stratégie en plus de son cœur de métier, c\'est souvent trop pour une petite équipe.',
-          answerTitle: 'On prend en charge, vous validez',
-          answer:
-            'TMG gère l\'exécution complète. Vous n\'avez qu\'à approuver les jalons clés. Aucune micro-gestion requise de votre côté.',
-        },
-      ],
-    },
-    services: {
-      label: 'Ce qu\'on vous offre',
-      title: 'Nos services pour les PME',
-      subtitle:
-        'Des livrables concrets, des délais réalistes, une supervision professionnelle.',
-      items: [
-        {
-          title: 'Création & Refonte Web',
-          text:
-            'Site vitrine ou e-commerce, mobile-first, optimisé SEO, avec formation à la prise en main incluse.',
-          timeline: '4-8 semaines',
-          href: '/services/web',
-        },
-        {
-          title: 'Stratégie & Audit Marketing',
-          text:
-            'Analyse de votre positionnement, de vos concurrents et plan d\'action détaillé avec indicateurs de succès.',
-          timeline: '2-4 semaines',
-          href: '/services/marketing',
-        },
-      ],
-    },
-    cta: {
-      title: 'Un budget adapté à votre réalité.',
-      body:
-        'On ne pratique pas les tarifs d\'une grande agence. On discute de votre projet, de vos contraintes, et on trouve ensemble une approche qui vous convient.',
-      button: 'Démarrer un projet',
-    },
-  },
-  obnl: {
-    hero: {
-      label: 'Pour les OBNL & organismes',
-      title: 'Votre mission mérite une présence',
-      accent: 'à sa hauteur.',
-      subtitle:
-        'Des solutions numériques accessibles pour les organismes à but non lucratif qui veulent rejoindre leur communauté sans se ruiner en frais d\'agence.',
-      cta: 'Démarrer un projet',
-    },
-    promises: [
-      {
-        title: 'Budget respecté',
-        text: 'Pas de surprise en cours de mandat.',
-      },
-      {
-        title: 'Équipe dédiée',
-        text: 'Profils complémentaires sur votre projet.',
-      },
-      {
-        title: '100 % vôtre',
-        text: 'Tous les accès et fichiers remis à la fin.',
-      },
-      {
-        title: 'Transparence & autonomie',
-        text: 'Vous restez décideur à chaque étape.',
-      },
-    ],
-    challenges: {
-      label: 'On comprend votre contexte',
-      title: 'Les contraintes des OBNL.',
-      subtitle: 'Et comment TMG les adresse concrètement.',
-      items: [
-        {
-          problemTitle: 'Budget limité, besoins réels',
-          problem:
-            'Les OBNL ont souvent peu de ressources pour investir en marketing ou en refonte web, mais en ont pourtant besoin pour rejoindre leurs donateurs et bénéficiaires.',
-          answerTitle: 'Le modèle stage rend ça possible',
-          answer:
-            'En faisant travailler des étudiants supervisés, TMG peut offrir des livrables professionnels à des coûts adaptés aux réalités des organismes à mission sociale.',
-        },
-        {
-          problemTitle: 'Pas de ressources internes en numérique',
-          problem:
-            'Beaucoup d\'OBNL n\'ont pas de gestionnaire de site web ou de stratège marketing à l\'interne. Le numérique reste une boîte noire.',
-          answerTitle: 'Formation et passation incluses',
-          answer:
-            'Chaque livrable est accompagné d\'une formation adaptée à vos équipes. Vous repartez autonomes, sans dépendance envers TMG.',
-        },
-      ],
-    },
-    services: {
-      label: 'Ce qu\'on vous offre',
-      title: 'Nos services pour les OBNL',
-      subtitle:
-        'Chaque service est adapté aux réalités et aux objectifs des organismes à but non lucratif.',
-      items: [
-        {
-          title: 'Site web pour OBNL',
-          text:
-            'Site accessible, clair, optimisé pour les dons et l\'engagement communautaire. Mobile-first, facile à gérer.',
-          timeline: '4-8 semaines',
-          href: '/services/web',
-        },
-        {
-          title: 'Stratégie de communication',
-          text:
-            'Plan de contenu adapté à votre mission pour rejoindre donateurs, bénévoles et bénéficiaires sur les bons canaux.',
-          timeline: '2-4 semaines',
-          href: '/services/marketing',
-        },
-      ],
-    },
-    cta: {
-      title: 'Un budget adapté à votre mission.',
-      body:
-        'Votre organisme mérite une présence claire sans modèle compliqué ni frais inutiles.',
-      button: 'Lancer un projet OBNL',
     },
   },
   stage: {
@@ -372,6 +383,19 @@ export const defaultSiteContent = {
         'Ici, on ne demande pas un budget ou un objectif de conversion. On veut comprendre ce que vous voulez apprendre, vos disponibilités et le type de projets qui vous motive.',
       contactLabel: 'Pour une question rapide :',
       contactEmail: 'stage@tmgconsultation.org',
+    },
+    gallery: {
+      label: 'La relève TMG',
+      title: 'Ils ont vécu l\'expérience stagiaire chez TMG.',
+      photos: [
+        { id: 'stagiaires-groupe', url: '/uploads/stage-gallery/stagiaires-groupe.jpg', alt: 'Équipe de stagiaires TMG réunie' },
+        { id: 'stagiaire-1', url: '/uploads/stage-gallery/stagiaire-1.jpg', alt: 'Stagiaire TMG au travail sur un mandat client' },
+        { id: 'stagiaire-2', url: '/uploads/stage-gallery/stagiaire-2.jpg', alt: 'Stagiaire TMG au travail sur un mandat client' },
+        { id: 'stagiaire-3', url: '/uploads/stage-gallery/stagiaire-3.jpg', alt: 'Stagiaire TMG au travail sur un mandat client' },
+        { id: 'stagiaire-4', url: '/uploads/stage-gallery/stagiaire-4.jpg', alt: 'Stagiaire TMG au travail sur un mandat client' },
+        { id: 'stagiaire-5', url: '/uploads/stage-gallery/stagiaire-5.jpg', alt: 'Stagiaire TMG au travail sur un mandat client' },
+        { id: 'stagiaire-7', url: '/uploads/stage-gallery/stagiaire-7.jpg', alt: 'Stagiaire TMG au travail sur un mandat client' },
+      ],
     },
   },
   contact: {

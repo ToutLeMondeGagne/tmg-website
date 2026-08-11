@@ -2,13 +2,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
-import { serviceLinks } from './serviceLinks'
 
 const mobileLinks = [
   { label: 'Accueil', to: '/' },
-  { label: 'PME', to: '/pme' },
-  { label: 'OBNL', to: '/obnl' },
-  { label: 'Services', to: '/services', children: serviceLinks },
+  { label: 'Services', to: '/services' },
   { label: 'Stagiaires', to: '/stage' },
   { label: 'Contact', to: '/contact' },
 ]
@@ -163,25 +160,6 @@ export default function MobileMenu() {
                           >
                             {link.label}
                           </Link>
-                          {link.children ? (
-                            <div className="my-3 border border-white/15 bg-white/[0.06] p-2 shadow-[0_20px_60px_rgba(0,0,0,0.24)]">
-                              {link.children.map((child) => (
-                                <Link
-                                  key={child.to}
-                                  to={child.to}
-                                  className="block border-b border-white/10 px-4 py-4 text-left transition last:border-b-0 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green)]"
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  <span className="block text-sm font-semibold leading-tight tracking-normal text-white">
-                                    {child.label}
-                                  </span>
-                                  <span className="mt-1 block text-xs leading-5 text-white/62">
-                                    {child.description}
-                                  </span>
-                                </Link>
-                              ))}
-                            </div>
-                          ) : null}
                         </motion.div>
                       ))}
                     </motion.div>

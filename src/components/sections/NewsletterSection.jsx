@@ -86,8 +86,8 @@ export default function NewsletterSection() {
           <p className="max-w-2xl text-lg leading-8 text-black/70">
             On construit TMG en temps réel et on documente tout en chemin : la
             stratégie derrière les mandats, les projets clients, les systèmes qui
-            font avancer les choses — et les journées qui ressemblent à une erreur
-            404 sans solution en vue. Sans filtre, pour les fondateurs et les
+            font avancer les choses et les journées qui ressemblent à une erreur
+            sans solution en vue. Sans filtre, pour les fondateurs et les
             équipes qui bâtissent quelque chose qui compte vraiment.
           </p>
         </div>

@@ -11,14 +11,23 @@
 
   # Redirections 301 : anciennes URLs .html -> nouvelles URLs propres
   RewriteRule ^faq\.html$          /faq/          [R=301,L]
-  RewriteRule ^obln\.html$         /obnl/         [R=301,L]
-  RewriteRule ^pme\.html$          /pme/          [R=301,L]
-  RewriteRule ^service-web\.html$  /services/web/ [R=301,L]
+  RewriteRule ^obln\.html$         /services/     [R=301,L]
+  RewriteRule ^pme\.html$          /services/     [R=301,L]
+  RewriteRule ^service-web\.html$  /services/#web [R=301,L]
   RewriteRule ^services\.html$     /services/     [R=301,L]
   RewriteRule ^stagiaire\.html$    /stage/        [R=301,L]
   RewriteRule ^hidden-form\.html$  /contact/      [R=301,L]
   RewriteRule ^contact\.html$      /contact/      [R=301,L]
   RewriteRule ^a-propos\.html$     /a-propos/     [R=301,L]
+
+  # Fusion des pages /services/web et /services/marketing dans /services
+  RewriteRule ^services/web/?$        /services/#web       [R=301,L]
+  RewriteRule ^services/marketing/?$  /services/#marketing [R=301,L]
+
+  # Pages /pme, /entreprises et /obnl retirees : redirection vers /services
+  RewriteRule ^pme/?$          /services/ [R=301,L]
+  RewriteRule ^entreprises/?$  /services/ [R=301,L]
+  RewriteRule ^obnl/?$         /services/ [R=301,L]
 
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
@@ -28,6 +37,13 @@
 </IfModule>
 
 <IfModule mod_headers.c>
+  # En-tetes de securite (recommandations OWASP)
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com; frame-src https://calendly.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+
   <FilesMatch "^site-content\.json$">
     Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
     Header set Pragma "no-cache"

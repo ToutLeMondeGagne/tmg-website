@@ -59,11 +59,7 @@ body {
   min-height: 100svh;
   margin: 0;
   color: var(--text);
-  background:
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px),
-    var(--bg);
-  background-size: 25vw 100%, 100% 96px, auto;
+  background: var(--bg);
 }
 
 body::selection {

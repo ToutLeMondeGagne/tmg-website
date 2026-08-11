@@ -82,6 +82,7 @@ $SSH_CMD "$DEPLOY_USER@$DEPLOY_HOST" \
 echo -e "${YELLOW}⬆️  Upload des fichiers (rsync)...${NC}"
 rsync -avz -e "$SSH_CMD" \
   --exclude='content/' \
+  --exclude='uploads/' \
   --exclude='api/private/' \
   --exclude='api/admin-config.php' \
   --exclude='api/anthropic-config.php' \

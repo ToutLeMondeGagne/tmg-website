@@ -6,21 +6,12 @@ import { Footer, Navbar, ScrollProgress, SiteIntro } from './components/layout'
 import PageSeo from './components/seo/PageSeo'
 import { SiteContentProvider } from './context/SiteContentContext.jsx'
 import { useSiteContent } from './context/useSiteContent'
+import { IntroContext } from './context/introContext'
 import './App.css'
 
 const Contact = lazy(() => import('./pages/Contact'))
 const Services = lazy(() => import('./pages/Services'))
-const WebService = lazy(() =>
-  import('./pages/ServiceDetail').then((module) => ({ default: module.WebService })),
-)
-const MarketingService = lazy(() =>
-  import('./pages/ServiceDetail').then((module) => ({
-    default: module.MarketingService,
-  })),
-)
 const Stage = lazy(() => import('./pages/Stage'))
-const Pme = lazy(() => import('./pages/Pme'))
-const Obnl = lazy(() => import('./pages/Obnl'))
 const About = lazy(() => import('./pages/About'))
 const QA = lazy(() => import('./pages/QA'))
 const Admin = lazy(() => import('./pages/Admin'))
@@ -97,11 +88,6 @@ function RoutedPages() {
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/services/web" element={<WebService />} />
-        <Route path="/services/marketing" element={<MarketingService />} />
-        <Route path="/pme" element={<Pme />} />
-        <Route path="/entreprises" element={<Pme />} />
-        <Route path="/obnl" element={<Obnl />} />
         <Route path="/stage" element={<Stage />} />
         <Route path="/a-propos" element={<About />} />
         {import.meta.env.VITE_PREVIEW_FEATURES !== 'false' ? (
@@ -146,17 +132,19 @@ function App() {
 
   return (
     <SiteContentProvider>
-      <PageSeo />
-      <ScrollToRouteStart />
-      <AnimatePresence>
-        {showIntro ? <SiteIntro key="site-intro" onDone={finishIntro} /> : null}
-      </AnimatePresence>
-      <ScrollProgress />
-      <Navbar />
-      <div className="pt-24">
-        <RoutedPages />
-      </div>
-      <Footer />
+      <IntroContext.Provider value={{ introDone: !showIntro }}>
+        <PageSeo />
+        <ScrollToRouteStart />
+        <AnimatePresence>
+          {showIntro ? <SiteIntro key="site-intro" onDone={finishIntro} /> : null}
+        </AnimatePresence>
+        <ScrollProgress />
+        <Navbar />
+        <div className="pt-24">
+          <RoutedPages />
+        </div>
+        <Footer />
+      </IntroContext.Provider>
     </SiteContentProvider>
   )
 }

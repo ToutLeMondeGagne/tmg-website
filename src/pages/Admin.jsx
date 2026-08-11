@@ -51,6 +51,135 @@ function AdminField({ field, value, onChange }) {
   )
 }
 
+function GalleryPhotosField({ label, description, path, value, onChange }) {
+  const photos = Array.isArray(value) ? value : []
+  const [uploadingId, setUploadingId] = useState('')
+  const [error, setError] = useState('')
+
+  const uploadFile = async (file) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('folder', 'stage-gallery')
+
+    const response = await fetch('/api/upload-image.php', {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: formData,
+    })
+    const payload = await response.json().catch(() => ({}))
+
+    if (!response.ok || !payload.url) {
+      throw new Error(payload.message || 'Le téléversement a échoué.')
+    }
+
+    return payload.url
+  }
+
+  const handleAdd = async (event) => {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (!file) return
+
+    setError('')
+    setUploadingId('new')
+
+    try {
+      const url = await uploadFile(file)
+      const id = `photo-${Date.now()}`
+      onChange([...photos, { id, url, alt: '' }])
+    } catch (uploadError) {
+      setError(uploadError.message)
+    } finally {
+      setUploadingId('')
+    }
+  }
+
+  const handleReplace = async (event, index) => {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (!file) return
+
+    setError('')
+    setUploadingId(photos[index]?.id || String(index))
+
+    try {
+      const url = await uploadFile(file)
+      const nextPhotos = photos.map((photo, photoIndex) =>
+        photoIndex === index ? { ...photo, url } : photo,
+      )
+      onChange(nextPhotos)
+    } catch (uploadError) {
+      setError(uploadError.message)
+    } finally {
+      setUploadingId('')
+    }
+  }
+
+  const handleRemove = (index) => {
+    onChange(photos.filter((_, photoIndex) => photoIndex !== index))
+  }
+
+  const handleAltChange = (index, alt) => {
+    onChange(photos.map((photo, photoIndex) => (photoIndex === index ? { ...photo, alt } : photo)))
+  }
+
+  return (
+    <div>
+      <h3 className="text-xl font-semibold text-black">{label}</h3>
+      <p className="mt-1 text-sm leading-6 text-black/60">{description}</p>
+      {error ? <p className="mt-2 text-sm text-red-600">{error}</p> : null}
+
+      <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {photos.map((photo, index) => (
+          <div key={photo.id || photo.url} className="border border-black/20 bg-[var(--card)] p-3">
+            <img
+              src={photo.url}
+              alt={photo.alt || ''}
+              className="aspect-square w-full border border-black/10 object-cover"
+            />
+            <input
+              type="text"
+              value={photo.alt || ''}
+              onChange={(event) => handleAltChange(index, event.target.value)}
+              placeholder="Texte alternatif"
+              className="mt-3 w-full border border-black/20 bg-transparent px-3 py-2 text-sm text-black outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
+            />
+            <div className="mt-3 flex flex-wrap gap-2">
+              <label className="cursor-pointer border border-[var(--blue)] px-3 py-2 text-xs font-semibold uppercase tracking-wide text-[var(--blue)] transition hover:bg-[var(--blue)] hover:text-white">
+                {uploadingId === (photo.id || String(index)) ? 'Envoi...' : 'Remplacer'}
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
+                  className="hidden"
+                  onChange={(event) => handleReplace(event, index)}
+                />
+              </label>
+              <button
+                type="button"
+                onClick={() => handleRemove(index)}
+                className="border border-black/30 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-black/70 transition hover:border-black hover:text-black"
+              >
+                Retirer
+              </button>
+            </div>
+          </div>
+        ))}
+
+        <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-2 border-2 border-dashed border-black/25 text-sm font-medium text-black/60 transition hover:border-[var(--blue)] hover:text-[var(--blue)]">
+          <span aria-hidden="true" className="text-3xl">+</span>
+          <span>{uploadingId === 'new' ? 'Envoi...' : 'Ajouter une photo'}</span>
+          <input
+            type="file"
+            accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
+            className="hidden"
+            onChange={handleAdd}
+          />
+        </label>
+      </div>
+    </div>
+  )
+}
+
 function downloadJson(content) {
   const blob = new Blob([`${JSON.stringify(content, null, 2)}\n`], {
     type: 'application/json;charset=utf-8',
@@ -396,6 +525,16 @@ function AdminEditor({ adminUser, content, isLoading, onLogout, replaceContent, 
                 {isSaving ? 'Sauvegarde...' : 'Sauvegarder'}
               </Button>
             </div>
+          </section>
+
+          <section className="border-t border-black/25 pt-8">
+            <GalleryPhotosField
+              label="Stagiaires - Galerie photos"
+              description="Ajoutez, remplacez ou retirez des photos affichées sur la page Stagiaires. La grille s'ajuste automatiquement au nombre de photos."
+              path="stage.gallery.photos"
+              value={getContentValue(draft, 'stage.gallery.photos')}
+              onChange={(value) => updateField('stage.gallery.photos', value)}
+            />
           </section>
 
           {siteContentFields.map((group) => (
